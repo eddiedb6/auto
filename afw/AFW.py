@@ -1,11 +1,11 @@
 import sys
 import os
 import logging
-sys.path.append("../schema")
+sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../schema"))
 
 import AFWConst
 from AFWLogger import *
-from SchemaChecker import *
+from SchemaChecker import SchemaChecker
 
 class AFW:
     def __init__(self):
