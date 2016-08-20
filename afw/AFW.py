@@ -15,12 +15,10 @@ class AFW:
 
     def Load(self, path):
         try:
-            if not self.__checkConfig(path):
+            result, self.__config = self.__checkConfig(path)
+            if not result:
                 Error("Configuration is not correct format")
                 return False
-            configFile = open(path)
-            configContent = configFile.read()
-            self.__config = eval(configContent)
         except:
             Error(str(sys.exc_info()[0]) + ": " + str(sys.exc_info()[1]))
             return False
@@ -29,6 +27,7 @@ class AFW:
     def Execute(self):
         try:
             print "TODO, execute"
+            print self.__config
         except:
             Error(str(sys.exc_info()[0]) + ": " + str(sys.exc_info()[1]))
             return False
@@ -61,7 +60,7 @@ class AFW:
     def __checkConfig(self, path):
         if not os.path.exists(path):
             Error("Configure file path is not correct")
-            return False
+            return False, None
         afwPath = os.path.split(os.path.realpath(__file__))[0]
         schemaPath = os.path.join(afwPath, "AFWSchema.py")
         constPath = os.path.join(afwPath, "AFWConst.py")
