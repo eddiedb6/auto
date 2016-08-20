@@ -1,10 +1,10 @@
 {
-    AFWConst.UI: ImportFile("scripts/ConfigApp.py"),
+    AFWConst.UI: ImportFile("ConfigApp.py"),
 
     AFWConst.Action: {
         AFWConst.SubAction: [
         {
-            AFWConst.Script: "scripts/Test.py"
+            AFWConst.Script: "Test.py"
         }]
     }
 }
