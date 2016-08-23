@@ -24,6 +24,12 @@
     AFWConst.UIWeb: {
         SchemaInherit: AFWConst.UIApp
     },
+    AFWConst.Plugin: {
+        SchemaType: SchemaTypeString,
+        SchemaRule: [
+            ValueIn(AFWConst.PluginType)
+        ]
+    },
     AFWConst.AppRoot: {
         SchemaType: SchemaTypeDict
     },
@@ -73,7 +79,10 @@
         ]
     },
     AFWConst.Action: {
-        SchemaType: SchemaTypeDict
+        SchemaType: SchemaTypeDict,
+        SchemaRule: [
+            AtLeastOneKey(AFWConst.SubAction, AFWConst.Script)
+        ]
     },
     AFWConst.SubAction: {
         SchemaType: SchemaTypeArray,

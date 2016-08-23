@@ -8,7 +8,7 @@ def Debug(log):
 def Info(log):
     logging.info(__prefix + log)
 
-def warning(log):
+def Warning(log):
     logging.warning(__prefix + log)
 
 def Error(log):

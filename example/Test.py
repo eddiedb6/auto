@@ -9,5 +9,12 @@ auto = AFW()
 auto.LogLevel = logging.DEBUG
 auto.BreakTime = 100 # ms
 if auto.Load(os.path.join(os.path.split(os.path.realpath(__file__))[0], "scripts/Config.py")):
-    auto.Execute()
+    print "Load successfully"
+    if auto.Execute():
+        print "Execute successfully"
+    else:
+        print "Execute error"
+else:
+    print "Load error"
+
 
