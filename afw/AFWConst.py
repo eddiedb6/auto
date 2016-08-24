@@ -63,8 +63,8 @@ UIType = [
 Plugin = "plugin"
 
 # Plugin type definition #
-PluginMS = "pluginms"
-PluginSelenium = "pluginselenium"
+PluginMS = "PluginMS"
+PluginSelenium = "PluginSelenium"
 # Plugin type definition end #
 
 PluginType = [

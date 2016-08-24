@@ -1,7 +1,3 @@
-import sys
-import os
-sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], ".."))
-
 import AFWConst
 from AFWLogger import *
 from AFWApp import AFWApp
@@ -10,7 +6,7 @@ class AFWUIManager:
     def __init__(self, config):
         self.__config = config
 
-    def BindUI(self, name):
+    def FindUI(self, name):
         # TODO
         return None
 
@@ -26,7 +22,6 @@ class AFWUIManager:
             # App already bound
             return appConfig[AFWConst.UIObj]
         appConfig[AFWConst.UIObj] = self.__createUI(appConfig, None)
-        # TODO start process
         return appConfig[AFWConst.UIObj]
 
     def __findElement(self, name):
@@ -64,7 +59,4 @@ class AFWUIManager:
 
     __uiFactory = {
         AFWConst.UIApp: lambda config, parent: AFWApp(config)
-    }
-
-    __pluginFactory = {
     }

@@ -1,9 +1,11 @@
 import AFWConst
+from AFWPluginManager import AFWPluginManager
 
 class AFWUI:
     def __init__(self, config, parent):
         self.__config = config
         self.__parent = parent
+        self.__pluginManager = AFWPluginManager()
 
     def GetType(self):
         return self.__config[AFWConst.Type]
@@ -29,3 +31,5 @@ class AFWUI:
             return self.__config[AFWConst.SubUI][index]
         return None
             
+    def GetPlugin(self, name):
+        return self.__pluginManager.GetPlugin(name)

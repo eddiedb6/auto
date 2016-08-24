@@ -18,7 +18,7 @@
     AFWConst.UIApp: {
         SchemaType: SchemaTypeDict,
         SchemaRule: [
-            HasKey(AFWConst.Path)
+            HasKey(AFWConst.Path, AFWConst.Plugin)
         ]
     },
     AFWConst.UIWeb: {
