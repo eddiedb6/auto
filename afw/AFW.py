@@ -21,16 +21,18 @@ class AFW:
 
     def Load(self, path):
         try:
-            logging.basicConfig(level=self.__logLevel)
+            logging.basicConfig(level= self.LogLevel)
             result, self.__config = self.__checkConfig(path)
-            if not result:
+            if result:
+                Info("Load configuration successfully")
+            else:
                 Error("Configuration is not correct format")
                 return False
         except:
             Error(str(sys.exc_info()[0]) + ": " + str(sys.exc_info()[1]))
             return False
         self.__configPath = path
-        self.__uiManager = AFWUIManager(self.__config)
+        self.__uiManager = AFWUIManager(self, self.__config)
         return True
 
     def Execute(self):
@@ -38,7 +40,11 @@ class AFW:
             if not self.__configPath or not self.__config:
                 Error("Could not execute without correct configuration")
                 return False
-            return self.__executeAction(self.__config[AFWConst.Action])
+            result = self.__executeAction(self.__config[AFWConst.Action])
+            if result:
+                Info("Execution successfuly")
+            else:
+                Error("Execution failed")
         except:
             Error(str(sys.exc_info()[0]) + ": " + str(sys.exc_info()[1]))
             return False

@@ -1,5 +1,5 @@
 from AFWPlugin import AFWPlugin
 
-class PluginMS(AFWPlugin):
+class AFWPluginWeb(AFWPlugin):
     def __init__(self):
         AFWPlugin.__init__(self)

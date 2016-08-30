@@ -1,11 +1,22 @@
+import time
+
 import AFWConst
-from AFWPluginManager import AFWPluginManager
 
 class AFWUI:
-    def __init__(self, config, parent):
+    def __init__(self, manager, config, parent):
+        self.__manager = manager
         self.__config = config
         self.__parent = parent
-        self.__pluginManager = AFWPluginManager()
+        self._plugin = None
+        if parent is not None:
+            if AFWConst.UIObj in parent and parent[AFWConst.UIObj] is not None:
+                self._plugin = parent[AFWConst.UIObj]._plugin
+            else:
+                raise Exception("Parent UI is not bound: " + parent[AFWConst.Name])
+        if AFWConst.BreakTime in config:
+            time.sleep(config[AFWConst.BreakTime] / 1000)
+        else:
+            time.sleep(self.__manager.GetBreakTime() / 1000)
 
     def GetType(self):
         return self.__config[AFWConst.Type]
@@ -30,6 +41,3 @@ class AFWUI:
         if AFWConst.SubUI in self.__config and len(self.__config[AFWConst.SubUI]) > index:
             return self.__config[AFWConst.SubUI][index]
         return None
-            
-    def GetPlugin(self, name):
-        return self.__pluginManager.GetPlugin(name)

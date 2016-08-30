@@ -1,2 +1,4 @@
+# afw, default variable name for UI manager
+
 app = afw.StartApp("App")
-print app
+button1 = afw.FindUI("1")

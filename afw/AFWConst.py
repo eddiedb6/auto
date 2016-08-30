@@ -63,12 +63,12 @@ UIType = [
 Plugin = "plugin"
 
 # Plugin type definition #
-PluginMS = "PluginMS"
+PluginMSApp = "PluginMSApp"
 PluginSelenium = "PluginSelenium"
 # Plugin type definition end #
 
 PluginType = [
-    PluginMS,
+    PluginMSApp,
     PluginSelenium
 ]
 
@@ -76,4 +76,5 @@ PluginType = [
 #  AFW ONLY  #
 ##############
 UIObj = "uiobj"
-
+PluginClass = "pluginclass"
+PluginInstance = "plugininstance"
