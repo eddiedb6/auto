@@ -11,3 +11,6 @@ class AFWApp(AFWUI):
         self.__app = self._plugin.StartApp(config[AFWConst.Path])
         if not self.__app:
             raise Exception("Start app failed")
+
+    def GetNativeUI(self):
+        return self.__app

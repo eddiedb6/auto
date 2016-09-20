@@ -7,3 +7,6 @@ class AFWAppForm(AFWUI):
         self.__form = self._plugin.GetForm(config)
         if not self.__form:
             raise Exception("Failed to get App form: " + config[AFWConst.Name])
+
+    def GetNativeUI(self):
+        return self.__form

@@ -41,3 +41,6 @@ class AFWUI:
         if AFWConst.SubUI in self.__config and len(self.__config[AFWConst.SubUI]) > index:
             return self.__config[AFWConst.SubUI][index]
         return None
+
+    def GetNativeUI(self):
+        return None

@@ -7,3 +7,6 @@ class AFWAppRoot(AFWUI):
         self.__root = self._plugin.GetDesktop()
         if not self.__root:
             raise Exception("Failed to get App root")
+
+    def GetNativeUI(self):
+        return self.__root

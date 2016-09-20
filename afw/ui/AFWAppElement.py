@@ -7,3 +7,6 @@ class AFWAppElement(AFWUI):
         self._element = self._plugin.GetElement(config, parent)
         if not self._element:
             raise Exception("Failed to find App element: " + config[AFWConst.Name])
+
+    def GetNativeUI(self):
+        return self._element
