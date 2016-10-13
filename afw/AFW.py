@@ -21,12 +21,16 @@ class AFW:
 
     def Load(self, path):
         try:
-            logging.basicConfig(level= self.LogLevel)
+            # Logging level must be set before any log function is called
+            # Otherwise there will be no logging
+            logging.basicConfig(level = self.LogLevel)
+
+            Info("Start configuration loading")
             result, self.__config = self.__checkConfig(path)
             if result:
                 Info("Load configuration successfully")
             else:
-                Error("Configuration is not correct format")
+                Error("Load configuration failed: configuration is not correct format")
                 return False
         except:
             Error(str(sys.exc_info()[0]) + ": " + str(sys.exc_info()[1]))
@@ -37,14 +41,15 @@ class AFW:
 
     def Execute(self):
         try:
+            Info("Start execute script")
             if not self.__configPath or not self.__config:
                 Error("Could not execute without correct configuration")
                 return False
             result = self.__executeAction(self.__config[AFWConst.Action])
             if result:
-                Info("Execution successfuly")
+                Info("Execute scripts successfuly")
             else:
-                Error("Execution failed")
+                Error("Execute scripts failed")
         except:
             Error(str(sys.exc_info()[0]) + ": " + str(sys.exc_info()[1]))
             return False

@@ -1,6 +1,6 @@
-#############
-#    Key    #
-#############
+########################
+# Consigure Schema Key #
+########################
 
 UI = "UI"
 Action = "action"
@@ -18,27 +18,36 @@ Script = "script"
 
 BreakTime = "breaktime"
 
-############
-# UI Value #
-############
+######################
+# AFW UI Type Define #
+######################
 
 # To add a new UI type:
 #     1. Define here
 #     2. Add new type to UIType collection in this file
 #     3. Add new type class in afw/ui folder
-#     4. Add new type to __uiFactory in AFWUIManager
+#     4. Add new type to __uiFactory in AFWUIManager and import new py file in this manager
+#     5. Add new type to AFWSchema
 
-# UI types definition #
+### UI types definition start ###
 
 UIRoot = "uiroot"
 UIApp = "uiapp"
 UIWeb = "uiweb"
 
 AppRoot = "approot"
-AppButton = "appbutton"
-AppForm = "appform"
 
-# UI types definition end #
+AppForm = "appform"
+AppSubForm = "appsubform"
+
+AppTab = "apptab"
+AppTabPage = "apptabpage"
+
+AppButton = "appbutton"
+AppCheckbox = "appcheckbox"
+AppEditBox = "appeditbox"
+
+### UI types definition end ###
 
 UIType = [
     UIRoot,
@@ -46,8 +55,16 @@ UIType = [
     UIWeb,
 
     AppRoot,
+
+    AppForm,
+    AppSubForm,
+
+    AppTab,
+    AppTabPage,
+
     AppButton,
-    AppForm
+    AppCheckbox,
+    AppEditBox
 ]
 
 ##############
@@ -58,19 +75,110 @@ UIType = [
 #     1. Define here
 #     2. Add new type to PluginType collection in this file
 #     3. Add new plugin in afw/plugin folder
-#     4. Add new plugin to __pluginFactory in AFWUIManager
 
 Plugin = "plugin"
 
-# Plugin type definition #
+### Plugin type definition start ###
 PluginMSApp = "PluginMSApp"
 PluginSelenium = "PluginSelenium"
-# Plugin type definition end #
+### Plugin type definition end ###
 
 PluginType = [
     PluginMSApp,
     PluginSelenium
 ]
+
+################
+# AFW Keyboard #
+################
+
+AFWKeyBackspace = 0x08
+AFWKeyTab =       0x09
+AFWKeyEnter =     0x0D
+
+AFWKeyShift = 0x10
+AFWKeyCtrl =  0x11
+AFWKeyAlt =   0x12
+
+AFWKeyCaps =  0x14
+AFWKeyEsc =   0x1B
+AFWKeySpace = 0x20
+	
+AFWKeyPageUp =   0x21
+AFWKeyPageDown = 0x22
+AFWKeyEnd =      0x23
+AFWKeyHome =     0x24
+AFWKeyLeft =     0x25
+AFWKeyUp =       0x26
+AFWKeyRight =    0x27
+AFWKeyDown =     0x28
+	
+AFWKeyIns = 0x2D
+AFWKeyDel = 0x2E
+	
+AFWKey0 = 0x30
+AFWKey1 = 0x31
+AFWKey2 = 0x32
+AFWKey3 = 0x33
+AFWKey4 = 0x34
+AFWKey5 = 0x35
+AFWKey6 = 0x36
+AFWKey7 = 0x37
+AFWKey8 = 0x38
+AFWKey9 = 0x39
+
+AFWKeyA = 0x41
+AFWKeyB = 0x42
+AFWKeyC = 0x43
+AFWKeyD = 0x44
+AFWKeyE = 0x45
+AFWKeyF = 0x46
+AFWKeyG = 0x47
+AFWKeyH = 0x48
+AFWKeyI = 0x49
+AFWKeyJ = 0x4A
+AFWKeyK = 0x4B
+AFWKeyL = 0x4C
+AFWKeyM = 0x4D
+AFWKeyN = 0x4E
+AFWKeyO = 0x4F
+AFWKeyP = 0x50
+AFWKeyQ = 0x51
+AFWKeyR = 0x52
+AFWKeyS = 0x53
+AFWKeyT = 0x54
+AFWKeyU = 0x55
+AFWKeyV = 0x56
+AFWKeyW = 0x57
+AFWKeyX = 0x58
+AFWKeyY = 0x59
+AFWKeyZ = 0x5A
+	
+AFWKeyF1 =  0x70
+AFWKeyF2 =  0x71
+AFWKeyF3 =  0x72
+AFWKeyF4 =  0x73
+AFWKeyF5 =  0x74
+AFWKeyF6 =  0x75
+AFWKeyF7 =  0x76
+AFWKeyF8 =  0x77
+AFWKeyF9 =  0x78
+AFWKeyF10 = 0x79
+AFWKeyF11 = 0x7A
+AFWKeyF12 = 0x7B
+
+AFWKeySemicolon = 0xBA # ":"
+AFWKeyPlush =     0xBB # "+"
+AFWKeyComma =     0xBC # ","
+AFWKeyMinus =     0xBD # "-"
+AFWKeyPeriod =    0xBE # "."
+AFWKeySlash =     0xBF # "/"
+AFWKeyTidle =     0xC0 # "~"
+
+AFWKeyBracketLeft =  0xDB # "["
+AFWKeyBackslash =    0xDC # "\"
+AFWKeyBracketRight = 0xDD # "]"
+AFWKeyQuote =        0xDE # "'"
 
 ##############
 #  AFW ONLY  #
@@ -78,3 +186,6 @@ PluginType = [
 UIObj = "uiobj"
 PluginClass = "pluginclass"
 PluginInstance = "plugininstance"
+
+
+	

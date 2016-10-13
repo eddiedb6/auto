@@ -30,15 +30,38 @@
             ValueIn(AFWConst.PluginType)
         ]
     },
+
     AFWConst.AppRoot: {
         SchemaType: SchemaTypeDict
     },
-    AFWConst.AppButton: {
-        SchemaInherit: AFWConst.AppRoot
-    },
+
     AFWConst.AppForm: {
         SchemaInherit: AFWConst.AppRoot
     },
+    AFWConst.AppSubForm: {
+        SchemaInherit: AFWConst.AppRoot
+    },
+
+    AFWConst.AppTab: {
+        SchemaType: SchemaTypeDict,
+        SchemaRule: [
+            HasKey(AFWConst.SubUI)
+        ]
+    },
+    AFWConst.AppTabPage: {
+        SchemaInherit: AFWConst.AppRoot
+    },
+
+    AFWConst.AppButton: {
+        SchemaInherit: AFWConst.AppRoot
+    },
+    AFWConst.AppCheckbox: {
+        SchemaInherit: AFWConst.AppRoot
+    },
+    AFWConst.AppEditBox: {
+        SchemaInherit: AFWConst.AppRoot
+    },
+
     AFWConst.Path: {
         SchemaType: SchemaTypeString,
         SchemaRule: [

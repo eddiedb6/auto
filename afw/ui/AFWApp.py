@@ -12,5 +12,7 @@ class AFWApp(AFWUI):
         if not self.__app:
             raise Exception("Start app failed")
 
+    ### Implement AFWUI ###
+
     def GetNativeUI(self):
         return self.__app

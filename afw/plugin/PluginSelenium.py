@@ -1,5 +1,5 @@
-from AFWPlugin import AFWPlugin
+from AFWPluginWeb import AFWPluginWeb
 
-class PluginSelenium(AFWPlugin):
+class PluginSelenium(AFWPluginWeb):
     def __init__(self):
         AFWPlugin.__init__(self)

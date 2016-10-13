@@ -6,7 +6,7 @@
         AFWConst.Name: "Main",
         AFWConst.Type: AFWConst.AppForm,
         AFWConst.Caption: "Calculator",
-        AFWConst.BreakTime: 2000,
+        AFWConst.BreakTime: 3000,
         AFWConst.SubUI: [
         {
             AFWConst.Name: "1",

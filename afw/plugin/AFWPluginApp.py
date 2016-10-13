@@ -13,7 +13,7 @@ class AFWPluginApp(AFWPlugin):
     def GetForm(self, config):
         return False
 
-    def GetElement(self, config, parent):
+    def GetElement(self, config, parentConfig):
         return False
 
     

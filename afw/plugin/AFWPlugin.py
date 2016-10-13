@@ -1,3 +1,18 @@
 class AFWPlugin:
     def __init__(self):
         pass
+
+    def SetFocus(self, ui):
+        return False
+
+    def Click(self, ui):
+        return False
+
+    def IsCheckboxChecked(self, ui):
+        return False
+
+    def PressKey(self, ui, key):
+        return False
+
+    def ReleaseKey(self, ui, key):
+        return False
