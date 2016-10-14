@@ -53,6 +53,9 @@ class AFWUI:
     def IsEditable(self):
         return False
 
+    def IsEnabled(self):
+        return True
+
     ### Operations ###
 
     def SetFocus(self):

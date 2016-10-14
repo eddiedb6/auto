@@ -185,6 +185,22 @@ namespace MS
             }
 
             return false;
+        }   
+
+        public static bool IsEnabled(AutomationElement element)
+        {
+            if (debug)
+            {
+                System.Console.WriteLine("[MS Plugin] Is enabled: {0}", element);
+            }
+
+            if (element == null)
+            {
+                return false;
+            }
+
+            object isEnabled = element.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty);
+            return (bool)isEnabled;
         }
 
         static bool debug = false;

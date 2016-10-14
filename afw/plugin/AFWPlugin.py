@@ -11,6 +11,9 @@ class AFWPlugin:
     def IsCheckboxChecked(self, ui):
         return False
 
+    def IsEnabled(self, ui):
+        return False
+
     def PressKey(self, ui, key):
         return False
 

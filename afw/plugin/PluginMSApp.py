@@ -35,6 +35,11 @@ class PluginMSApp(AFWPluginApp):
             return False
         return MS.MSWrapper.IsCheckboxChecked(ui.GetNativeUI())
 
+    def IsEnabled(self, ui):
+        if ui is None:
+            return False
+        return MS.MSWrapper.IsEnabled(ui.GetNativeUI())
+
     def PressKey(self, ui, key):
         MS.MSWrapper.SendKeyEvent(key, 0, 0, 0)
         return True

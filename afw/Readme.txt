@@ -32,14 +32,16 @@ AFWUI
     GetChild(index)
     GetNativeUI()
     IsEditable()
+    IsEnabled()
 
-AFWAppElement: AFWUI
+AFWAppElement: AFWAppUI: AFWUI
     Click()
 
 AFWPlugin
     SetFocus(ui)
     Click(ui)
     IsCheckboxChecked(ui)
+    IsEnabled(ui)
     PressKey(ui, key)
     ReleaseKey(ui, key)
 
