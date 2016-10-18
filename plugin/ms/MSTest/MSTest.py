@@ -4,7 +4,7 @@ import time
 clr.AddReferenceToFile("MS.dll")
 import MS
 
-if not MS.MSWrapper.StartApp("C:/Windows/System32/calc.exe"):
+if MS.MSWrapper.StartApp("C:/Windows/System32/calc.exe") is None:
     print("Failed to start app")
     exit
 

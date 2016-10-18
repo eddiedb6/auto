@@ -19,3 +19,6 @@ class AFWPlugin:
 
     def ReleaseKey(self, ui, key):
         return False
+
+    def GetText(self, ui):
+        return None

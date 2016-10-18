@@ -21,7 +21,7 @@ __keyMap = {
     '`': AFWConst.AFWKeyTidle,
         
     '-': AFWConst.AFWKeyMinus,
-    '=': AFWConst.AFWKeyPlush,
+    '=': AFWConst.AFWKeyPlus,
 
     '[': AFWConst.AFWKeyBracketLeft,
     ']': AFWConst.AFWKeyBracketRight,
@@ -41,7 +41,7 @@ __keyMapWithShift = {
     '~': AFWConst.AFWKeyTidle,
 
     '_': AFWConst.AFWKeyMinus,
-    '+': AFWConst.AFWKeyPlush,
+    '+': AFWConst.AFWKeyPlus,
 
     '{': AFWConst.AFWKeyBracketLeft,
     '}': AFWConst.AFWKeyBracketRight,

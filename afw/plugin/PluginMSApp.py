@@ -48,6 +48,11 @@ class PluginMSApp(AFWPluginApp):
         MS.MSWrapper.SendKeyEvent(key, 0, 2, 0)
         return True
 
+    def GetText(self, ui):
+        if ui is None:
+            return None
+        return MS.MSWrapper.GetText(ui.GetNativeUI())
+
     ### Implement AFWPluginApp ###
 
     def StartApp(self, path):

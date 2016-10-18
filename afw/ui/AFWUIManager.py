@@ -15,6 +15,7 @@ from AFWAppCheckbox import AFWAppCheckbox
 from AFWAppEditBox import AFWAppEditBox
 
 from AFWWeb import AFWWeb
+from AFWWebSite import AFWWebSite
 
 class AFWUIManager:
     def __init__(self, afw, config):
@@ -36,7 +37,7 @@ class AFWUIManager:
         for config in configPath:
             if not self.__isUIBound(config):
                 config[AFWConst.UIObj] = self.__createUI(config, lastConfig)
-                if not config[AFWConst.UIObj]:
+                if config[AFWConst.UIObj] is None:
                     Error("Failed to bind UI: " + config[AFWConst.Name])
                     return None
             lastConfig = config
@@ -62,6 +63,35 @@ class AFWUIManager:
         appConfig[AFWConst.UIObj] = self.__createUI(appConfig, None)
         return appConfig[AFWConst.UIObj]
 
+    def OpenWebSite(self, name):
+        webSite = self.TryToOpenWebSit(name)
+        if webSite is None:
+            Error("Open web site failed: " + name)
+            raise Exception("Open web site failed: " + name)
+        return webSite
+        
+    def TryToOpenWebSit(self, name):
+        result, configPath = self.__findConfig(name)
+        if not result:
+            return None
+        if len(configPath) < 2:
+            Error("Web and browser config is not correct: " + name)
+            return None
+        webSiteConfig = configPath.pop()
+        if webSiteConfig[AFWConst.Type] != AFWConst.WebSite:
+            Error("UI config is not type of Web Site: " + name)
+            return None
+        browserConfig = configPath.pop()
+        if browserConfig[AFWConst.Type] != AFWConst.UIWeb:
+            Error("UI config is not type of Web: " + name)
+            return None
+        if not self.__isUIBound(browserConfig):
+            browserConfig[AFWConst.UIObj] = self.__createUI(browserConfig, None)
+            if browserConfig[AFWConst.UIObj] is None:
+                return None
+        webSiteConfig[AFWConst.UIObj] = self.__createUI(webSiteConfig, browserConfig)
+        return webSiteConfig[AFWConst.UIObj]
+
     def GetBreakTime(self):
         return self.__afw.BreakTime
 
@@ -69,6 +99,9 @@ class AFWUIManager:
 
     def __isUIBound(self, config):
         if AFWConst.UIObj in config and config[AFWConst.UIObj] is not None:
+            return True
+        elif config[AFWConst.Type] == AFWConst.UIRoot:
+            # UIRoot will not be bound to any native object
             return True
         return False
         
@@ -120,5 +153,6 @@ class AFWUIManager:
         AFWConst.AppCheckbox: lambda manager, config, parentConfig: AFWAppCheckbox(manager, config, parentConfig),
         AFWConst.AppEditBox: lambda manager, config, parentConfig: AFWAppEditBox(manager, config, parentConfig),
 
-        AFWConst.UIWeb: lambda manager, config, parentConfig: AFWWeb(manager, config)
+        AFWConst.UIWeb: lambda manager, config, parentConfig: AFWWeb(manager, config),
+        AFWConst.WebSite: lambda manager, config, parentConfig: AFWWebSite(manager, config, parentConfig)
     }

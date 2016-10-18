@@ -67,11 +67,11 @@ class AFWUI:
     def ReleaseKey(self, key):
         return self._plugin.ReleaseKey(self, key)
 
-    def InputString(self, string):
-        Debug("Input string: " + string)
+    def InputText(self, text):
+        Debug("Input text: " + text)
         if not self.IsEditable():
             return False
-        for char in string:
+        for char in text:
             key, needShift = AFWUIHelper.GetKeyFromChar(char)
             if key is None:
                 continue
@@ -82,3 +82,9 @@ class AFWUI:
             if needShift:
                 self.ReleaseKey(AFWConst.AFWKeyShift)
         return True
+
+    def GetText(self):
+        return None
+
+    def Click(self):
+        return False

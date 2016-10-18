@@ -15,7 +15,7 @@ namespace MSTest
     {
         static void Main(string[] args)
         {
-            if (!MSWrapper.StartApp("C:/Windows/System32/calc.exe"))
+            if (MSWrapper.StartApp("C:/Windows/System32/calc.exe") != null)
             {
                 System.Console.WriteLine("Failed to start app");
                 return;

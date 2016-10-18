@@ -13,7 +13,7 @@ namespace MS
 {
     public class MSWrapper
     {
-        public static bool StartApp(String path)
+        public static Process StartApp(String path)
         {
             if (debug)
             {
@@ -21,7 +21,7 @@ namespace MS
             }
 
             Process app = Process.Start(path);
-            return app != null;
+            return app;
         }
 
         public static AutomationElement GetDesktop()
@@ -199,8 +199,48 @@ namespace MS
                 return false;
             }
 
-            object isEnabled = element.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty);
-            return (bool)isEnabled;
+            bool isEnabled = (bool)(element.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty));
+            return isEnabled;
+        }
+
+        public static string GetText(AutomationElement element)
+        {
+            if (debug)
+            {
+                System.Console.WriteLine("[MS Plugin] Get text: {0}", element);
+            }
+
+            if (element == null)
+            {
+                return null;
+            }
+
+            ControlType controlType = element.GetCurrentPropertyValue(AutomationElement.ControlTypeProperty) as ControlType;
+
+            if (controlType == ControlType.Edit)
+            {
+                return element.GetCurrentPropertyValue(ValuePattern.ValueProperty) as string;
+            }
+            else if (controlType == ControlType.Document)
+            {
+                TextPattern text = (TextPattern)(element.GetCurrentPattern(TextPattern.Pattern));
+                if (text != null)
+                {
+                    System.Windows.Automation.Text.TextPatternRange[] textRange;
+                    textRange = text.GetSelection();
+                    return textRange[0].GetText(-1);
+                }
+            }
+            else
+            {
+                string text = element.GetCurrentPropertyValue(ValuePattern.ValueProperty) as string;
+                if (text == null)
+                {
+                    return element.GetCurrentPropertyValue(AutomationElement.NameProperty) as string;
+                }
+            }
+            
+            return null;
         }
 
         static bool debug = false;

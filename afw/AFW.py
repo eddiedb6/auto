@@ -42,7 +42,7 @@ class AFW:
     def Execute(self):
         try:
             Info("Start execute script")
-            if not self.__configPath or not self.__config:
+            if self.__configPath is None or self.__config is None:
                 Error("Could not execute without correct configuration")
                 return False
             result = self.__executeAction(self.__config[AFWConst.Action])

@@ -17,38 +17,67 @@
 [APIs]
 
 AFWUIManager
-    FindUI(name)
-    TryToFindUI(name)
-    StartApp(name)
-    TryToStartApp(name)
-    GetBreakTime()
+    FindUI(name) -> obj, exception
+    TryToFindUI(name) -> obj
+    StartApp(name) -> obj, exception
+    TryToStartApp(name) -> obj
+    OpenWebSite(name) -> obj, exception
+    TryToOpenWebSite(name) -> obj
+    GetBreakTime() -> int
 
 AFWUI
-    GetType()
-    GetName()
-    GetConfig()
-    GetParentConfig()
-    GetChildrenCount()
-    GetChild(index)
-    GetNativeUI()
-    IsEditable()
-    IsEnabled()
-
-AFWAppElement: AFWAppUI: AFWUI
-    Click()
+    GetType() -> string
+    GetName() -> string
+    GetConfig() -> obj
+    GetParentConfig() -> obj
+    GetChildrenCount() -> int
+    GetChild(index) -> obj
+    GetNativeUI() -> obj
+    IsEditable() -> bool
+    IsEnabled() -> bool
+    SetFocus() -> bool
+    PressKey(key) -> bool
+    ReleaseKey(key) -> bool
+    InputText(text) -> bool
+    GetText() -> string
+    Click() -> bool
 
 AFWPlugin
-    SetFocus(ui)
-    Click(ui)
-    IsCheckboxChecked(ui)
-    IsEnabled(ui)
-    PressKey(ui, key)
-    ReleaseKey(ui, key)
+    SetFocus(ui) -> bool
+    Click(ui) -> bool
+    IsCheckboxChecked(ui) -> bool
+    IsEnabled(ui) -> bool
+    PressKey(ui, key) -> bool
+    ReleaseKey(ui, key) -> bool
+    GetText(ui) -> string
 
 AFWPluginApp: AFWPlugin
-    StartApp(path)
-    GetDesktop()
-    GetForm(config)
-    GetElement(config, parentConfig)
+    StartApp(path) -> obj
+    GetDesktop() -> obj
+    GetForm(config) -> obj
+    GetElement(config, parentConfig) -> obj
+
+AFWPluginWeb: AFWPlugin
+    OpenBrowser(name) -> obj
+    OpenWebSite(browser, url) -> bool
+
+[Classes]
+
+AFWUI
+ |-AFWApp (UIApp)
+ |-AFWAppUI
+ |  |-AFWAppRoot (AppRoot) 
+ |  |-AFWAppForm (AppForm)
+ |  |-AFWAppSubForm (AppSubForm)
+ |  `-AFWAppElement
+ |     |-AFWAppTab (AppTab)
+ |     |-AFWAppTabPage (AppTabPage)
+ |     |-AFWAppEditBox (AppEditBox)
+ |     |-AFWAppCheckbox (AppCheckbox)
+ |     `-AFWAppButton (AppButton)
+ |-AFWWeb (UIWeb)
+ |-AFWWebSite (WebSite)
+ `-AFWWebUI
+    
     
 

@@ -18,6 +18,8 @@ Script = "script"
 
 BreakTime = "breaktime"
 
+URL = "url"
+
 ######################
 # AFW UI Type Define #
 ######################
@@ -47,6 +49,8 @@ AppButton = "appbutton"
 AppCheckbox = "appcheckbox"
 AppEditBox = "appeditbox"
 
+WebSite = "website"
+
 ### UI types definition end ###
 
 UIType = [
@@ -64,7 +68,31 @@ UIType = [
 
     AppButton,
     AppCheckbox,
-    AppEditBox
+    AppEditBox,
+
+    WebSite
+]
+
+###########
+# Browser #
+###########
+
+# To add a new browser type:
+#     1. Define here
+#     2. Add new type to BrowserType collection in this file
+
+Browser = "browser"
+
+### Browser type definition start ###
+BrowserChrome = "browserchrome"
+BrowserIE = "browserie"
+BrowserFireFox = "browserfirefox"
+### Browser type definition end ###
+
+BrowserType = [
+    BrowserChrome,
+    BrowserIE,
+    BrowserFireFox
 ]
 
 ##############
@@ -168,7 +196,7 @@ AFWKeyF11 = 0x7A
 AFWKeyF12 = 0x7B
 
 AFWKeySemicolon = 0xBA # ":"
-AFWKeyPlush =     0xBB # "+"
+AFWKeyPlus =      0xBB # "+"
 AFWKeyComma =     0xBC # ","
 AFWKeyMinus =     0xBD # "-"
 AFWKeyPeriod =    0xBE # "."

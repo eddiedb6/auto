@@ -5,15 +5,15 @@ class AFWPluginApp(AFWPlugin):
         AFWPlugin.__init__(self)
 
     def StartApp(self, path):
-        return False
+        return None
 
     def GetDesktop(self):
-        return False
+        return None
 
     def GetForm(self, config):
-        return False
+        return None
 
     def GetElement(self, config, parentConfig):
-        return False
+        return None
 
     

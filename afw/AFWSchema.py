@@ -5,6 +5,8 @@
             HasKey(AFWConst.UI, AFWConst.Action)
         ]
     },
+
+    ### Root ###
     AFWConst.UI: {
         SchemaType: SchemaTypeDict,
         SchemaRule: [
@@ -18,12 +20,17 @@
     AFWConst.UIApp: {
         SchemaType: SchemaTypeDict,
         SchemaRule: [
-            HasKey(AFWConst.Path, AFWConst.Plugin)
+            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Path, AFWConst.Plugin)
         ]
     },
     AFWConst.UIWeb: {
-        SchemaInherit: AFWConst.UIApp
+        SchemaType: SchemaTypeDict,
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Plugin, AFWConst.Browser)
+        ]
     },
+
+    ### Plugin ###
     AFWConst.Plugin: {
         SchemaType: SchemaTypeString,
         SchemaRule: [
@@ -31,17 +38,16 @@
         ]
     },
 
+    ### App Types ###
     AFWConst.AppRoot: {
         SchemaType: SchemaTypeDict
     },
-
     AFWConst.AppForm: {
         SchemaInherit: AFWConst.AppRoot
     },
     AFWConst.AppSubForm: {
         SchemaInherit: AFWConst.AppRoot
     },
-
     AFWConst.AppTab: {
         SchemaType: SchemaTypeDict,
         SchemaRule: [
@@ -51,7 +57,6 @@
     AFWConst.AppTabPage: {
         SchemaInherit: AFWConst.AppRoot
     },
-
     AFWConst.AppButton: {
         SchemaInherit: AFWConst.AppRoot
     },
@@ -62,6 +67,15 @@
         SchemaInherit: AFWConst.AppRoot
     },
 
+    ### Web Types ###
+    AFWConst.WebSite: {
+        SchemaType: SchemaTypeDict,
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)
+        ]
+    },
+
+    ### Properties ###
     AFWConst.Path: {
         SchemaType: SchemaTypeString,
         SchemaRule: [
@@ -101,6 +115,21 @@
             NotEmpty(SchemaTypeString)
         ]
     },
+
+    AFWConst.URL: {
+        SchemaType: SchemaTypeString,
+        SchemaRule: [
+            NotEmpty(SchemaTypeString)
+        ]
+    },
+    AFWConst.Browser: {
+        SchemaType: SchemaTypeString,
+        SchemaRule: [
+            ValueIn(AFWConst.BrowserType)
+        ]
+    },
+    
+    ### Action ###
     AFWConst.Action: {
         SchemaType: SchemaTypeDict,
         SchemaRule: [

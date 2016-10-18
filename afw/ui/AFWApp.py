@@ -6,13 +6,8 @@ class AFWApp(AFWUI):
     def __init__(self, manager, config):
         AFWUI.__init__(self, manager, config, None)
         self._plugin = AFWPluginManager().GetPlugin(config[AFWConst.Plugin])
-        if not self._plugin:
-            raise Exception("Get plugin failed")
+        if self._plugin is None:
+            raise Exception("Get app plugin failed")
         self.__app = self._plugin.StartApp(config[AFWConst.Path])
-        if not self.__app:
+        if self.__app is None:
             raise Exception("Start app failed")
-
-    ### Implement AFWUI ###
-
-    def GetNativeUI(self):
-        return self.__app
