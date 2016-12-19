@@ -27,6 +27,9 @@ class PluginSelenium(AFWPluginWeb):
         browser.get(url)
         return True
 
+    def GetElement(self, config, parentConfig):
+        return None # TODO
+
     __browserFactory = {
         AFWConst.BrowserChrome: lambda : webdriver.Chrome(),
         AFWConst.BrowserIE: lambda : webdriver.Ie(),

@@ -3,7 +3,7 @@ from AFWUI import AFWUI
 from AFWPluginManager import AFWPluginManager
 
 class AFWWeb(AFWUI):
-    def __init__(self, manager, config):
+    def __init__(self, manager, config, parentConfig):
         AFWUI.__init__(self, manager, config, None)
         self._plugin = AFWPluginManager().GetPlugin(config[AFWConst.Plugin])
         if self._plugin is None:

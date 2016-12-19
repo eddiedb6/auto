@@ -1,21 +1,20 @@
 import AFWConst
 from AFWLogger import *
 
+### UI type import start ###
 from AFWApp import AFWApp
 from AFWAppRoot import AFWAppRoot
-
 from AFWAppForm import AFWAppForm
 from AFWAppSubForm import AFWAppSubForm
-
 from AFWAppTab import AFWAppTab
 from AFWAppTabPage import AFWAppTabPage
-
 from AFWAppButton import AFWAppButton
 from AFWAppCheckbox import AFWAppCheckbox
 from AFWAppEditBox import AFWAppEditBox
-
 from AFWWeb import AFWWeb
 from AFWWebSite import AFWWebSite
+from AFWWebEditBox import AFWWebEditBox
+### UI type import end ###
 
 class AFWUIManager:
     def __init__(self, afw, config):
@@ -42,7 +41,7 @@ class AFWUIManager:
                     return None
             lastConfig = config
         return configPath.pop()[AFWConst.UIObj]
-
+    
     def StartApp(self, name):
         app = self.TryToStartApp(name)
         if app is None:
@@ -140,19 +139,19 @@ class AFWUIManager:
         return None
 
     __uiFactory = {
-        AFWConst.UIApp: lambda manager, config, parentConfig: AFWApp(manager, config),
+### UI type factory initialize start ###
+        AFWConst.UIApp: lambda manager, config, parentConfig: AFWApp(manager, config, parentConfig),
         AFWConst.AppRoot: lambda manager, config, parentConfig: AFWAppRoot(manager, config, parentConfig),
-
         AFWConst.AppForm: lambda manager, config, parentConfig: AFWAppForm(manager, config, parentConfig),
         AFWConst.AppSubForm: lambda manager, config, parentConfig: AFWAppSubForm(manager, config, parentConfig),
-
         AFWConst.AppTab: lambda manager, config, parentConfig: AFWAppTab(manager, config, parentConfig),
         AFWConst.AppTabPage: lambda manager, config, parentConfig: AFWAppTabPage(manager, config, parentConfig),
-
         AFWConst.AppButton: lambda manager, config, parentConfig: AFWAppButton(manager, config, parentConfig),
         AFWConst.AppCheckbox: lambda manager, config, parentConfig: AFWAppCheckbox(manager, config, parentConfig),
         AFWConst.AppEditBox: lambda manager, config, parentConfig: AFWAppEditBox(manager, config, parentConfig),
-
-        AFWConst.UIWeb: lambda manager, config, parentConfig: AFWWeb(manager, config),
-        AFWConst.WebSite: lambda manager, config, parentConfig: AFWWebSite(manager, config, parentConfig)
+        AFWConst.UIWeb: lambda manager, config, parentConfig: AFWWeb(manager, config, parentConfig),
+        AFWConst.WebSite: lambda manager, config, parentConfig: AFWWebSite(manager, config, parentConfig),
+        AFWConst.WebEditBox: lambda manager, config, parentConfig: AFWWebEditBox(manager, config, parentConfig),
+### UI type factory initialize end ###
+        "Dummy": "Dummy"
     }

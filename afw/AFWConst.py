@@ -30,47 +30,41 @@ URL = "url"
 #     3. Add new type class in afw/ui folder
 #     4. Add new type to __uiFactory in AFWUIManager and import new py file in this manager
 #     5. Add new type to AFWSchema
-
-### UI types definition start ###
+#     6. Update Readme description
 
 UIRoot = "uiroot"
+
+### UI types definition start ###
 UIApp = "uiapp"
-UIWeb = "uiweb"
-
 AppRoot = "approot"
-
 AppForm = "appform"
 AppSubForm = "appsubform"
-
 AppTab = "apptab"
 AppTabPage = "apptabpage"
-
 AppButton = "appbutton"
 AppCheckbox = "appcheckbox"
 AppEditBox = "appeditbox"
-
+UIWeb = "uiweb"
 WebSite = "website"
-
+WebEditBox = "webeditbox"
 ### UI types definition end ###
 
 UIType = [
-    UIRoot,
+### UI types collection start ###
     UIApp,
-    UIWeb,
-
     AppRoot,
-
     AppForm,
     AppSubForm,
-
     AppTab,
     AppTabPage,
-
     AppButton,
     AppCheckbox,
     AppEditBox,
-
-    WebSite
+    UIWeb,
+    WebSite,
+    WebEditBox,
+### UI types collection end ###
+    UIRoot
 ]
 
 ###########

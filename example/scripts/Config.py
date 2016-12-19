@@ -11,7 +11,7 @@
     AFWConst.Action: {
         AFWConst.SubAction: [
         {
-            AFWConst.Script: "Calc.py"
+            AFWConst.Script: "TestScript.py"
         }]
     }
 }

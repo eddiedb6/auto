@@ -6,7 +6,6 @@
         ]
     },
 
-    ### Root ###
     AFWConst.UI: {
         SchemaType: SchemaTypeDict,
         SchemaRule: [
@@ -17,18 +16,6 @@
     AFWConst.UIRoot: {
         SchemaType: SchemaTypeDict
     },
-    AFWConst.UIApp: {
-        SchemaType: SchemaTypeDict,
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Path, AFWConst.Plugin)
-        ]
-    },
-    AFWConst.UIWeb: {
-        SchemaType: SchemaTypeDict,
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Plugin, AFWConst.Browser)
-        ]
-    },
 
     ### Plugin ###
     AFWConst.Plugin: {
@@ -38,42 +25,56 @@
         ]
     },
 
-    ### App Types ###
+### App types schema start ###
+    AFWConst.UIApp: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Path, AFWConst.Plugin)
+        ],
+        SchemaType: SchemaTypeDict
+    },
     AFWConst.AppRoot: {
         SchemaType: SchemaTypeDict
     },
     AFWConst.AppForm: {
-        SchemaInherit: AFWConst.AppRoot
+        SchemaType: SchemaTypeDict
     },
     AFWConst.AppSubForm: {
-        SchemaInherit: AFWConst.AppRoot
+        SchemaType: SchemaTypeDict
     },
     AFWConst.AppTab: {
-        SchemaType: SchemaTypeDict,
         SchemaRule: [
             HasKey(AFWConst.SubUI)
-        ]
+        ],
+        SchemaType: SchemaTypeDict
     },
     AFWConst.AppTabPage: {
-        SchemaInherit: AFWConst.AppRoot
+        SchemaType: SchemaTypeDict
     },
     AFWConst.AppButton: {
-        SchemaInherit: AFWConst.AppRoot
+        SchemaType: SchemaTypeDict
     },
     AFWConst.AppCheckbox: {
-        SchemaInherit: AFWConst.AppRoot
+        SchemaType: SchemaTypeDict
     },
     AFWConst.AppEditBox: {
-        SchemaInherit: AFWConst.AppRoot
+        SchemaType: SchemaTypeDict
     },
-
-    ### Web Types ###
+    AFWConst.UIWeb: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Browser, AFWConst.Plugin)
+        ],
+        SchemaType: SchemaTypeDict
+    },
     AFWConst.WebSite: {
-        SchemaType: SchemaTypeDict,
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)
-        ]
+        ],
+        SchemaType: SchemaTypeDict
     },
+    AFWConst.WebEditBox: {
+        SchemaType: SchemaTypeDict
+    },
+### App types schema end ###
 
     ### Properties ###
     AFWConst.Path: {

@@ -9,3 +9,7 @@ class AFWPluginWeb(AFWPlugin):
 
     def OpenWebSite(self, url):
         return False
+
+    def GetElement(self, config, parentConfig):
+        return None
+

@@ -60,6 +60,7 @@ AFWPluginApp: AFWPlugin
 AFWPluginWeb: AFWPlugin
     OpenBrowser(name) -> obj
     OpenWebSite(browser, url) -> bool
+    GetElement(config, parentConfig) -> obj
 
 [Classes]
 
@@ -78,6 +79,7 @@ AFWUI
  |-AFWWeb (UIWeb)
  |-AFWWebSite (WebSite)
  `-AFWWebUI
+    `-AFWWebEditBox (WebEditBox)
     
     
 
