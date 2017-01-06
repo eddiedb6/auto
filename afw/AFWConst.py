@@ -45,7 +45,7 @@ AppButton = "appbutton"
 AppCheckbox = "appcheckbox"
 AppEditBox = "appeditbox"
 UIWeb = "uiweb"
-WebSite = "website"
+WebPage = "webpage"
 WebEditBox = "webeditbox"
 ### UI types definition end ###
 
@@ -61,7 +61,7 @@ UIType = [
     AppCheckbox,
     AppEditBox,
     UIWeb,
-    WebSite,
+    WebPage,
     WebEditBox,
 ### UI types collection end ###
     UIRoot

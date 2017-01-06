@@ -65,7 +65,7 @@
         ],
         SchemaType: SchemaTypeDict
     },
-    AFWConst.WebSite: {
+    AFWConst.WebPage: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)
         ],

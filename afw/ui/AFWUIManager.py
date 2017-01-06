@@ -12,7 +12,7 @@ from AFWAppButton import AFWAppButton
 from AFWAppCheckbox import AFWAppCheckbox
 from AFWAppEditBox import AFWAppEditBox
 from AFWWeb import AFWWeb
-from AFWWebSite import AFWWebSite
+from AFWWebPage import AFWWebPage
 from AFWWebEditBox import AFWWebEditBox
 ### UI type import end ###
 
@@ -21,80 +21,46 @@ class AFWUIManager:
         self.__afw = afw
         self.__config = config
 
-    def FindUI(self, name):
-        ui = self.TryToFindUI(name)
-        if ui is None:
-            Error("Find UI failed: " + name)
-            raise Exception("Find UI failed: " + name)
-        return ui
+    def GetUIConfigPath(self, name):
+        return self.__findConfig(name)
 
-    def TryToFindUI(self, name):
-        result, configPath = self.__findConfig(name)
-        if not result:
-            return None
-        lastConfig = None
-        for config in configPath:
-            if not self.__isUIBound(config):
-                config[AFWConst.UIObj] = self.__createUI(config, lastConfig)
-                if config[AFWConst.UIObj] is None:
-                    Error("Failed to bind UI: " + config[AFWConst.Name])
-                    return None
-            lastConfig = config
-        return configPath.pop()[AFWConst.UIObj]
+    def IsUIObjCreated(self, config):
+        return self.__isUIBound(config)
+
+    def CreateUIObj(self, config, parentConfig):
+        return self.__createUI(config, parentConfig)
     
     def StartApp(self, name):
-        app = self.TryToStartApp(name)
-        if app is None:
-            Error("Start App failed: " + name)
-            raise Exception("Start App failed: " + name)
-        return app
+        return self.__openUI(name, AFWConst.UIApp)
 
-    def TryToStartApp(self, name):
-        result, configPath = self.__findConfig(name)
-        if not result:
-            return None
-        appConfig = configPath.pop()
-        if appConfig[AFWConst.Type] != AFWConst.UIApp:
-            Error("UI config is not type of App: " + name)
-            return None
-        if self.__isUIBound(appConfig):
-            return appConfig[AFWConst.UIObj]
-        appConfig[AFWConst.UIObj] = self.__createUI(appConfig, None)
-        return appConfig[AFWConst.UIObj]
-
-    def OpenWebSite(self, name):
-        webSite = self.TryToOpenWebSit(name)
-        if webSite is None:
-            Error("Open web site failed: " + name)
-            raise Exception("Open web site failed: " + name)
-        return webSite
-        
-    def TryToOpenWebSit(self, name):
-        result, configPath = self.__findConfig(name)
-        if not result:
-            return None
-        if len(configPath) < 2:
-            Error("Web and browser config is not correct: " + name)
-            return None
-        webSiteConfig = configPath.pop()
-        if webSiteConfig[AFWConst.Type] != AFWConst.WebSite:
-            Error("UI config is not type of Web Site: " + name)
-            return None
-        browserConfig = configPath.pop()
-        if browserConfig[AFWConst.Type] != AFWConst.UIWeb:
-            Error("UI config is not type of Web: " + name)
-            return None
-        if not self.__isUIBound(browserConfig):
-            browserConfig[AFWConst.UIObj] = self.__createUI(browserConfig, None)
-            if browserConfig[AFWConst.UIObj] is None:
-                return None
-        webSiteConfig[AFWConst.UIObj] = self.__createUI(webSiteConfig, browserConfig)
-        return webSiteConfig[AFWConst.UIObj]
+    def OpenWebBrowser(self, name):
+        return self.__openUI(name, AFWConst.UIWeb)
 
     def GetBreakTime(self):
         return self.__afw.BreakTime
-
+    
     ### Private ###
+
+    def __openUI(self, name, uiType):
+        ui = self.__tryToOpenUI(name, uiType)
+        if ui is None:
+            msg = "Start " + uiType + " failed: " + name
+            Error(msg)
+            raise Exception(msg)
+        return ui
+
+    def __tryToOpenUI(self, name, uiType):
+        result, configPath = self.__findConfig(name)
+        if not result:
+            return None
+        config = configPath.pop()
+        if config[AFWConst.Type] != uiType:
+            Error("UI config is not type of " + uiType + ": " + name)
+            return None
+        if self.__isUIBound(config):
+            return config[AFWConst.UIObj]
+        config[AFWConst.UIObj] = self.__createUI(config, None)
+        return config[AFWConst.UIObj]
 
     def __isUIBound(self, config):
         if AFWConst.UIObj in config and config[AFWConst.UIObj] is not None:
@@ -150,8 +116,21 @@ class AFWUIManager:
         AFWConst.AppCheckbox: lambda manager, config, parentConfig: AFWAppCheckbox(manager, config, parentConfig),
         AFWConst.AppEditBox: lambda manager, config, parentConfig: AFWAppEditBox(manager, config, parentConfig),
         AFWConst.UIWeb: lambda manager, config, parentConfig: AFWWeb(manager, config, parentConfig),
-        AFWConst.WebSite: lambda manager, config, parentConfig: AFWWebSite(manager, config, parentConfig),
+        AFWConst.WebPage: lambda manager, config, parentConfig: AFWWebPage(manager, config, parentConfig),
         AFWConst.WebEditBox: lambda manager, config, parentConfig: AFWWebEditBox(manager, config, parentConfig),
 ### UI type factory initialize end ###
         "Dummy": "Dummy"
     }
+
+# There are APIs in AFWUIManager should not be exposed to user script
+# So wrapper the APIs should be exposed in AFWUIManagerWrapper for user script
+class AFWUIManagerWrapper:
+    def __init__(self, afw, config):
+        self.__manager = AFWUIManager(afw, config)
+
+    def StartApp(self, name):
+        return self.__manager.StartApp(name)
+
+    def OpenWebBrowser(self, name):
+        return self.__manager.OpenWebBrowser(name)
+

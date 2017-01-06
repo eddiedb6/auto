@@ -6,7 +6,7 @@
     AFWConst.SubUI: [
     {
         AFWConst.Name: "Baidu",
-        AFWConst.Type: AFWConst.WebSite,
+        AFWConst.Type: AFWConst.WebPage,
         AFWConst.URL: "http://www.baidu.com",
         AFWConst.BreakTime: 2000
     }]

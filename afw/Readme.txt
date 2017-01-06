@@ -10,57 +10,64 @@
     Refer to AFWConst.py comments
 
 4. How to write execution script?
-    a. "afw" is the default variable name of AFWUIManager instance
-    b. User "afw" instance variable to execuete AFWUIManager operations to get AFWUI instance, e.g. "afw.FindUI"
+    a. "afw" is the default variable name of AFWUIManagerWrapper instance
+    b. User "afw" instance variable to execuete AFWUIManager operations, e.g. "afw.StartApp"
     c. When get AFWUI instance successfully, call its operations defined by AFWUI or its subclass
 
 [APIs]
 
+AFWUIManagerWrapper
+    StartApp(name) -> AFWApp, exception
+    OpenWebBrowser(name) -> AFWWeb, exception
+    
 AFWUIManager
-    FindUI(name) -> obj, exception
-    TryToFindUI(name) -> obj
-    StartApp(name) -> obj, exception
-    TryToStartApp(name) -> obj
-    OpenWebSite(name) -> obj, exception
-    TryToOpenWebSite(name) -> obj
+    StartApp(name) -> AFWApp, exception
+    OpenWebBrowser(name) -> AFWWeb, exception
+    GetUIConfigPath(name) -> bool, list
+    IsUIObjCreated(config) -> bool
+    CreateUIObj(config, parentConfig) -> AFWUI
     GetBreakTime() -> int
 
 AFWUI
-    GetType() -> string
-    GetName() -> string
-    GetConfig() -> obj
-    GetParentConfig() -> obj
-    GetChildrenCount() -> int
-    GetChild(index) -> obj
-    GetNativeUI() -> obj
-    IsEditable() -> bool
-    IsEnabled() -> bool
-    SetFocus() -> bool
-    PressKey(key) -> bool
-    ReleaseKey(key) -> bool
-    InputText(text) -> bool
-    GetText() -> string
-    Click() -> bool
+ |  GetType() -> string
+ |  GetName() -> string
+ |  GetConfig() -> dict
+ |  GetParentConfig() -> dict
+ |  GetChildConfig(index) -> dict
+ |  GetChildConfigCount() -> int
+ |  GetNativeUI() -> obj
+ |  FindSubUI(name) -> AFWUI, exception
+ |  TryToFindSubUI(name) -> AFWUI
+ |  IsEditable() -> bool
+ |  IsEnabled() -> bool
+ |  SetFocus() -> bool
+ |  PressKey(key) -> bool
+ |  ReleaseKey(key) -> bool
+ |  InputText(text) -> bool
+ |  GetText() -> string
+ |  Click() -> bool
+ |-AFWAppCheckbox
+ |     IsChecked() -> bool
+ `-AFWWeb
+       GetCurrentURL() -> string
 
 AFWPlugin
-    SetFocus(ui) -> bool
-    Click(ui) -> bool
-    IsCheckboxChecked(ui) -> bool
-    IsEnabled(ui) -> bool
-    PressKey(ui, key) -> bool
-    ReleaseKey(ui, key) -> bool
-    GetText(ui) -> string
-
-AFWPluginApp: AFWPlugin
-    StartApp(path) -> obj
-    GetDesktop() -> obj
-    GetForm(config) -> obj
-    GetElement(config, parentConfig) -> obj
-
-AFWPluginWeb: AFWPlugin
-    OpenBrowser(name) -> obj
-    OpenWebSite(browser, url) -> bool
-    GetElement(config, parentConfig) -> obj
+ |  GetElement(config, parentConfig) -> obj
+ |  SetFocus(ui) -> bool
+ |  Click(ui) -> bool
+ |  IsCheckboxChecked(ui) -> bool
+ |  IsEnabled(ui) -> bool
+ |  PressKey(ui, key) -> bool
+ |  ReleaseKey(ui, key) -> bool
+ |  GetText(ui) -> string
+ |-AFWPluginApp
+ |     StartApp(path) -> obj
+ |     GetDesktop() -> obj
+ |     GetForm(config) -> obj
+ `-AFWPluginWeb
+       OpenBrowser(name) -> obj
+       OpenWebPage(browser, url) -> bool
+       GetCurrentURL(browser) -> string
 
 [Classes]
 
@@ -77,9 +84,7 @@ AFWUI
  |     |-AFWAppCheckbox (AppCheckbox)
  |     `-AFWAppButton (AppButton)
  |-AFWWeb (UIWeb)
- |-AFWWebSite (WebSite)
+ |-AFWWebPage (WebPage)
  `-AFWWebUI
-    `-AFWWebEditBox (WebEditBox)
-    
-    
-
+    `-AFWWebElement
+        `-AFWWebEditBox (WebEditBox)

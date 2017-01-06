@@ -12,8 +12,3 @@ class AFWPluginApp(AFWPlugin):
 
     def GetForm(self, config):
         return None
-
-    def GetElement(self, config, parentConfig):
-        return None
-
-    

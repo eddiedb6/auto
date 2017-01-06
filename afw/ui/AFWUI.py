@@ -35,12 +35,12 @@ class AFWUI:
     def GetParentConfig(self):
         return self.__parentConfig
 
-    def GetChildrenCount(self):
+    def GetChildConfigCount(self):
         if AFWConst.SubUI in self.__config:
             return len(self.__config[AFWConst.SubUI])
         return 0
 
-    def GetChild(self, index):
+    def GetChildConfig(self, index):
         if index < 0:
             return None
         if AFWConst.SubUI in self.__config and len(self.__config[AFWConst.SubUI]) > index:
@@ -50,13 +50,38 @@ class AFWUI:
     def GetNativeUI(self):
         return None
 
+    ### Properties and Operations when bound ###
+
+    def FindSubUI(self, name):
+        ui = self.TryToFindSubUI(name)
+        if ui is None:
+            msg = "Find UI failed: " + name
+            Error(msg)
+            raise Exception(msg)
+        return ui
+        
+    def TryToFindSubUI(self, name):
+        result, configPath = self.__manager.GetUIConfigPath(name)
+        if not result:
+            return None
+        if self.__config not in configPath:
+            Warning("UI is not under " + self.GetName() + ": " + name)
+            return None
+        lastConfig = None
+        for config in configPath:
+            if not self.__manager.IsUIObjCreated(config):
+                config[AFWConst.UIObj] = self.__manager.CreateUIObj(config, lastConfig)
+                if config[AFWConst.UIObj] is None:
+                    Error("Failed to create UI: " + config[AFWConst.Name])
+                    return None
+            lastConfig = config
+        return configPath.pop()[AFWConst.UIObj]
+
     def IsEditable(self):
         return False
 
     def IsEnabled(self):
         return True
-
-    ### Operations ###
 
     def SetFocus(self):
         return self._plugin.SetFocus(self)

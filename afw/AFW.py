@@ -9,7 +9,7 @@ sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "."))
 import AFWConst
 from AFWLogger import *
 from SchemaChecker import SchemaChecker
-from AFWUIManager import AFWUIManager
+from AFWUIManager import AFWUIManagerWrapper
 
 class AFW:
     def __init__(self):
@@ -36,7 +36,7 @@ class AFW:
             Error(str(sys.exc_info()[0]) + ": " + str(sys.exc_info()[1]))
             return False
         self.__configPath = path
-        self.__uiManager = AFWUIManager(self, self.__config)
+        self.__uiManager = AFWUIManagerWrapper(self, self.__config)
         return True
 
     def Execute(self):

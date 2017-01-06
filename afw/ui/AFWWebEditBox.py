@@ -1,6 +1,6 @@
 import AFWConst
-from AFWWebUI import AFWWebUI
+from AFWWebElement import AFWWebElement
 
-class AFWWebEditBox(AFWWebUI):
+class AFWWebEditBox(AFWWebElement):
     def __init__(self, manager, config, parentConfig):
-        AFWWebUI.__init__(self, manager, config, parentConfig)
+        AFWWebElement.__init__(self, manager, config, parentConfig)

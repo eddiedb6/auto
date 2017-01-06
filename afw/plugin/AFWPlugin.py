@@ -2,6 +2,9 @@ class AFWPlugin:
     def __init__(self):
         pass
 
+    def GetElement(self, config, parentConfig):
+        return None
+    
     def SetFocus(self, ui):
         return False
 

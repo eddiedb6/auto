@@ -5,12 +5,13 @@ import platform
 # afw, default variable name for UI manager
 
 if platform.system() == "Linux":
-    web = afw.OpenWebSite("Baidu")
+    web = afw.OpenWebBrowser("Web")
+    page = web.FindSubUI("Baidu")
 
 if platform.system() == "Windows":
     app = afw.StartApp("App")
-    form = afw.FindUI("Main")
-    button1 = afw.FindUI("1")
+    form = app.FindSubUI("Main")
+    button1 = form.FindSubUI("1")
 
     # 1
     button1.Click()
@@ -26,7 +27,7 @@ if platform.system() == "Windows":
     # 1
     button1.Click()
     time.sleep(0.5)
-
+    
     # =
     form.PressKey(AFWConst.AFWKeyPlus)
     form.ReleaseKey(AFWConst.AFWKeyPlus)

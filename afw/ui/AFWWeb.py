@@ -12,6 +12,9 @@ class AFWWeb(AFWUI):
         if self.__browser is None:
             raise Exception("Open browser failed")
 
+    def GetCurrentURL(self):
+        return self._plugin.GetCurrentURL(self.__browser)
+
     ### Implement AFWUI ###
     def GetNativeUI(self):
         return self.__browser

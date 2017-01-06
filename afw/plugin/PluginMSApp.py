@@ -18,6 +18,17 @@ class PluginMSApp(AFWPluginApp):
 
     ### Implement AFWPlugin ###
 
+    def GetElement(self, config, parentConfig):
+        Debug("Get element: " + config[AFWConst.Name])
+        if AFWConst.UIObj not in parentConfig:
+            Error("Parent is not bound yet: " + parentConfig[AFWConst.Name])
+            return None
+        if AFWConst.Text in config:
+            return MS.MSWrapper.GetElementByTextInDescendantScope(config[AFWConst.Text], parentConfig[AFWConst.UIObj].GetNativeUI())
+        elif AFWConst.Caption in config:
+            return MS.MSWrapper.GetElementByTextInChildrenScope(config[AFWConst.Caption], parentConfig[AFWConst.UIObj].GetNativeUI())
+        return MS.MSWrapper.GetElementByTypeInDescendantScope(config[AFWConst.Type], parentConfig[AFWConst.UIObj].GetNativeUI())
+
     def SetFocus(self, ui):
         if ui is None:
             return False
@@ -65,17 +76,5 @@ class PluginMSApp(AFWPluginApp):
     def GetForm(self, config):
         Debug("Get form: " + config[AFWConst.Name])
         return MS.MSWrapper.GetForm(config[AFWConst.Caption])
-
-    def GetElement(self, config, parentConfig):
-        Debug("Get element: " + config[AFWConst.Name])
-        if AFWConst.UIObj not in parentConfig:
-            Error("Parent is not bound yet: " + parentConfig[AFWConst.Name])
-            return None
-        if AFWConst.Text in config:
-            return MS.MSWrapper.GetElementByTextInDescendantScope(config[AFWConst.Text], parentConfig[AFWConst.UIObj].GetNativeUI())
-        elif AFWConst.Caption in config:
-            return MS.MSWrapper.GetElementByTextInChildrenScope(config[AFWConst.Caption], parentConfig[AFWConst.UIObj].GetNativeUI())
-        return MS.MSWrapper.GetElementByTypeInDescendantScope(config[AFWConst.Type], parentConfig[AFWConst.UIObj].GetNativeUI())
-
     
 

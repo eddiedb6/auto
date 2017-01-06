@@ -58,15 +58,15 @@
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Browser, AFWConst.Plugin)"
     },
     {
-        # Web Site
-        "Name": "WebSite",
-        "Class": "AFWWebSite",
+        # Web Page
+        "Name": "WebPage",
+        "Class": "AFWWebPage",
         "Parent": "AFWUI",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)"
     },
     {
         "Name": "WebEditBox",
         "Class": "AFWWebEditBox",
-        "Parent": "AFWWebUI"
+        "Parent": "AFWWebElement"
     }
 ]
