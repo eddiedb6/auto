@@ -9,6 +9,7 @@ class PluginSelenium(AFWPluginWeb):
         AFWPluginWeb.__init__(self)
 
     ### Implement AFWPlugin ###
+
     def GetElement(self, config, parentConfig):
         if parentConfig is None:
             return None
@@ -17,6 +18,12 @@ class PluginSelenium(AFWPluginWeb):
             return None
         return self.__getElement(driverElement, config, parentConfig)
 
+    def Click(self, ui):
+        if ui is None or ui.GetNativeUI() is None:
+            return False
+        ui.GetNativeUI().click() # No return result
+        return True
+    
     ### Implement AFWPluginWeb ###
     
     def OpenBrowser(self, name):
@@ -44,9 +51,26 @@ class PluginSelenium(AFWPluginWeb):
     ### Private ###
 
     def __getElement(self, driverElement, config, parentConfig):
-        # TODO
+        if AFWConst.AttrID in config:
+            return self.__getElementByID(driverElement, config[AFWConst.AttrID])
+        elif AFWConst.AttrName in config:
+            return self.__getElementByName(driverElement, config[AFWConst.AttrName])
+        return self.__getElementByType(driverElement, config)
+
+    def __getElementByID(self, driverElement, attrId):
+        Debug("Find by id: " + attrId)
+        return driverElement.find_element_by_id(attrId)
+
+    def __getElementByName(self, driverElement, attrName):
+        Debug("Find by name: " + attrName)
+        return driverElement.find_element_by_name(attrName)
+
+    def __getElementByType(self, driverElement, config):
+        if config[AFWConst.Type] == AFWConst.WebLink and AFWConst.Text in config:
+            Debug("Find by link: " + config[AFWConst.Text])
+            return driverElement.find_element_by_link_text(config[AFWConst.Text])
         return None
-    
+        
     __browserFactory = {
         AFWConst.BrowserChrome: lambda : webdriver.Chrome(),
         AFWConst.BrowserIE: lambda : webdriver.Ie(),

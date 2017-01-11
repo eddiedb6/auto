@@ -33,7 +33,7 @@ class AFW:
                 Error("Load configuration failed: configuration is not correct format")
                 return False
         except:
-            Error(str(sys.exc_info()[0]) + ": " + str(sys.exc_info()[1]))
+            Error("Exception for config loading")
             return False
         self.__configPath = path
         self.__uiManager = AFWUIManagerWrapper(self, self.__config)
@@ -51,7 +51,7 @@ class AFW:
             else:
                 Error("Execute scripts failed")
         except:
-            Error(str(sys.exc_info()[0]) + ": " + str(sys.exc_info()[1]))
+            Error("Exception for script execution")
             return False
         return True
 

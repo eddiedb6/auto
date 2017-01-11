@@ -68,5 +68,15 @@
         "Name": "WebEditBox",
         "Class": "AFWWebEditBox",
         "Parent": "AFWWebElement"
+    },
+    {
+        "Name": "WebLink",
+        "Class": "AFWWebLink",
+        "Parent": "AFWWebElement"
+    },
+    {
+        "Name": "WebButton",
+        "Class": "AFWWebButton",
+        "Parent": "AFWWebElement"
     }
 ]

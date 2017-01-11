@@ -5,25 +5,90 @@
             HasKey(AFWConst.UI, AFWConst.Action)
         ]
     },
-
+    
+### Schema key schema start ###
     AFWConst.UI: {
         SchemaType: SchemaTypeDict,
         SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type),
             CheckAsTypeFromKey(AFWConst.Type)
-        ]
+        ],
     },
-    AFWConst.UIRoot: {
-        SchemaType: SchemaTypeDict
+    AFWConst.SubUI: {
+        SchemaType: SchemaTypeArray,
+        SchemaRule: [
+            CheckForeachAsType(AFWConst.UI)
+        ],
     },
-
-    ### Plugin ###
+    AFWConst.Action: {
+        SchemaType: SchemaTypeDict,
+        SchemaRule: [
+            AtLeastOneKey(AFWConst.SubAction, AFWConst.Script)
+        ],
+    },
+    AFWConst.SubAction: {
+        SchemaType: SchemaTypeArray,
+        SchemaRule: [
+            CheckForeachAsType(AFWConst.Action)
+        ],
+    },
+    AFWConst.Script: {
+        SchemaType: SchemaTypeString,
+        SchemaRule: [
+            NotEmpty(SchemaTypeString)
+        ],
+    },
+    AFWConst.Name: {
+        SchemaType: SchemaTypeString,
+        SchemaRule: [
+            NotEmpty(SchemaTypeString)
+        ],
+    },
+    AFWConst.Type: {
+        SchemaType: SchemaTypeString,
+        SchemaRule: [
+            ValueIn(AFWConst.UIType)
+        ],
+    },
     AFWConst.Plugin: {
         SchemaType: SchemaTypeString,
         SchemaRule: [
             ValueIn(AFWConst.PluginType)
-        ]
+        ],
     },
+    AFWConst.Path: {
+        SchemaType: SchemaTypeString,
+        SchemaRule: [
+            NotEmpty(SchemaTypeString)
+        ],
+    },
+    AFWConst.Browser: {
+        SchemaType: SchemaTypeString,
+        SchemaRule: [
+            ValueIn(AFWConst.BrowserType)
+        ],
+    },
+    AFWConst.URL: {
+        SchemaType: SchemaTypeString,
+        SchemaRule: [
+            NotEmpty(SchemaTypeString)
+        ],
+    },
+    AFWConst.BreakTime: {
+        SchemaType: SchemaTypeInteger
+    },
+    AFWConst.Caption: {
+        SchemaType: SchemaTypeString
+    },
+    AFWConst.Text: {
+        SchemaType: SchemaTypeString
+    },
+    AFWConst.AttrID: {
+        SchemaType: SchemaTypeString
+    },
+    AFWConst.AttrName: {
+        SchemaType: SchemaTypeString
+    },
+### Schema key schema end ###
 
 ### App types schema start ###
     AFWConst.UIApp: {
@@ -74,73 +139,15 @@
     AFWConst.WebEditBox: {
         SchemaType: SchemaTypeDict
     },
+    AFWConst.WebLink: {
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.WebButton: {
+        SchemaType: SchemaTypeDict
+    },
 ### App types schema end ###
 
-    ### Properties ###
-    AFWConst.Path: {
-        SchemaType: SchemaTypeString,
-        SchemaRule: [
-            NotEmpty(SchemaTypeString)
-        ]
-    },
-    AFWConst.Name: {
-        SchemaType: SchemaTypeString,
-        SchemaRule: [
-            NotEmpty(SchemaTypeString)
-        ]
-    },
-    AFWConst.Type: {
-        SchemaType: SchemaTypeString,
-        SchemaRule: [
-            ValueIn(AFWConst.UIType)
-        ]
-    },
-    AFWConst.SubUI: {
-        SchemaType: SchemaTypeArray,
-        SchemaRule: [
-            CheckForeachAsType(AFWConst.UI)
-        ]
-    },
-    AFWConst.Caption: {
-        SchemaType: SchemaTypeString
-    },
-    AFWConst.BreakTime: {
-        SchemaType: SchemaTypeInteger
-    },
-    AFWConst.Text: {
-        SchemaType: SchemaTypeString
-    },
-    AFWConst.Script: {
-        SchemaType: SchemaTypeString,
-        SchemaRule: [
-            NotEmpty(SchemaTypeString)
-        ]
-    },
-
-    AFWConst.URL: {
-        SchemaType: SchemaTypeString,
-        SchemaRule: [
-            NotEmpty(SchemaTypeString)
-        ]
-    },
-    AFWConst.Browser: {
-        SchemaType: SchemaTypeString,
-        SchemaRule: [
-            ValueIn(AFWConst.BrowserType)
-        ]
-    },
-    
-    ### Action ###
-    AFWConst.Action: {
-        SchemaType: SchemaTypeDict,
-        SchemaRule: [
-            AtLeastOneKey(AFWConst.SubAction, AFWConst.Script)
-        ]
-    },
-    AFWConst.SubAction: {
-        SchemaType: SchemaTypeArray,
-        SchemaRule: [
-            CheckForeachAsType(AFWConst.Action)
-        ]
+    AFWConst.UIRoot: {
+        SchemaType: SchemaTypeDict
     }
 }

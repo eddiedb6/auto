@@ -1,0 +1,77 @@
+[
+    {
+        "Name": "UI",
+        "SchemaType": "SchemaTypeDict", 
+        "SchemaRule": "CheckAsTypeFromKey(AFWConst.Type)"
+    },
+    {
+        "Name": "SubUI",
+        "SchemaType": "SchemaTypeArray",
+        "SchemaRule": "CheckForeachAsType(AFWConst.UI)"
+    },
+    {
+        "Name": "Action",
+        "SchemaType": "SchemaTypeDict",
+        "SchemaRule": "AtLeastOneKey(AFWConst.SubAction, AFWConst.Script)"
+    },
+    {
+        "Name": "SubAction",
+        "SchemaType": "SchemaTypeArray",
+        "SchemaRule": "CheckForeachAsType(AFWConst.Action)"
+    },
+    {
+        "Name": "Script",
+        "SchemaType": "SchemaTypeString",
+        "SchemaRule": "NotEmpty(SchemaTypeString)"
+    },
+    {
+        "Name": "Name",
+        "SchemaType": "SchemaTypeString",
+        "SchemaRule": "NotEmpty(SchemaTypeString)"
+    },
+    {
+        "Name": "Type",
+        "SchemaType": "SchemaTypeString",
+        "SchemaRule": "ValueIn(AFWConst.UIType)"
+    },
+    {
+        "Name": "Plugin",
+        "SchemaType": "SchemaTypeString",
+        "SchemaRule": "ValueIn(AFWConst.PluginType)"
+    },
+    {
+        "Name": "Path",
+        "SchemaType": "SchemaTypeString",
+        "SchemaRule": "NotEmpty(SchemaTypeString)"
+    },
+    {
+        "Name": "Browser",
+        "SchemaType": "SchemaTypeString",
+        "SchemaRule": "ValueIn(AFWConst.BrowserType)"
+    },
+    {
+        "Name": "URL",
+        "SchemaType": "SchemaTypeString",
+        "SchemaRule": "NotEmpty(SchemaTypeString)"
+    },
+    {
+        "Name": "BreakTime",
+        "SchemaType": "SchemaTypeInteger"
+    },
+    {
+        "Name": "Caption",
+        "SchemaType": "SchemaTypeString"
+    },
+    {
+        "Name": "Text",
+        "SchemaType": "SchemaTypeString"
+    },
+    {
+        "Name": "AttrID",
+        "SchemaType": "SchemaTypeString"
+    },
+    {
+        "Name": "AttrName",
+        "SchemaType": "SchemaTypeString"
+    }
+]

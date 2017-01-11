@@ -2,23 +2,24 @@
 # Consigure Schema Key #
 ########################
 
-UI = "UI"
+### Schema key definition start ###
+UI = "ui"
+SubUI = "subui"
 Action = "action"
-
+SubAction = "subaction"
+Script = "script"
 Name = "name"
 Type = "type"
+Plugin = "plugin"
 Path = "path"
-
-SubUI = "subui"
-SubAction = "subaction"
-
+Browser = "browser"
+URL = "url"
+BreakTime = "breaktime"
 Caption = "caption"
 Text = "text"
-Script = "script"
-
-BreakTime = "breaktime"
-
-URL = "url"
+AttrID = "attrid"
+AttrName = "attrname"
+### Schema key definition end ###
 
 ######################
 # AFW UI Type Define #
@@ -47,6 +48,8 @@ AppEditBox = "appeditbox"
 UIWeb = "uiweb"
 WebPage = "webpage"
 WebEditBox = "webeditbox"
+WebLink = "weblink"
+WebButton = "webbutton"
 ### UI types definition end ###
 
 UIType = [
@@ -63,6 +66,8 @@ UIType = [
     UIWeb,
     WebPage,
     WebEditBox,
+    WebLink,
+    WebButton,
 ### UI types collection end ###
     UIRoot
 ]
@@ -74,8 +79,6 @@ UIType = [
 # To add a new browser type:
 #     1. Define here
 #     2. Add new type to BrowserType collection in this file
-
-Browser = "browser"
 
 ### Browser type definition start ###
 BrowserChrome = "browserchrome"
@@ -97,8 +100,6 @@ BrowserType = [
 #     1. Define here
 #     2. Add new type to PluginType collection in this file
 #     3. Add new plugin in afw/plugin folder
-
-Plugin = "plugin"
 
 ### Plugin type definition start ###
 PluginMSApp = "PluginMSApp"

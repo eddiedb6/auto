@@ -14,6 +14,8 @@ from AFWAppEditBox import AFWAppEditBox
 from AFWWeb import AFWWeb
 from AFWWebPage import AFWWebPage
 from AFWWebEditBox import AFWWebEditBox
+from AFWWebLink import AFWWebLink
+from AFWWebButton import AFWWebButton
 ### UI type import end ###
 
 class AFWUIManager:
@@ -118,6 +120,8 @@ class AFWUIManager:
         AFWConst.UIWeb: lambda manager, config, parentConfig: AFWWeb(manager, config, parentConfig),
         AFWConst.WebPage: lambda manager, config, parentConfig: AFWWebPage(manager, config, parentConfig),
         AFWConst.WebEditBox: lambda manager, config, parentConfig: AFWWebEditBox(manager, config, parentConfig),
+        AFWConst.WebLink: lambda manager, config, parentConfig: AFWWebLink(manager, config, parentConfig),
+        AFWConst.WebButton: lambda manager, config, parentConfig: AFWWebButton(manager, config, parentConfig),
 ### UI type factory initialize end ###
         "Dummy": "Dummy"
     }
