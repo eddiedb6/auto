@@ -21,11 +21,20 @@ def GenerateUIClassFile(element):
     print "Generate class file " + element["Class"] + ".py"
     className = element["Class"]
     parentName = element["Parent"]
+    parents = [parentName]
+    if "Abilities" in element:
+        for ability in element["Abilities"]:
+            parents.append(ability)
     buf = "import AFWConst\n"
-    buf += "from " + parentName + " import " + parentName + "\n\n"
-    buf += "class " + className + "(" + parentName + "):\n"
+    inherites = ", ".join(parents)
+    for parent in parents:
+        buf += "from " + parent + " import " + parent + "\n"
+    buf += "\nclass " + className + "(" + inherites + "):\n"
     buf += "    def __init__(self, manager, config, parentConfig):\n"
     buf += "        " + parentName + ".__init__(self, manager, config, parentConfig)\n"
+    if "Abilities" in element:
+        for ability in element["Abilities"]:
+            buf += "        " + ability + ".__init__(self, self._plugin)\n"
     return buf
 
 def OperateFile(filePath, operator):
@@ -37,7 +46,7 @@ def OperateFile(filePath, operator):
     newFile.close()
     os.remove(filePath)
     os.rename(filePath + ".tmp", filePath)
-
+    
 def UpdateConst(originalFile, newFile):
     print "Update Const file"
     global config

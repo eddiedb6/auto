@@ -38,24 +38,26 @@ AFWUI
  |  GetNativeUI() -> obj
  |  FindSubUI(name) -> AFWUI, exception
  |  TryToFindSubUI(name) -> AFWUI
- |  IsEditable() -> bool
- |  IsEnabled() -> bool
  |  SetFocus() -> bool
+ |  IsEnabled() -> bool
  |  PressKey(key) -> bool
  |  ReleaseKey(key) -> bool
  |  InputText(text) -> bool
  |  GetText() -> string
- |  Click() -> bool
- |-AFWAppCheckbox
- |     IsChecked() -> bool
  `-AFWWeb
        GetCurrentURL() -> string
+
+AFWAbility
+ `-AFWCickable
+    |  Click() -> bool
+    `-AFWCheckable
+          IsChecked() -> bool
 
 AFWPlugin
  |  GetElement(config, parentConfig) -> obj
  |  SetFocus(ui) -> bool
  |  Click(ui) -> bool
- |  IsCheckboxChecked(ui) -> bool
+ |  IsChecked(ui) -> bool
  |  IsEnabled(ui) -> bool
  |  PressKey(ui, key) -> bool
  |  ReleaseKey(ui, key) -> bool
@@ -84,7 +86,7 @@ AFWUI
  |     |-AFWAppCheckbox (AppCheckbox)
  |     `-AFWAppButton (AppButton)
  |-AFWWeb (UIWeb)
- |-AFWWebPage (WebPage)
  `-AFWWebUI
+    |-AFWWebPage (WebPage)
     `-AFWWebElement
         `-AFWWebEditBox (WebEditBox)

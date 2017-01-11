@@ -3,6 +3,7 @@ import os
 import logging
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../schema"))
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "ui"))
+sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "ui/abilities"))
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "plugin"))
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "."))
 

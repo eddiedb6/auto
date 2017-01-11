@@ -18,11 +18,37 @@ class PluginSelenium(AFWPluginWeb):
             return None
         return self.__getElement(driverElement, config, parentConfig)
 
+    def SetFocus(self, ui):
+        # Web element do not need focus
+        return True
+    
     def Click(self, ui):
         if ui is None or ui.GetNativeUI() is None:
             return False
         ui.GetNativeUI().click() # No return result
         return True
+
+    def IsChecked(self, ui):
+        # TODO
+        return False
+
+    def IsEnabled(self, ui):
+        if ui is None or ui.GetNativeUI() is None:
+            return False
+        return ui.GetNativeUI().is_enabled()
+
+    def PressKey(self, ui, key):
+        # TODO
+        return False
+
+    def ReleaseKey(self, ui, key):
+        # TODO
+        return False
+
+    def GetText(self, ui):
+        if ui is None or ui.GetNativeUI() is None:
+            return None
+        return ui.GetNativeUI().text
     
     ### Implement AFWPluginWeb ###
     

@@ -77,12 +77,6 @@ class AFWUI:
             lastConfig = config
         return configPath.pop()[AFWConst.UIObj]
 
-    def IsEditable(self):
-        return False
-
-    def IsEnabled(self):
-        return True
-
     def SetFocus(self):
         return self._plugin.SetFocus(self)
 
@@ -94,8 +88,6 @@ class AFWUI:
 
     def InputText(self, text):
         Debug("Input text: " + text)
-        if not self.IsEditable():
-            return False
         for char in text:
             key, needShift = AFWUIHelper.GetKeyFromChar(char)
             if key is None:
@@ -109,7 +101,4 @@ class AFWUI:
         return True
 
     def GetText(self):
-        return None
-
-    def Click(self):
-        return False
+        return self._plugin.GetText(self)

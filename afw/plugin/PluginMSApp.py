@@ -39,7 +39,7 @@ class PluginMSApp(AFWPluginApp):
             return False
         return MS.MSWrapper.Click(ui.GetNativeUI())
 
-    def IsCheckboxChecked(self, ui):
+    def IsChecked(self, ui):
         if ui is None:
             return False
         if ui.GetType() != AFWConst.AppCheckbox:

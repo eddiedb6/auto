@@ -11,7 +11,7 @@ class AFWPlugin:
     def Click(self, ui):
         return False
 
-    def IsCheckboxChecked(self, ui):
+    def IsChecked(self, ui):
         return False
 
     def IsEnabled(self, ui):

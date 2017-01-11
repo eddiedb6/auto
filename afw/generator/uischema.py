@@ -20,6 +20,9 @@
     "Parent": {
         SchemaType: SchemaTypeString
     },
+    "Abilities": {
+        SchemaType: SchemaTypeArray
+    },
     "SchemaRule": {
         SchemaType: SchemaTypeString
     }

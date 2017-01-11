@@ -38,12 +38,18 @@
     {
         "Name": "AppButton",
         "Class": "AFWAppButton",
-        "Parent": "AFWAppElement"
+        "Parent": "AFWAppElement",
+        "Abilities": [
+            "AFWClickable"
+        ]
     },
     {
         "Name": "AppCheckbox",
         "Class": "AFWAppCheckbox",
-        "Parent": "AFWAppElement"
+        "Parent": "AFWAppElement",
+        "Abilities": [
+            "AFWCheckable"
+        ]
     },
     {
         "Name": "AppEditBox",
@@ -61,7 +67,7 @@
         # Web Page
         "Name": "WebPage",
         "Class": "AFWWebPage",
-        "Parent": "AFWUI",
+        "Parent": "AFWWebUI",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)"
     },
     {
@@ -72,11 +78,17 @@
     {
         "Name": "WebLink",
         "Class": "AFWWebLink",
-        "Parent": "AFWWebElement"
+        "Parent": "AFWWebElement",
+        "Abilities": [
+            "AFWClickable"
+        ]
     },
     {
         "Name": "WebButton",
         "Class": "AFWWebButton",
-        "Parent": "AFWWebElement"
+        "Parent": "AFWWebElement",
+        "Abilities": [
+            "AFWClickable"
+        ]
     }
 ]
