@@ -98,30 +98,51 @@
         SchemaType: SchemaTypeDict
     },
     AFWConst.AppRoot: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
         SchemaType: SchemaTypeDict
     },
     AFWConst.AppForm: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
         SchemaType: SchemaTypeDict
     },
     AFWConst.AppSubForm: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
         SchemaType: SchemaTypeDict
     },
     AFWConst.AppTab: {
         SchemaRule: [
-            HasKey(AFWConst.SubUI)
+            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.SubUI)
         ],
         SchemaType: SchemaTypeDict
     },
     AFWConst.AppTabPage: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
         SchemaType: SchemaTypeDict
     },
     AFWConst.AppButton: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
         SchemaType: SchemaTypeDict
     },
     AFWConst.AppCheckbox: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
         SchemaType: SchemaTypeDict
     },
     AFWConst.AppEditBox: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
         SchemaType: SchemaTypeDict
     },
     AFWConst.UIWeb: {
@@ -132,17 +153,32 @@
     },
     AFWConst.WebPage: {
         SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)
+            HasKey(AFWConst.Name, AFWConst.Type)
         ],
         SchemaType: SchemaTypeDict
     },
     AFWConst.WebEditBox: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
         SchemaType: SchemaTypeDict
     },
     AFWConst.WebLink: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
         SchemaType: SchemaTypeDict
     },
     AFWConst.WebButton: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.WebURL: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)
+        ],
         SchemaType: SchemaTypeDict
     },
 ### App types schema end ###

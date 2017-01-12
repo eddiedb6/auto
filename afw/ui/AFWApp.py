@@ -8,7 +8,6 @@ class AFWApp(AFWAppBase):
         self._plugin = AFWPluginManager().GetPlugin(config[AFWConst.Plugin])
         if self._plugin is None:
             raise Exception("Get app plugin failed")
-        self.__app = self._plugin.StartApp(config[AFWConst.Path])
-        self._native = self.__app
-        if self.__app is None:
+        self._native = self._plugin.StartApp(config[AFWConst.Path])
+        if self._native is None:
             raise Exception("Start app failed")

@@ -8,10 +8,17 @@ class AFWWeb(AFWWebBase):
         self._plugin = AFWPluginManager().GetPlugin(config[AFWConst.Plugin])
         if self._plugin is None:
             raise Exception("Get web plugin failed")
-        self.__browser = self._plugin.OpenBrowser(config[AFWConst.Browser])
-        self._native = self.__browser
-        if self.__browser is None:
+        self._native = self._plugin.OpenBrowser(config[AFWConst.Browser])
+        if self._native is None:
             raise Exception("Open browser failed")
 
     def GetCurrentURL(self):
-        return self._plugin.GetCurrentURL(self.__browser)
+        return self._plugin.GetCurrentURL(self._native)
+
+    def OpenURL(self, name):
+        url = self.TryToFindSubUI(name)
+        if not url:
+            return False
+        if url.GetType() != AFWConst.WebURL:
+            return False
+        return True

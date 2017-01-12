@@ -46,6 +46,7 @@ AFWUI
  |  GetText() -> string
  `-AFWWeb
        GetCurrentURL() -> string
+       OpenURL(name) -> bool
 
 AFWAbility
  `-AFWCickable
@@ -89,6 +90,7 @@ AFWUI
  |        `-AFWAppButton (AppButton)
  `-AFWWebBase
     |-AFWWeb (UIWeb)
+    |-AFWWebURL (WebURL)
     `-AFWWebUI
        |-AFWWebPage (WebPage)
        `-AFWWebElement

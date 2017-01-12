@@ -50,6 +50,7 @@ WebPage = "webpage"
 WebEditBox = "webeditbox"
 WebLink = "weblink"
 WebButton = "webbutton"
+WebURL = "weburl"
 ### UI types definition end ###
 
 UIType = [
@@ -68,6 +69,7 @@ UIType = [
     WebEditBox,
     WebLink,
     WebButton,
+    WebURL,
 ### UI types collection end ###
     UIRoot
 ]

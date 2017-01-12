@@ -12,6 +12,8 @@ from AFWLogger import *
 from SchemaChecker import SchemaChecker
 from AFWUIManager import AFWUIManagerWrapper
 
+_debug = True
+
 class AFW:
     def __init__(self):
         self.__logLevel = logging.INFO
@@ -21,6 +23,7 @@ class AFW:
         self.__uiManager = None
 
     def Load(self, path):
+        global _debug
         try:
             # Logging level must be set before any log function is called
             # Otherwise there will be no logging
@@ -34,14 +37,17 @@ class AFW:
                 Error("Load configuration failed: configuration is not correct format")
                 return False
         except:
-            #Error("Config exception: \n" + str(sys.exc_info()[0]) + "\n" + str(sys.exc_info()[1]))
-            Error("Exception for config loading")
+            if _debug:
+                Error("Config exception: \n" + str(sys.exc_info()[0]) + "\n" + str(sys.exc_info()[1]))
+            else:
+                Error("Exception for config loading")
             return False
         self.__configPath = path
         self.__uiManager = AFWUIManagerWrapper(self, self.__config)
         return True
 
     def Execute(self):
+        global _debug
         try:
             Info("Start execute script")
             if self.__configPath is None or self.__config is None:
@@ -53,8 +59,10 @@ class AFW:
             else:
                 Error("Execute scripts failed")
         except:
-            #Error("Script exception: \n" + str(sys.exc_info()[0]) + "\n" + str(sys.exc_info()[1]))
-            Error("Exception for script execution")
+            if _debug:
+                Error("Script exception: \n" + str(sys.exc_info()[0]) + "\n" + str(sys.exc_info()[1]))
+            else:
+                Error("Exception for script execution")
             return False
         return True
 
