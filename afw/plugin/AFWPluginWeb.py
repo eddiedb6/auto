@@ -12,3 +12,6 @@ class AFWPluginWeb(AFWPlugin):
 
     def GetCurrentURL(self, browser):
         return None
+
+    def SendKeys(self, ui, keys):
+        return False

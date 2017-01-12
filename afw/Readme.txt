@@ -70,23 +70,28 @@ AFWPlugin
        OpenBrowser(name) -> obj
        OpenWebPage(browser, url) -> bool
        GetCurrentURL(browser) -> string
+       SendKeys(ui, keys) -> bool
 
 [Classes]
 
 AFWUI
- |-AFWApp (UIApp)
- |-AFWAppUI
- |  |-AFWAppRoot (AppRoot) 
- |  |-AFWAppForm (AppForm)
- |  |-AFWAppSubForm (AppSubForm)
- |  `-AFWAppElement
- |     |-AFWAppTab (AppTab)
- |     |-AFWAppTabPage (AppTabPage)
- |     |-AFWAppEditBox (AppEditBox)
- |     |-AFWAppCheckbox (AppCheckbox)
- |     `-AFWAppButton (AppButton)
- |-AFWWeb (UIWeb)
- `-AFWWebUI
-    |-AFWWebPage (WebPage)
-    `-AFWWebElement
-        `-AFWWebEditBox (WebEditBox)
+ |-AFWAppBase
+ |  |-AFWApp (UIApp)
+ |  `-AFWAppUI
+ |     |-AFWAppRoot (AppRoot) 
+ |     |-AFWAppForm (AppForm)
+ |     |-AFWAppSubForm (AppSubForm)
+ |     `-AFWAppElement
+ |        |-AFWAppTab (AppTab)
+ |        |-AFWAppTabPage (AppTabPage)
+ |        |-AFWAppEditBox (AppEditBox)
+ |        |-AFWAppCheckbox (AppCheckbox)
+ |        `-AFWAppButton (AppButton)
+ `-AFWWebBase
+    |-AFWWeb (UIWeb)
+    `-AFWWebUI
+       |-AFWWebPage (WebPage)
+       `-AFWWebElement
+          |-AFWWebEditBox (WebEditBox)
+	  |-AFWWebLink (WebLink)
+	  `-AFWWebButton (WebButton)

@@ -1,11 +1,6 @@
 import AFWConst
-from AFWUI import AFWUI
+from AFWAppBase import AFWAppBase
 
-class AFWAppUI(AFWUI):
+class AFWAppUI(AFWAppBase):
     def __init__(self, manager, config, parentConfig):
-        AFWUI.__init__(self, manager, config, parentConfig)
-
-    ### Implement AFWUI ###
-
-    def IsEnabled(self):
-        return self._plugin.IsEnabled(self)
+        AFWAppBase.__init__(self, manager, config, parentConfig)

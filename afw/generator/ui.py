@@ -3,7 +3,7 @@
         # Application
         "Name": "UIApp",
         "Class": "AFWApp",
-        "Parent": "AFWUI",
+        "Parent": "AFWAppBase",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Path, AFWConst.Plugin)"
     },
     {
@@ -60,7 +60,7 @@
         # Browser
         "Name": "UIWeb",
         "Class": "AFWWeb",
-        "Parent": "AFWUI",
+        "Parent": "AFWWebBase",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Browser, AFWConst.Plugin)"
     },
     {

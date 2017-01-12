@@ -74,6 +74,12 @@ class PluginSelenium(AFWPluginWeb):
             return None
         return browser.current_url
 
+    def SendKeys(self, ui, keys):
+        if ui is None or ui.GetNativeUI() is None:
+            return False
+        ui.GetNativeUI().send_keys(keys)
+        return True
+    
     ### Private ###
 
     def __getElement(self, driverElement, config, parentConfig):

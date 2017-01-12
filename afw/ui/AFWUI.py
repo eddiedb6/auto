@@ -11,6 +11,7 @@ class AFWUI:
         self.__config = config
         self.__parentConfig = parentConfig
         self._plugin = None
+        self._native = None
         if parentConfig is not None:
             if AFWConst.UIObj in parentConfig and parentConfig[AFWConst.UIObj] is not None:
                 self._plugin = parentConfig[AFWConst.UIObj]._plugin
@@ -48,7 +49,7 @@ class AFWUI:
         return None
 
     def GetNativeUI(self):
-        return None
+        return self._native
 
     ### Properties and Operations when bound ###
 
@@ -80,6 +81,9 @@ class AFWUI:
     def SetFocus(self):
         return self._plugin.SetFocus(self)
 
+    def IsEnabled(self):
+        return self._plugin.IsEnabled(self)
+
     def PressKey(self, key):
         return self._plugin.PressKey(self, key)
 
@@ -87,18 +91,7 @@ class AFWUI:
         return self._plugin.ReleaseKey(self, key)
 
     def InputText(self, text):
-        Debug("Input text: " + text)
-        for char in text:
-            key, needShift = AFWUIHelper.GetKeyFromChar(char)
-            if key is None:
-                continue
-            if needShift:
-                self.PressKey(AFWConst.AFWKeyShift)
-            self.PressKey(key)
-            self.ReleaseKey(key)
-            if needShift:
-                self.ReleaseKey(AFWConst.AFWKeyShift)
-        return True
+        return False
 
     def GetText(self):
         return self._plugin.GetText(self)

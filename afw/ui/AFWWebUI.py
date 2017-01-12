@@ -1,6 +1,6 @@
 import AFWConst
-from AFWUI import AFWUI
+from AFWWebBase import AFWWebBase
 
-class AFWWebUI(AFWUI):
+class AFWWebUI(AFWWebBase):
     def __init__(self, manager, config, parentConfig):
-        AFWUI.__init__(self, manager, config, parentConfig)
+        AFWWebBase.__init__(self, manager, config, parentConfig)
