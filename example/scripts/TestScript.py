@@ -8,7 +8,7 @@ if platform.system() == "Linux":
     web = afw.OpenWebBrowser("Web")
     web.OpenURL("Baidu")
 
-if platform.system() == "Windows":
+if platform.system() == "Windows" or platform.system() == "cli":
     app = afw.StartApp("App")
     form = app.FindSubUI("Main")
     button1 = form.FindSubUI("1")
