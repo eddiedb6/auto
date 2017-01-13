@@ -23,9 +23,7 @@ AFWUIManagerWrapper
 AFWUIManager
     StartApp(name) -> AFWApp, exception
     OpenWebBrowser(name) -> AFWWeb, exception
-    GetUIConfigPath(name) -> bool, list
-    IsUIObjCreated(config) -> bool
-    CreateUIObj(config, parentConfig) -> AFWUI
+    TryToFindUI(name, parentUI) -> AFWUI
     GetBreakTime() -> int
 
 AFWUI

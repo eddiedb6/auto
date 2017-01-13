@@ -6,7 +6,7 @@ import platform
 
 if platform.system() == "Linux":
     web = afw.OpenWebBrowser("Web")
-    page = web.FindSubUI("Baidu")
+    web.OpenURL("Baidu")
 
 if platform.system() == "Windows":
     app = afw.StartApp("App")

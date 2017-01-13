@@ -25,49 +25,51 @@ class AFWUIManager:
         self.__afw = afw
         self.__config = config
 
-    def GetUIConfigPath(self, name):
-        return self.__findConfig(name)
-
-    def IsUIObjCreated(self, config):
-        return self.__isUIBound(config)
-
-    def CreateUIObj(self, config, parentConfig):
-        return self.__createUI(config, parentConfig)
+    def TryToFindUI(self, name, parentUI):
+        return self.__tryToFindUI(name, parentUI, None)
     
     def StartApp(self, name):
-        return self.__openUI(name, AFWConst.UIApp)
+        return self.__findUI(name, None, AFWConst.UIApp)
 
     def OpenWebBrowser(self, name):
-        return self.__openUI(name, AFWConst.UIWeb)
+        return self.__findUI(name, None, AFWConst.UIWeb)
 
     def GetBreakTime(self):
         return self.__afw.BreakTime
     
     ### Private ###
 
-    def __openUI(self, name, uiType):
-        ui = self.__tryToOpenUI(name, uiType)
+    def __findUI(self, name, parentUI, uiType):
+        ui = self.__tryToFindUI(name, parentUI, uiType)
         if ui is None:
-            msg = "Start " + uiType + " failed: " + name
-            Error(msg)
-            raise Exception(msg)
+            raise Exception("Find UI failed!")
         return ui
 
-    def __tryToOpenUI(self, name, uiType):
+    def __tryToFindUI(self, name, parentUI, uiType):
         result, configPath = self.__findConfig(name)
         if not result:
             return None
-        config = configPath.pop()
-        if config[AFWConst.Type] != uiType:
-            Error("UI config is not type of " + uiType + ": " + name)
+        if parentUI is not None and parentUI.GetConfig() not in configPath:
+            Warning("UI is not under " + parentUI.GetName() + ": " + name)
             return None
-        if self.__isUIBound(config):
-            return config[AFWConst.UIObj]
-        try:
-            config[AFWConst.UIObj] = self.__createUI(config, None)
-        except:
-            config[AFWConst.UIObj] = None
-        return config[AFWConst.UIObj]
+        ui = None
+        lastConfig = None
+        for config in configPath:
+            if not self.__isUIBound(config):
+                try:
+                    config[AFWConst.UIObj] = self.__createUI(config, lastConfig)
+                except:
+                    Error("Create UI exception: " + config[AFWConst.Name])
+                    return None
+                if config[AFWConst.UIObj] is None:
+                    Error("Failed to create UI: " + config[AFWConst.Name])
+                    return None
+            lastConfig = config
+        ui = configPath.pop()[AFWConst.UIObj]
+        if ui is not None and uiType is not None and ui.GetType() != uiType:
+            Error("Found UI is not type of " + uiType + ": " + name)
+            return None
+        return ui
 
     def __isUIBound(self, config):
         if AFWConst.UIObj in config and config[AFWConst.UIObj] is not None:

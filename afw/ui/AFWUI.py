@@ -54,29 +54,15 @@ class AFWUI:
     ### Properties and Operations when bound ###
 
     def TryToFindSubUI(self, name):
-        ui = None
-        try:
-            ui = self.FindSubUI(name)
-        except:
-            pass
-        return ui
+        return self.__manager.TryToFindUI(name, self)
         
     def FindSubUI(self, name):
-        result, configPath = self.__manager.GetUIConfigPath(name)
-        if not result:
-            return None
-        if self.__config not in configPath:
-            Warning("UI is not under " + self.GetName() + ": " + name)
-            return None
-        lastConfig = None
-        for config in configPath:
-            if not self.__manager.IsUIObjCreated(config):
-                config[AFWConst.UIObj] = self.__manager.CreateUIObj(config, lastConfig)
-                if config[AFWConst.UIObj] is None:
-                    Error("Failed to create UI: " + config[AFWConst.Name])
-                    return None
-            lastConfig = config
-        return configPath.pop()[AFWConst.UIObj]
+        ui = self.__manager.TryToFindUI(name, self)
+        if ui is  None:
+            msg = "Failed to find UI: " + name
+            Warning(msg)
+            raise Exception(msg)
+        return ui
 
     def SetFocus(self):
         return self._plugin.SetFocus(self)
