@@ -120,8 +120,17 @@ class PluginSelenium(AFWPluginWeb):
 
     def __getElementByTag(self, driverElement, tag, config):
         Debug("Find by tag")
+        if AFWConst.Attributes not in config:
+            return None
         elements = driverElement.find_elements_by_tag_name(tag)
-        # TODO
+        for element in elements:
+            isMatch = True
+            for attribute in config[AFWConst.Attributes]:
+                if element.get_attribute(attribute) != config[AFWConst.Attributes][attribute]:
+                    isMatch = False
+                    break
+            if isMatch:
+                return element
         return None
         
     def __getElementByType(self, driverElement, config):

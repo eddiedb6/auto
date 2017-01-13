@@ -21,6 +21,7 @@ AttrID = "attrid"
 AttrName = "attrname"
 AttrClass = "attrclass"
 AttrTag = "attrtag"
+Attributes = "attributes"
 ### Schema key definition end ###
 
 ######################
@@ -213,6 +214,7 @@ AFWKeyQuote =        0xDE # "'"
 # HTML TAG #
 ############
 TagDiv = "div"
+TagA = "a"
 
 ##############
 #  AFW ONLY  #

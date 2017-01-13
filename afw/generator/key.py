@@ -81,5 +81,9 @@
     {
         "Name": "AttrTag",
         "SchemaType": "SchemaTypeString"
+    },
+    {
+        "Name": "Attributes",
+        "SchemaType": "SchemaTypeDict"
     }
 ]

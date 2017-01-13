@@ -5,6 +5,9 @@
             HasKey(AFWConst.UI, AFWConst.Action)
         ]
     },
+    AFWConst.UIRoot: {
+        SchemaType: SchemaTypeDict
+    },
     
 ### Schema key schema start ###
     AFWConst.UI: {
@@ -93,6 +96,9 @@
     },
     AFWConst.AttrTag: {
         SchemaType: SchemaTypeString
+    },
+    AFWConst.Attributes: {
+        SchemaType: SchemaTypeDict
     },
 ### Schema key schema end ###
 
@@ -195,7 +201,8 @@
     },
 ### App types schema end ###
 
-    AFWConst.UIRoot: {
-        SchemaType: SchemaTypeDict
+    # Schema for key in attributes
+    SchemaAnyOther: {
+        SchemaType: SchemaTypeString
     }
 }
