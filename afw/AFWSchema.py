@@ -88,6 +88,12 @@
     AFWConst.AttrName: {
         SchemaType: SchemaTypeString
     },
+    AFWConst.AttrClass: {
+        SchemaType: SchemaTypeString
+    },
+    AFWConst.AttrTag: {
+        SchemaType: SchemaTypeString
+    },
 ### Schema key schema end ###
 
 ### App types schema start ###
@@ -152,6 +158,12 @@
         SchemaType: SchemaTypeDict
     },
     AFWConst.WebPage: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.WebElement: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type)
         ],

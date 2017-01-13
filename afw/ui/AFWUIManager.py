@@ -13,6 +13,7 @@ from AFWAppCheckbox import AFWAppCheckbox
 from AFWAppEditBox import AFWAppEditBox
 from AFWWeb import AFWWeb
 from AFWWebPage import AFWWebPage
+from AFWWebElement import AFWWebElement
 from AFWWebEditBox import AFWWebEditBox
 from AFWWebLink import AFWWebLink
 from AFWWebButton import AFWWebButton
@@ -62,7 +63,10 @@ class AFWUIManager:
             return None
         if self.__isUIBound(config):
             return config[AFWConst.UIObj]
-        config[AFWConst.UIObj] = self.__createUI(config, None)
+        try:
+            config[AFWConst.UIObj] = self.__createUI(config, None)
+        except:
+            config[AFWConst.UIObj] = None
         return config[AFWConst.UIObj]
 
     def __isUIBound(self, config):
@@ -120,6 +124,7 @@ class AFWUIManager:
         AFWConst.AppEditBox: lambda manager, config, parentConfig: AFWAppEditBox(manager, config, parentConfig),
         AFWConst.UIWeb: lambda manager, config, parentConfig: AFWWeb(manager, config, parentConfig),
         AFWConst.WebPage: lambda manager, config, parentConfig: AFWWebPage(manager, config, parentConfig),
+        AFWConst.WebElement: lambda manager, config, parentConfig: AFWWebElement(manager, config, parentConfig),
         AFWConst.WebEditBox: lambda manager, config, parentConfig: AFWWebEditBox(manager, config, parentConfig),
         AFWConst.WebLink: lambda manager, config, parentConfig: AFWWebLink(manager, config, parentConfig),
         AFWConst.WebButton: lambda manager, config, parentConfig: AFWWebButton(manager, config, parentConfig),

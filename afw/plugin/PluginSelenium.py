@@ -83,10 +83,23 @@ class PluginSelenium(AFWPluginWeb):
     ### Private ###
 
     def __getElement(self, driverElement, config, parentConfig):
+        element = None
         if AFWConst.AttrID in config:
-            return self.__getElementByID(driverElement, config[AFWConst.AttrID])
-        elif AFWConst.AttrName in config:
-            return self.__getElementByName(driverElement, config[AFWConst.AttrName])
+            element = self.__getElementByID(driverElement, config[AFWConst.AttrID])
+            if element is not None:
+                return element
+        if AFWConst.AttrName in config:
+            element = self.__getElementByName(driverElement, config[AFWConst.AttrName])
+            if element is not None:
+                return element
+        if AFWConst.AttrClass in config:
+            element = self.__getElementByClass(driverElement, config[AFWConst.AttrClass])
+            if element is not None:
+                return element
+        if AFWConst.AttrTag in config:
+            element = self.__getElementByTag(driverElement, config[AFWConst.AttrTag], config)
+            if element is not None:
+                return element
         return self.__getElementByType(driverElement, config)
 
     def __getElementByID(self, driverElement, attrId):
@@ -97,12 +110,25 @@ class PluginSelenium(AFWPluginWeb):
         Debug("Find by name: " + attrName)
         return driverElement.find_element_by_name(attrName)
 
-    def __getElementByType(self, driverElement, config):
-        if config[AFWConst.Type] == AFWConst.WebLink and AFWConst.Text in config:
-            Debug("Find by link: " + config[AFWConst.Text])
-            return driverElement.find_element_by_link_text(config[AFWConst.Text])
+    def __getElementByClass(self, driverElement, attrClass):
+        Debug("Find by class: " + attrClass)
+        return driverElement.find_element_by_class_name(attrClass)
+
+    def __getElementByLinkText(self, driverElement, attrText):
+        Debug("Find by link text: " + attrText)
+        return driverElement.find_element_by_link_text(attrText)
+
+    def __getElementByTag(self, driverElement, tag, config):
+        Debug("Find by tag")
+        elements = driverElement.find_elements_by_tag_name(tag)
+        # TODO
         return None
         
+    def __getElementByType(self, driverElement, config):
+        if config[AFWConst.Type] == AFWConst.WebLink and AFWConst.Text in config:
+            return self.__getElementByLinkText(driverElement, config[AFWConst.Text])
+        return None
+    
     __browserFactory = {
         AFWConst.BrowserChrome: lambda : webdriver.Chrome(),
         AFWConst.BrowserIE: lambda : webdriver.Ie(),

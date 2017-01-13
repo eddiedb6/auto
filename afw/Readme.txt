@@ -93,7 +93,7 @@ AFWUI
     |-AFWWebURL (WebURL)
     `-AFWWebUI
        |-AFWWebPage (WebPage)
-       `-AFWWebElement
+       `-AFWWebElement (WebElement) 
           |-AFWWebEditBox (WebEditBox)
 	  |-AFWWebLink (WebLink)
 	  `-AFWWebButton (WebButton)

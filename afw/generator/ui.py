@@ -78,6 +78,12 @@
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
     },
     {
+        "Name": "WebElement",
+        "Class": "AFWWebElement",
+        "Parent": "AFWWebUI",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
+    },
+    {
         "Name": "WebEditBox",
         "Class": "AFWWebEditBox",
         "Parent": "AFWWebElement",

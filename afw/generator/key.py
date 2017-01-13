@@ -73,5 +73,13 @@
     {
         "Name": "AttrName",
         "SchemaType": "SchemaTypeString"
+    },
+    {
+        "Name": "AttrClass",
+        "SchemaType": "SchemaTypeString"
+    },
+    {
+        "Name": "AttrTag",
+        "SchemaType": "SchemaTypeString"
     }
 ]

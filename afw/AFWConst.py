@@ -19,6 +19,8 @@ Caption = "caption"
 Text = "text"
 AttrID = "attrid"
 AttrName = "attrname"
+AttrClass = "attrclass"
+AttrTag = "attrtag"
 ### Schema key definition end ###
 
 ######################
@@ -47,6 +49,7 @@ AppCheckbox = "appcheckbox"
 AppEditBox = "appeditbox"
 UIWeb = "uiweb"
 WebPage = "webpage"
+WebElement = "webelement"
 WebEditBox = "webeditbox"
 WebLink = "weblink"
 WebButton = "webbutton"
@@ -66,6 +69,7 @@ UIType = [
     AppEditBox,
     UIWeb,
     WebPage,
+    WebElement,
     WebEditBox,
     WebLink,
     WebButton,
@@ -204,6 +208,11 @@ AFWKeyBracketLeft =  0xDB # "["
 AFWKeyBackslash =    0xDC # "\"
 AFWKeyBracketRight = 0xDD # "]"
 AFWKeyQuote =        0xDE # "'"
+
+############
+# HTML TAG #
+############
+TagDiv = "div"
 
 ##############
 #  AFW ONLY  #

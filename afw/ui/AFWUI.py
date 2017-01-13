@@ -53,15 +53,15 @@ class AFWUI:
 
     ### Properties and Operations when bound ###
 
-    def FindSubUI(self, name):
-        ui = self.TryToFindSubUI(name)
-        if ui is None:
-            msg = "Find UI failed: " + name
-            Error(msg)
-            raise Exception(msg)
+    def TryToFindSubUI(self, name):
+        ui = None
+        try:
+            ui = self.FindSubUI(name)
+        except:
+            pass
         return ui
         
-    def TryToFindSubUI(self, name):
+    def FindSubUI(self, name):
         result, configPath = self.__manager.GetUIConfigPath(name)
         if not result:
             return None
