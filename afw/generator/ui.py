@@ -61,7 +61,10 @@
         "Name": "AppEditBox",
         "Class": "AFWAppEditBox",
         "Parent": "AFWAppElement",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
+        "Abilities": [
+            "AFWClickable"
+        ]
     },
     {
         # Browser
