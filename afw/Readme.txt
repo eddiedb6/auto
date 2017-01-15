@@ -18,10 +18,12 @@
 
 AFWUIManagerWrapper
     StartApp(name) -> AFWApp, exception
+    FindWinForm(name) -> AFWAppForm, exception
     OpenWebBrowser(name) -> AFWWeb, exception
     
 AFWUIManager
     StartApp(name) -> AFWApp, exception
+    FindWinForm(name) -> AFWAppForm, exception	
     OpenWebBrowser(name) -> AFWWeb, exception
     TryToFindUI(name, parentUI) -> AFWUI
     GetBreakTime() -> int

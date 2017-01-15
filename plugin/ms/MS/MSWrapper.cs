@@ -53,6 +53,8 @@ namespace MS
         
         public static AutomationElement GetElementByText(String text, AutomationElement parent, TreeScope scop)
         {
+            text = ConvertUFT8String(text);
+
             if (debug)
             {
                 System.Console.WriteLine("[MS Plugin] Find by text: {0}, {1}, {2}", text, parent, scop);
@@ -243,7 +245,25 @@ namespace MS
             return null;
         }
 
-        static bool debug = false;
+        static String ConvertUFT8String(String utf8String)
+        {
+            if (utf8String.Length <= 0)
+            {
+                return "";
+            }
+
+            char[] utf8Chars = utf8String.ToCharArray();
+            int len = utf8Chars.GetLength(0);
+            byte[] utf8Bytes = new byte[len];
+            for (int i = 0; i < len; ++i)
+            {
+                utf8Bytes[i] = (byte)utf8Chars[i];
+            }
+            
+            return Encoding.UTF8.GetString(utf8Bytes);
+        }
+
+        static bool debug = true;
         static Dictionary<String, ControlType> controlTypeMap = new Dictionary<string, ControlType>()
         {
             {"apptab", ControlType.Tab},

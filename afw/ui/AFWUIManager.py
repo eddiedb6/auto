@@ -31,6 +31,9 @@ class AFWUIManager:
     def StartApp(self, name):
         return self.__findUI(name, None, AFWConst.UIApp)
 
+    def FindWinForm(self, name):
+        return self.__findUI(name, None, AFWConst.AppForm)
+    
     def OpenWebBrowser(self, name):
         return self.__findUI(name, None, AFWConst.UIWeb)
 
@@ -144,6 +147,9 @@ class AFWUIManagerWrapper:
     def StartApp(self, name):
         return self.__manager.StartApp(name)
 
+    def FindWinForm(self, name):
+        return self.__manager.FindWinForm(name)
+    
     def OpenWebBrowser(self, name):
         return self.__manager.OpenWebBrowser(name)
 
