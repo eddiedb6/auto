@@ -60,11 +60,13 @@
     },
     {
         "Name": "Caption",
-        "SchemaType": "SchemaTypeString"
+        "SchemaType": "SchemaTypeArray",
+        "SchemaRule": "CheckForeachAsType(AFWConst.Name)"
     },
     {
         "Name": "Text",
-        "SchemaType": "SchemaTypeString"
+        "SchemaType": "SchemaTypeArray",
+        "SchemaRule": "CheckForeachAsType(AFWConst.Name)"
     },
     {
         "Name": "AttrID",

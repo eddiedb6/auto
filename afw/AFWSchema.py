@@ -80,10 +80,16 @@
         SchemaType: SchemaTypeInteger
     },
     AFWConst.Caption: {
-        SchemaType: SchemaTypeString
+        SchemaType: SchemaTypeArray,
+        SchemaRule: [
+            CheckForeachAsType(AFWConst.Name)
+        ],
     },
     AFWConst.Text: {
-        SchemaType: SchemaTypeString
+        SchemaType: SchemaTypeArray,
+        SchemaRule: [
+            CheckForeachAsType(AFWConst.Name)
+        ],
     },
     AFWConst.AttrID: {
         SchemaType: SchemaTypeString

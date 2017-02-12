@@ -5,23 +5,31 @@
     {
         AFWConst.Name: "Main",
         AFWConst.Type: AFWConst.AppForm,
-        AFWConst.Caption: "Calculator",
+        AFWConst.Caption: [
+            "Calculator"
+        ],
         AFWConst.BreakTime: 3000,
         AFWConst.SubUI: [
         {
             AFWConst.Name: "1",
             AFWConst.Type: AFWConst.AppButton,
-            AFWConst.Text: "1"
+            AFWConst.Text: [
+                "1"
+            ]
         },
         {
             AFWConst.Name: "2",
             AFWConst.Type: AFWConst.AppButton,
-            AFWConst.Text: "2"
+            AFWConst.Text: [
+                "2"
+            ]
         },
         {
             AFWConst.Name: "3",
             AFWConst.Type: AFWConst.AppButton,
-            AFWConst.Text: "3"
+            AFWConst.Text: [
+                "3"
+            ]
         }]
     }]
 }
