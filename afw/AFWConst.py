@@ -111,11 +111,13 @@ BrowserType = [
 ### Plugin type definition start ###
 PluginMSApp = "PluginMSApp"
 PluginSelenium = "PluginSelenium"
+PluginSocketApp = "PluginSocketApp"
 ### Plugin type definition end ###
 
 PluginType = [
     PluginMSApp,
-    PluginSelenium
+    PluginSelenium,
+    PluginSocketApp
 ]
 
 ################

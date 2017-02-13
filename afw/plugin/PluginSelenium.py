@@ -135,11 +135,8 @@ class PluginSelenium(AFWPluginWeb):
         
     def __getElementByType(self, driverElement, config):
         if config[AFWConst.Type] == AFWConst.WebLink and AFWConst.Text in config:
-            result = None
-            for text in config[AFWConst.Text]:
-                result =  self.__getElementByLinkText(driverElement, text)
-                if result is not None:
-                    return result
+            op = lambda text: self.__getElementByLinkText(driverElement, text) 
+            return self._loopTextArray(config[AFWConst.Text], op)
         return None
     
     __browserFactory = {

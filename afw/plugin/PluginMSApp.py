@@ -23,10 +23,11 @@ class PluginMSApp(AFWPluginApp):
         if AFWConst.UIObj not in parentConfig:
             Error("Parent is not bound yet: " + parentConfig[AFWConst.Name])
             return None
+        op = lambda text: MS.MSWrapper.GetElementByTextInDescendantScope(text, parentConfig[AFWConst.UIObj].GetNativeUI())
         if AFWConst.Text in config:
-            return self.__getElementByText(config[AFWConst.Text], parentConfig[AFWConst.UIObj].GetNativeUI());
+            return self._loopTextArray(config[AFWConst.Text], op)
         elif AFWConst.Caption in config:
-            return self.__getElementByText(config[AFWConst.Caption], parentConfig[AFWConst.UIObj].GetNativeUI())
+            return self._loopTextArray(config[AFWConst.Caption], op)
         return MS.MSWrapper.GetElementByTypeInDescendantScope(config[AFWConst.Type], parentConfig[AFWConst.UIObj].GetNativeUI())
 
     def SetFocus(self, ui):
@@ -75,18 +76,6 @@ class PluginMSApp(AFWPluginApp):
 
     def GetForm(self, config):
         Debug("Get form: " + config[AFWConst.Name])
-        result = None
-        for text in config[AFWConst.Caption]:
-            result = MS.MSWrapper.GetForm(text)
-            if result is not None:
-                return result
-        return result;
-    
-    ### Private ###
-    def __getElementByText(self, textArray, parentNativeUI):
-        result = None
-        for text in textArray:
-            result = MS.MSWrapper.GetElementByTextInDescendantScope(text, parentNativeUI);
-            if result is not None:
-                return result
-        return result;
+        op = lambda text: MS.MSWrapper.GetForm(text)
+        return self._loopTextArray(config[AFWConst.Caption], op)
+                                       

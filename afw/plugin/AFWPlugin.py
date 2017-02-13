@@ -25,3 +25,11 @@ class AFWPlugin:
 
     def GetText(self, ui):
         return None
+
+    def _loopTextArray(self, textArray, op):
+        result = None
+        for text in textArray:
+            result = op(text)
+            if result is not None:
+                return result
+        return None
