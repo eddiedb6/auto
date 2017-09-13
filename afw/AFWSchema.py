@@ -67,7 +67,7 @@
     AFWConst.Proxy: {
         SchemaType: SchemaTypeDict,
         SchemaRule: [
-            KeyIn([AFWConst.ProxyType, AFWConst.ProxyParams]), HasKey(AFWConst.ProxyType, AFWConst.ProxyParams)
+            KeyIn([AFWConst.ProxyType, AFWConst.ProxyLauncher, AFWConst.PluginName]), HasKey(AFWConst.ProxyType, AFWConst.ProxyLauncher, AFWConst.PluginName)
         ],
     },
     AFWConst.ProxyType: {
@@ -76,8 +76,8 @@
             ValueIn([AFWConst.ProxyLocal, AFWConst.ProxyRemote])
         ],
     },
-    AFWConst.ProxyParams: {
-        SchemaType: SchemaTypeArray
+    AFWConst.ProxyLauncher: {
+        SchemaType: SchemaTypeString
     },
     AFWConst.Path: {
         SchemaType: SchemaTypeString,

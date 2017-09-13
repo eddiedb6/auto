@@ -47,7 +47,7 @@
     {
         "Name": "Proxy",
         "SchemaType": "SchemaTypeDict",
-        "SchemaRule": "KeyIn([AFWConst.ProxyType, AFWConst.ProxyParams]), HasKey(AFWConst.ProxyType, AFWConst.ProxyParams)"
+        "SchemaRule": "KeyIn([AFWConst.ProxyType, AFWConst.ProxyLauncher, AFWConst.PluginName]), HasKey(AFWConst.ProxyType, AFWConst.ProxyLauncher, AFWConst.PluginName)"
     },
     {
         "Name": "ProxyType",
@@ -55,8 +55,8 @@
         "SchemaRule": "ValueIn([AFWConst.ProxyLocal, AFWConst.ProxyRemote])"
     },
     {
-        "Name": "ProxyParams",
-        "SchemaType": "SchemaTypeArray"
+        "Name": "ProxyLauncher",
+        "SchemaType": "SchemaTypeString"
     },
     {
         "Name": "Path",

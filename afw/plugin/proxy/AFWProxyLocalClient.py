@@ -4,13 +4,36 @@ import socket
 import uuid
 import logging
 
-sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../.."))
-sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], ".."))
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "."))
+sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], ".."))
+sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../.."))
+sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../../ui"))
+sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../../ui/abilities"))
 
 from AFWLogger import *
 from AFWProxyMsgUtil import *
 import AFWConst
+
+from AFW import AFW
+
+### UI type import start ###
+from AFWApp import AFWApp
+from AFWAppRoot import AFWAppRoot
+from AFWAppForm import AFWAppForm
+from AFWAppSubForm import AFWAppSubForm
+from AFWAppTab import AFWAppTab
+from AFWAppTabPage import AFWAppTabPage
+from AFWAppButton import AFWAppButton
+from AFWAppCheckbox import AFWAppCheckbox
+from AFWAppEditBox import AFWAppEditBox
+from AFWWeb import AFWWeb
+from AFWWebPage import AFWWebPage
+from AFWWebElement import AFWWebElement
+from AFWWebEditBox import AFWWebEditBox
+from AFWWebLink import AFWWebLink
+from AFWWebButton import AFWWebButton
+from AFWWebURL import AFWWebURL
+### UI type import end ###
 
 __objPool = {}
 __objPool.clear()

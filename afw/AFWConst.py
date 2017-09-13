@@ -17,7 +17,7 @@ Plugin = "plugin"
 PluginName = "pluginname"
 Proxy = "proxy"
 ProxyType = "proxytype"
-ProxyParams = "proxyparams"
+ProxyLauncher = "proxylauncher"
 Path = "path"
 Browser = "browser"
 URL = "url"
@@ -137,6 +137,8 @@ PluginType = [
 ProxyLocal = "proxylocal"
 ProxyRemote = "proxyremote"
 
+ProxyLocalEntry = "AFWProxyLocalClient.py"
+
 ProxyHostPort = 51783
 ProxyGUID = "proxyguid"
 
@@ -144,7 +146,7 @@ ProxyGUID = "proxyguid"
 # Message #
 ###########
 
-MsgLength = 1024
+MsgLength = 65495
 
 MsgName = "msgname"
 MsgParam1 = "msgparam1"

@@ -74,12 +74,14 @@ class AFWProxyManager:
         AFWProxyManager.__clientConn[guid] = conn
                                     
     def __startClient(self):
-        # Param from config:
-        #     [PythonExePath, LocalClientPyFile, PluginName]
-        paramConfig = self.__config[AFWConst.ProxyParams]
-        if len(paramConfig) != 3:
-            raise Exception("Wrong local proxy param config")
-        paramConfig[1] = os.path.join(os.path.split(os.path.realpath(__file__))[0], paramConfig[1])
+        paramConfig = []
+        paramConfig.append(self.__config[AFWConst.ProxyLauncher])
+        if self.__config[AFWConst.ProxyType] == AFWConst.ProxyLocal:
+            proxyMainFile = os.path.join(os.path.split(os.path.realpath(__file__))[0], AFWConst.ProxyLocalEntry)
+            paramConfig.append(proxyMainFile)
+        else:
+            raise Exception("Proxy type not supported yet")
+        paramConfig.append(self.__config[AFWConst.PluginName])
         paramConfig.append(self.__config[AFWConst.ProxyGUID])
         paramConfig.append(str(AFWProxyManager.__logLevel))
         subprocess.call(paramConfig, stdout = sys.stdout)

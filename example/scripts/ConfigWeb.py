@@ -5,11 +5,8 @@
         AFWConst.PluginName: AFWConst.PluginProxyWeb,
         AFWConst.Proxy: {
             AFWConst.ProxyType: AFWConst.ProxyLocal,
-            AFWConst.ProxyParams: [
-                "python",
-                "AFWProxyLocalClient.py",
-                "PluginSelenium"
-            ]
+            AFWConst.ProxyLauncher: "python",
+            AFWConst.PluginName: "PluginSelenium"
         }
     },
     AFWConst.Browser: AFWConst.BrowserChrome,
