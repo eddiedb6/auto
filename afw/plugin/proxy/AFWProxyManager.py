@@ -7,6 +7,7 @@ import logging
 
 import AFWConst
 from AFWLogger import *
+from AFWProxyMsgUtil import *
 from AFWProxyThread import AFWProxyThread
 from AFWProxy import AFWProxy
 
@@ -63,7 +64,7 @@ class AFWProxyManager:
     def __registerClient(self):
         conn, addr = AFWProxyManager.__socket.accept()
         msg = conn.recv(AFWConst.MsgLength)
-        msgDict = eval(msg)
+        msgDict, msgStr = DecompressProxyMessage(msg)
         if msgDict[AFWConst.MsgName] != AFWConst.MsgNameRegisterClient or AFWConst.MsgParam1 not in msgDict:
             raise Exception("Wrong message when register client: " + self.__config[AFWConst.ProxyGUID])
         guid = msgDict[AFWConst.MsgParam1]

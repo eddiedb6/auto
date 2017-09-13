@@ -1,7 +1,6 @@
 import sys
 import os
 import socket
-import zlib
 import uuid
 import logging
 
@@ -10,6 +9,7 @@ sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "..")
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "."))
 
 from AFWLogger import *
+from AFWProxyMsgUtil import *
 import AFWConst
 
 __objPool = {}
@@ -42,8 +42,7 @@ def __getObj(guid):
 def __clearObj():
     __objPool.clear()
 
-def __handleCommand(cmd):
-    msg = eval(zlib.decompress(cmd))
+def __handleCommand(msg):
     msgName = msg[AFWConst.MsgName]
     Debug("[Local Client] Get command " + msgName + " to handle")
     result = {
@@ -125,13 +124,16 @@ registerMsg = {
     AFWConst.MsgName: AFWConst.MsgNameRegisterClient,
     AFWConst.MsgParam1: guid
 }
-s.sendall(str(registerMsg))
+regMsgZip, regMsgStr = CompressProxyMessage(registerMsg)
+s.sendall(regMsgZip)
 
 # Handle proxy command
 isContinue = True
 while isContinue:
     cmd = s.recv(AFWConst.MsgLength)
-    resultMsg, isContinue = __handleCommand(cmd)
-    s.sendall(str(resultMsg))
+    msg, msgStr = DecompressProxyMessage(cmd)
+    resultMsg, isContinue = __handleCommand(msg)
+    msgZip, msgStr = CompressProxyMessage(resultMsg)
+    s.sendall(msgZip)
 s.close()
 Info("[Local Client] Disconnect for client " + guid)

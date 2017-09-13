@@ -1,7 +1,6 @@
-import zlib
-
 import AFWConst
 from AFWLogger import *
+from AFWProxyMsgUtil import *
 
 class AFWProxy:
     def __init__(self, guid, manager):
@@ -152,21 +151,14 @@ class AFWProxy:
             raise Exception("No connection for proxy " + self.__guid)
         return conn
 
-    def __compressMessage(self, msg):
-        msgStr = str(msg)
-        msgZip = zlib.compress(msgStr)
-        if len(msgStr) > 128:
-            msgStr = msgStr[0:127] + "..."
-        return msgZip, msgStr
-
     def __handleMessage(self, msg):
         conn = self.__getConn()
-        msgZip, msgStr = self.__compressMessage(msg)
+        msgZip, msgStr = CompressProxyMessage(msg)
         conn.sendall(msgZip)
         Debug("Send proxy client message: " + msgStr)
         result = conn.recv(AFWConst.MsgLength)
-        Debug("Recv proxy client result: " + result)
-        resultDict = eval(result)
+        resultDict, resultStr = DecompressProxyMessage(result)
+        Debug("Recv proxy client result: " + resultStr)
         if AFWConst.MsgName not in resultDict or AFWConst.MsgResult not in resultDict or resultDict[AFWConst.MsgName] != msg[AFWConst.MsgName]:
             raise Exception("Message result is not returned: " + msg[AFWConst.MsgName])
         return resultDict
