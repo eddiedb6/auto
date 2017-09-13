@@ -13,8 +13,8 @@ clr.AddReferenceToFile("MS.dll")
 import MS
 
 class PluginMSApp(AFWPluginApp):
-    def __init__(self):
-        AFWPluginApp.__init__(self)
+    def __init__(self, config):
+        AFWPluginApp.__init__(self, config)
 
     ### Implement AFWPlugin ###
 

@@ -49,7 +49,7 @@ AFWUI
        OpenURL(name) -> bool
 
 AFWAbility
- `-AFWCickable
+ `-AFWClickable
     |  Click() -> bool
     `-AFWCheckable
           IsChecked() -> bool
@@ -97,3 +97,11 @@ AFWUI
           |-AFWWebEditBox (WebEditBox)
 	  |-AFWWebLink (WebLink)
 	  `-AFWWebButton (WebButton)
+
+AFWPlugin
+ |-AFWPluginApp
+ |  |-PluginMSApp
+ |  `-PluginSocketApp
+ `-AFWPluginWeb
+    |-PluginSelenium
+    `-PluginSocketWeb

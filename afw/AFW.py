@@ -5,12 +5,14 @@ sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../s
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "ui"))
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "ui/abilities"))
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "plugin"))
+sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "plugin/proxy"))
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "."))
 
 import AFWConst
 from AFWLogger import *
 from SchemaChecker import SchemaChecker
 from AFWUIManager import AFWUIManagerWrapper
+from AFWProxyManager import AFWProxyManager
 
 _debug = True
 
@@ -22,12 +24,16 @@ class AFW:
         self.__configPath = None
         self.__uiManager = None
 
+    def Destroy(self):
+        AFWProxyManager().Destroy()
+
     def Load(self, path):
         global _debug
         try:
             # Logging level must be set before any log function is called
             # Otherwise there will be no logging
             logging.basicConfig(level = self.LogLevel)
+            AFWProxyManager().SetLogLevel(self.LogLevel)
 
             Info("Start configuration loading")
             result, self.__config = self.__checkConfig(path)
@@ -55,7 +61,7 @@ class AFW:
                 return False
             result = self.__executeAction(self.__config[AFWConst.Action])
             if result:
-                Info("Execute scripts successfuly")
+                Info("Execute scripts successfully")
             else:
                 Error("Execute scripts failed")
         except:

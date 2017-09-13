@@ -5,8 +5,8 @@ from AFWPluginWeb import AFWPluginWeb
 from selenium import webdriver
 
 class PluginSelenium(AFWPluginWeb):
-    def __init__(self):
-        AFWPluginWeb.__init__(self)
+    def __init__(self, config):
+        AFWPluginWeb.__init__(self, config)
 
     ### Implement AFWPlugin ###
 

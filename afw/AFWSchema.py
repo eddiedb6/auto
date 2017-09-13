@@ -53,10 +53,31 @@
         ],
     },
     AFWConst.Plugin: {
+        SchemaType: SchemaTypeDict,
+        SchemaRule: [
+            KeyIn([AFWConst.PluginName, AFWConst.Proxy]), HasKey(AFWConst.PluginName)
+        ],
+    },
+    AFWConst.PluginName: {
         SchemaType: SchemaTypeString,
         SchemaRule: [
             ValueIn(AFWConst.PluginType)
         ],
+    },
+    AFWConst.Proxy: {
+        SchemaType: SchemaTypeDict,
+        SchemaRule: [
+            KeyIn([AFWConst.ProxyType, AFWConst.ProxyParams]), HasKey(AFWConst.ProxyType, AFWConst.ProxyParams)
+        ],
+    },
+    AFWConst.ProxyType: {
+        SchemaType: SchemaTypeString,
+        SchemaRule: [
+            ValueIn([AFWConst.ProxyLocal, AFWConst.ProxyRemote])
+        ],
+    },
+    AFWConst.ProxyParams: {
+        SchemaType: SchemaTypeArray
     },
     AFWConst.Path: {
         SchemaType: SchemaTypeString,

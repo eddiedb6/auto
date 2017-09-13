@@ -2,6 +2,9 @@
 # Consigure Schema Key #
 ########################
 
+# To add a new key:
+#     *. There is keygen.py script to help 
+
 ### Schema key definition start ###
 UI = "ui"
 SubUI = "subui"
@@ -11,6 +14,10 @@ Script = "script"
 Name = "name"
 Type = "type"
 Plugin = "plugin"
+PluginName = "pluginname"
+Proxy = "proxy"
+ProxyType = "proxytype"
+ProxyParams = "proxyparams"
 Path = "path"
 Browser = "browser"
 URL = "url"
@@ -35,6 +42,7 @@ Attributes = "attributes"
 #     4. Add new type to __uiFactory in AFWUIManager and import new py file in this manager
 #     5. Add new type to AFWSchema
 #     6. Update Readme description
+#     *. There is uigen.py script to help
 
 UIRoot = "uiroot"
 
@@ -111,14 +119,63 @@ BrowserType = [
 ### Plugin type definition start ###
 PluginMSApp = "PluginMSApp"
 PluginSelenium = "PluginSelenium"
-PluginSocketApp = "PluginSocketApp"
+PluginProxyApp = "PluginProxyApp"
+PluginProxyWeb = "PluginProxyWeb"
 ### Plugin type definition end ###
 
 PluginType = [
     PluginMSApp,
     PluginSelenium,
-    PluginSocketApp
+    PluginProxyApp,
+    PluginProxyWeb
 ]
+
+#########
+# Proxy #
+#########
+
+ProxyLocal = "proxylocal"
+ProxyRemote = "proxyremote"
+
+ProxyHostPort = 51783
+ProxyGUID = "proxyguid"
+
+###########
+# Message #
+###########
+
+MsgLength = 1024
+
+MsgName = "msgname"
+MsgParam1 = "msgparam1"
+MsgParam2 = "msgparam2"
+MsgParam3 = "msgparam3"
+MsgParam4 = "msgparam4"
+MsgParam5 = "msgparam5"
+MsgParam6 = "msgparam6"
+MsgParam7 = "msgparam7"
+MsgParam8 = "msgparam8"
+MsgParam9 = "msgparam9"
+MsgResult = "msgresult"
+
+MsgNameRegisterClient = "registerclient"
+MsgNameCloseClient = "closeclient"
+
+MsgNameGetElement = "msgnamegetelement"
+MsgNameSetFocus = "msgnamesetfocus"
+MsgNameClick = "msgnameclick"
+MsgNameIsChecked = "msgnameischecked"
+MsgNameIsEnabled = "msgnameisenabled"
+MsgNamePressKey = "msgnamepresskey"
+MsgNameReleaseKey = "msgnamereleasekey"
+MsgNameGetText = "msgnamegettext"
+MsgNameOpenBrowser = "msgnameopenbrowser"
+MsgNameOpenWebPage = "msgnameopenwebpage"
+MsgNameGetCurrentURL = "msgnamegetcurrenturl"
+MsgNameSendKeys = "msgnamesendkeys"
+MsgNameStartApp = "msgnamestartapp"
+MsgNameGetDesktop = "msgnamegetdesktop"
+MsgNameGetForm = "msgnamegetform"
 
 ################
 # AFW Keyboard #

@@ -1,7 +1,17 @@
 {
     AFWConst.Name: "Web",
     AFWConst.Type: AFWConst.UIWeb,
-    AFWConst.Plugin: AFWConst.PluginSelenium,
+    AFWConst.Plugin: {
+        AFWConst.PluginName: AFWConst.PluginProxyWeb,
+        AFWConst.Proxy: {
+            AFWConst.ProxyType: AFWConst.ProxyLocal,
+            AFWConst.ProxyParams: [
+                "python",
+                "AFWProxyLocalClient.py",
+                "PluginSelenium"
+            ]
+        }
+    },
     AFWConst.Browser: AFWConst.BrowserChrome,
     AFWConst.SubUI: [
     {

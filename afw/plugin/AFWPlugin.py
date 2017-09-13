@@ -1,6 +1,6 @@
 class AFWPlugin:
-    def __init__(self):
-        pass
+    def __init__(self, config):
+        self._config = config
 
     def GetElement(self, config, parentConfig):
         return None

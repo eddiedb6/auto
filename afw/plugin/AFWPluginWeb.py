@@ -1,8 +1,8 @@
 from AFWPlugin import AFWPlugin
 
 class AFWPluginWeb(AFWPlugin):
-    def __init__(self):
-        AFWPlugin.__init__(self)
+    def __init__(self, config):
+        AFWPlugin.__init__(self, config)
 
     def OpenBrowser(self, name):
         return None

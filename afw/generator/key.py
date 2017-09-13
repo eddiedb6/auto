@@ -36,8 +36,27 @@
     },
     {
         "Name": "Plugin",
+        "SchemaType": "SchemaTypeDict",
+        "SchemaRule": "KeyIn([AFWConst.PluginName, AFWConst.Proxy]), HasKey(AFWConst.PluginName)"
+    },
+    {
+        "Name": "PluginName",
         "SchemaType": "SchemaTypeString",
         "SchemaRule": "ValueIn(AFWConst.PluginType)"
+    },
+    {
+        "Name": "Proxy",
+        "SchemaType": "SchemaTypeDict",
+        "SchemaRule": "KeyIn([AFWConst.ProxyType, AFWConst.ProxyParams]), HasKey(AFWConst.ProxyType, AFWConst.ProxyParams)"
+    },
+    {
+        "Name": "ProxyType",
+        "SchemaType": "SchemaTypeString",
+        "SchemaRule": "ValueIn([AFWConst.ProxyLocal, AFWConst.ProxyRemote])"
+    },
+    {
+        "Name": "ProxyParams",
+        "SchemaType": "SchemaTypeArray"
     },
     {
         "Name": "Path",
