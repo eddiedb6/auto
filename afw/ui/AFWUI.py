@@ -27,6 +27,9 @@ class AFWUI:
 
     ### Properties ###
 
+    def GetID(self):
+        return self._id
+
     def GetType(self):
         return self.GetConfig()[AFWConst.Type]
 
