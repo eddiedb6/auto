@@ -30,8 +30,8 @@ def GenerateUIClassFile(element):
     for parent in parents:
         buf += "from " + parent + " import " + parent + "\n"
     buf += "\nclass " + className + "(" + inherites + "):\n"
-    buf += "    def __init__(self, manager, config, parentConfig):\n"
-    buf += "        " + parentName + ".__init__(self, manager, config, parentConfig)\n"
+    buf += "    def __init__(self, manager, configID, parentConfigID):\n"
+    buf += "        " + parentName + ".__init__(self, manager, configID, parentConfigID)\n"
     if "Abilities" in element:
         for ability in element["Abilities"]:
             buf += "        " + ability + ".__init__(self, self._plugin)\n"
@@ -94,7 +94,7 @@ def UpdateUIManager(originalFile, newFile):
     for element in config:
         uiName = element["Name"]
         className = element["Class"]
-        factoryBuf += "        AFWConst." + uiName + ": lambda manager, config, parentConfig: " + className + "(manager, config, parentConfig),\n"
+        factoryBuf += "        AFWConst." + uiName + ": lambda manager, configID, parentConfigID: " + className + "(manager, configID, parentConfigID),\n"
         importBuf += "from " + className + " import " + className + "\n"
     line = originalFile.readline()
     while line:
@@ -113,6 +113,32 @@ def UpdateUIManager(originalFile, newFile):
                 sys.exit(0)
         elif temp == "### UI type import start ###":
             # Import UI type in UI factory
+            importBuf = line + importBuf
+            while line:
+                if line.strip() == "### UI type import end ###":
+                    importBuf += line
+                    newFile.write(importBuf)
+                    break
+                line = originalFile.readline()
+            if not line:
+                print "Could not fine end for ui import in factory"
+                sys.exit(0)
+        else:
+            newFile.write(line)
+        line = originalFile.readline()
+
+def UpdateLocalProxy(originalFile, newFile):
+    print "Update Local Proxy Client  file"
+    global config
+    importBuf = ""
+    for element in config:
+        className = element["Class"]
+        importBuf += "from " + className + " import " + className + "\n"
+    line = originalFile.readline()
+    while line:
+        temp = line.strip()
+        if temp == "### UI type import start ###":
+            # Import UI type 
             importBuf = line + importBuf
             while line:
                 if line.strip() == "### UI type import end ###":
@@ -180,3 +206,7 @@ OperateFile(uiManagerPath, UpdateUIManager)
 # AFWSchema.py
 schemaPath = os.path.join(currentPath, "../AFWSchema.py")
 OperateFile(schemaPath, UpdateSchema)
+
+# AFWProxyLocalClient.py
+proxyPath = os.path.join(currentPath, "../plugin/proxy/AFWProxyLocalClient.py")
+OperateFile(proxyPath, UpdateLocalProxy)

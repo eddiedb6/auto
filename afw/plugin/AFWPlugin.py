@@ -1,29 +1,29 @@
 class AFWPlugin:
-    def __init__(self, config):
-        self._config = config
+    def __init__(self):
+        self._uiPool = {}
 
-    def GetElement(self, config, parentConfig):
+    def GetElement(self, configID, parentConfigID):
         return None
     
-    def SetFocus(self, ui):
+    def SetFocus(self, uiID):
         return False
 
-    def Click(self, ui):
+    def Click(self, uiID):
         return False
 
-    def IsChecked(self, ui):
+    def IsChecked(self, uiID):
         return False
 
-    def IsEnabled(self, ui):
+    def IsEnabled(self, uiID):
         return False
 
-    def PressKey(self, ui, key):
+    def PressKey(self, uiID, key):
         return False
 
-    def ReleaseKey(self, ui, key):
+    def ReleaseKey(self, uiID, key):
         return False
 
-    def GetText(self, ui):
+    def GetText(self, uiID):
         return None
 
     def _loopTextArray(self, textArray, op):

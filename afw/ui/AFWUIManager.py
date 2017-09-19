@@ -1,3 +1,5 @@
+import uuid
+
 import AFWConst
 from AFWLogger import *
 
@@ -23,7 +25,19 @@ from AFWWebURL import AFWWebURL
 class AFWUIManager:
     def __init__(self, afw, config):
         self.__afw = afw
-        self.__config = config
+        self.__configPool = {}
+        self.__uiPool = {}
+        self.__configEntryID = self.__fillConfigPool(config[AFWConst.UI])
+
+    def GetConfig(self, configID):
+        if configID not in self.__configPool:
+            raise Exception("No config ID exsists: " + configID)
+        return self.__configPool[configID]
+
+    def GetUI(self, uiID):
+        if uiID not in self.__uiPool:
+            raise Exception("No ui ID exsists: " + uiID)
+        return self.__uiPool[uiID]
 
     def TryToFindUI(self, name, parentUI):
         return self.__tryToFindUI(name, parentUI, None)
@@ -52,69 +66,97 @@ class AFWUIManager:
         result, configPath = self.__findConfig(name)
         if not result:
             return None
-        if parentUI is not None and parentUI.GetConfig() not in configPath:
-            Warning("UI is not under " + parentUI.GetName() + ": " + name)
-            return None
+        
+        if parentUI is not None
+            parentConfigID = parentUI.GetID()
+            if parentConfigID not in configPath:
+                Warning("UI is not under " + parentUI.GetName() + ": " + name)
+                return None
+            
         ui = None
-        lastConfig = None
-        for config in configPath:
-            if not self.__isUIBound(config):
+        uiID = None
+        lastConfigID = None
+        for configID in configPath:
+            if not self.__isUIBound(configID):
+                config = self.GetConfig(configID)
                 try:
-                    config[AFWConst.UIObj] = self.__createUI(config, lastConfig)
+                    uiID = self.__createUI(configID, lastConfigID)
                 except:
                     Error("Create UI exception: " + config[AFWConst.Name])
                     return None
-                if config[AFWConst.UIObj] is None:
+                if uiID is None:
                     Error("Failed to create UI: " + config[AFWConst.Name])
                     return None
-            lastConfig = config
-        ui = configPath.pop()[AFWConst.UIObj]
+            lastConfigID = configID
+
+        ui = self.GetUI(uiID)
         if ui is not None and uiType is not None and ui.GetType() != uiType:
             Error("Found UI is not type of " + uiType + ": " + name)
             return None
         return ui
 
-    def __isUIBound(self, config):
-        if AFWConst.UIObj in config and config[AFWConst.UIObj] is not None:
-            return True
-        elif config[AFWConst.Type] == AFWConst.UIRoot:
+    def __isUIBound(self, configID):
+        if configID in self.__uiPool:
+            return true;
+        config = self.GetConfig(configID)
+        if config[AFWConst.Type] == AFWConst.UIRoot:
             # UIRoot will not be bound to any native object
             return True
         return False
         
     def __findConfig(self, name):
         configPath = []
-        result = self.__findConfigImpl(name, self.__config[AFWConst.UI], configPath)
+        result = self.__findConfigImpl(name, self.__configEntryID, configPath)
         if not result:
             Warning("Could not find UI config: " + name)
         else:
             Debug("Find UI config: " + name)
         return result, configPath
     
-    def __findConfigImpl(self, name, node, configPath):
-        if node[AFWConst.Name] == name:
-            # Find element node
-            configPath.append(node)
+    def __findConfigImpl(self, name, configID, configPath):
+        config = self.GetConfig(configID)
+        if config[AFWConst.Name] == name:
+            # Find element config
+            configPath.append(configID)
             return True
-        if AFWConst.SubUI not in node:
-            # Element not match and no sub node, so not find
+        if AFWConst.SubUI not in config:
+            # Element not match and no sub config, so not find
             return False
-        for subNode in node[AFWConst.SubUI]:
-            configPath.append(node)
-            if self.__findConfigImpl(name, subNode, configPath):
-                # Find element in sub node
+        for subConfigID in config[AFWConst.SubUI]:
+            configPath.append(configID)
+            if self.__findConfigImpl(name, subConfigID, configPath):
+                # Find element in sub config
                 return True
             else:
-                # Could not find in sub node, pop stack
+                # Could not find in sub config, pop stack
                 configPath.pop()
         return False
 
-    def __createUI(self, config, parentConfig):
+    def __createUI(self, configID, parentConfigID):
+        if configID in self.__uiPool:
+            raise Exception("UI guid is already in pool")
+        config = self.GetConfig(configID)
+        parentConfig = self.GetConfig(parentConfigID)
         uiType = config[AFWConst.Type]
         if uiType in AFWUIManager.__uiFactory:
-            return AFWUIManager.__uiFactory[uiType](self, config, parentConfig)
+            uiObj = AFWUIManager.__uiFactory[uiType](self, configID, parentConfigID)
+            self.__uiPool[configID] = uiObj
+            return configID
         Error("UI type is not defined in ui factory: " + config[AFWConst.Type])
         return None
+
+    def __fillConfigPool(self, config):
+        guid = str(uuid.uuid1())
+        if guid in self.__configPool:
+            raise Exception("Config guid is already in pool")
+        self.__configPool[guid] = config
+        
+        if AFWConst.SubUI in config:
+            children = config[AFWConst.SubUI]
+            for i in range(0, len(children)):
+                children[i] = self.__fillConfigPool(children[i])
+                
+        return guid
 
     __uiFactory = {
 ### UI type factory initialize start ###

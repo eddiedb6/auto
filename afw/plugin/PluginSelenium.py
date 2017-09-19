@@ -5,12 +5,12 @@ from AFWPluginWeb import AFWPluginWeb
 from selenium import webdriver
 
 class PluginSelenium(AFWPluginWeb):
-    def __init__(self, config):
-        AFWPluginWeb.__init__(self, config)
+    def __init__(self):
+        AFWPluginWeb.__init__(self)
 
     ### Implement AFWPlugin ###
 
-    def GetElement(self, config, parentConfig):
+    def GetElement(self, configID, parentConfigID):
         if parentConfig is None:
             return None
         driverElement = parentConfig[AFWConst.UIObj].GetNativeUI()

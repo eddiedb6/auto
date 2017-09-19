@@ -6,17 +6,20 @@ import AFWUIHelper
 from AFWLogger import *
 
 class AFWUI:
-    def __init__(self, manager, config, parentConfig):
+    def __init__(self, manager, configID, parentConfigID):
         self.__manager = manager
-        self.__config = config
-        self.__parentConfig = parentConfig
+        self._id = configID
+        self._parentId = parentConfigID
         self._plugin = None
-        self._native = None
-        if parentConfig is not None:
-            if AFWConst.UIObj in parentConfig and parentConfig[AFWConst.UIObj] is not None:
-                self._plugin = parentConfig[AFWConst.UIObj]._plugin
+        self._nativeId = None
+        if parentConfigID is not None:
+            parentConfig = self.GetParentConfigConfig()
+            parentUI = manager.GetUI(parentConfigID)
+            if parentUI is not None:
+                self._plugin = parentUI._plugin
             else:
                 raise Exception("Parent UI is not bound: " + parentConfig[AFWConst.Name])
+        config = self.GetConfig()
         if AFWConst.BreakTime in config:
             time.sleep(config[AFWConst.BreakTime] / 1000)
         else:
@@ -25,20 +28,21 @@ class AFWUI:
     ### Properties ###
 
     def GetType(self):
-        return self.__config[AFWConst.Type]
+        return self.GetConfig()[AFWConst.Type]
 
     def GetName(self):
-        return self.__config[AFWConst.Name]
+        return self.GetConfig()[AFWConst.Name]
 
     def GetConfig(self):
-        return self.__config
+        return self.__manager.GetConfig(self._id)
 
     def GetParentConfig(self):
-        return self.__parentConfig
+        return self.__manager.GetConfig(self._parentId)
 
     def GetChildConfigCount(self):
-        if AFWConst.SubUI in self.__config:
-            return len(self.__config[AFWConst.SubUI])
+        config = self.GetConfig()
+        if AFWConst.SubUI in config:
+            return len(config[AFWConst.SubUI])
         return 0
 
     def GetChildConfig(self, index):

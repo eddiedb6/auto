@@ -1,16 +1,16 @@
 import AFWConst
 from AFWUI import AFWUI
-import AFWUIHelper
+import AFWUIUtil
 
 class AFWAppBase(AFWUI):
-    def __init__(self, manager, config, parentConfig):
-        AFWUI.__init__(self, manager, config, parentConfig)
+    def __init__(self, manager, configID, parentConfigID):
+        AFWUI.__init__(self, manager, configID, parentConfigID)
 
     ### Implement AFWUI ###
 
     def InputText(self, text):
         for char in text:
-            key, needShift = AFWUIHelper.GetKeyFromChar(char)
+            key, needShift = AFWUIUtil.GetKeyFromChar(char)
             if key is None:
                 continue
             if needShift:

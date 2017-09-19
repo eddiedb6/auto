@@ -1,8 +1,8 @@
 from AFWPlugin import AFWPlugin
 
 class AFWPluginWeb(AFWPlugin):
-    def __init__(self, config):
-        AFWPlugin.__init__(self, config)
+    def __init__(self):
+        AFWPlugin.__init__(self)
 
     def OpenBrowser(self, name):
         return None
@@ -13,5 +13,5 @@ class AFWPluginWeb(AFWPlugin):
     def GetCurrentURL(self, browser):
         return None
 
-    def SendKeys(self, ui, keys):
+    def SendKeys(self, uiID, keys):
         return False

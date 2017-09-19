@@ -1,8 +1,8 @@
 from AFWPlugin import AFWPlugin
 
 class AFWPluginApp(AFWPlugin):
-    def __init__(self, config):
-        AFWPlugin.__init__(self, config)
+    def __init__(self):
+        AFWPlugin.__init__(self)
 
     def StartApp(self, path):
         return None
@@ -10,5 +10,5 @@ class AFWPluginApp(AFWPlugin):
     def GetDesktop(self):
         return None
 
-    def GetForm(self, config):
+    def GetForm(self, configID):
         return None

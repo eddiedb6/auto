@@ -3,13 +3,14 @@ from AFWAppUI import AFWAppUI
 from AFWPluginManager import AFWPluginManager
 
 class AFWAppRoot(AFWAppUI):
-    def __init__(self, manager, config, parentConfig):
-        parent = parentConfig
+    def __init__(self, manager, configID, parentConfigID):
+        parent = manager.GetConfig(parentConfigID)
         if parent is not None and parent[AFWConst.Type] != AFWConst.UIApp:
             # This is not from start App, but find win form directly
-            parent = None
-        AFWAppUI.__init__(self, manager, config, parent)
-        self._native = None
+            parentConfigID = None
+        AFWAppUI.__init__(self, manager, configID, parentConfigID)
+        self._nativeId = None
+        config = self.GetConfig()
         if parent is None:
             if self._plugin is None :
                 if AFWConst.Plugin not in config:
@@ -22,6 +23,6 @@ class AFWAppRoot(AFWAppUI):
         else:
             if self._plugin is None:
                 raise Exception("Plugin for App root is invalid")
-        self._native = self._plugin.GetDesktop()
-        if self._native is None:
+        self._nativeId = self._plugin.GetDesktop()
+        if self._nativeId is None:
             raise Exception("Failed to get App root")
