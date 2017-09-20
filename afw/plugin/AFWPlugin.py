@@ -13,6 +13,8 @@ class AFWPlugin:
             raise Exception("Native ID exsists already: " + nativeID)
         self._nativePool[nativeID] = native
 
+    ### Need to be implement ###
+        
     def GetElement(self, configID, parentConfigID):
         return None
     

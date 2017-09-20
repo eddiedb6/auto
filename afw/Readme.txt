@@ -55,23 +55,25 @@ AFWAbility
           IsChecked() -> bool
 
 AFWPlugin
- |  GetElement(config, parentConfig) -> obj
- |  SetFocus(ui) -> bool
- |  Click(ui) -> bool
- |  IsChecked(ui) -> bool
- |  IsEnabled(ui) -> bool
- |  PressKey(ui, key) -> bool
- |  ReleaseKey(ui, key) -> bool
- |  GetText(ui) -> string
+ |  GetNative(nativeID) -> obj
+ |  AddNative(nativeID, native) 
+ |  GetElement(configID, parentConfigID) -> obj
+ |  SetFocus(uiID) -> bool
+ |  Click(uiID) -> bool
+ |  IsChecked(uiID) -> bool
+ |  IsEnabled(uiID) -> bool
+ |  PressKey(uiID, key) -> bool
+ |  ReleaseKey(uiID, key) -> bool
+ |  GetText(uiID) -> string
  |-AFWPluginApp
- |     StartApp(path) -> obj
- |     GetDesktop() -> obj
- |     GetForm(config) -> obj
+ |     StartApp(path, configID) -> id
+ |     GetDesktop(configID) -> id
+ |     GetForm(configID) -> id
  `-AFWPluginWeb
-       OpenBrowser(name) -> obj
-       OpenWebPage(browser, url) -> bool
-       GetCurrentURL(browser) -> string
-       SendKeys(ui, keys) -> bool
+       OpenBrowser(name, configID) -> id
+       OpenWebPage(browserID, url) -> bool
+       GetCurrentURL(browserID) -> string
+       SendKeys(uiID, keys) -> bool
 
 [Classes]
 

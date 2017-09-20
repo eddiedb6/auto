@@ -93,12 +93,11 @@ class AFWProxy:
         result = self.__handleMessage(msg)
         return result[AFWConst.MsgResult]
 
-    def OpenWebPage(self, browserID, url, configID):
+    def OpenWebPage(self, browserID, url):
         msg = {
             AFWConst.MsgName: AFWConst.MsgNameOpenWebPage,
             AFWConst.MsgParam1: browserID,
-            AFWConst.MsgParam2: url,
-            AFWConst.MsgParam3: configID
+            AFWConst.MsgParam2: url
         }
         result = self.__handleMessage(msg)
         return result[AFWConst.MsgResult]

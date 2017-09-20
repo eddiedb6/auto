@@ -3,6 +3,7 @@ import AFWPluginUtil
 
 from AFWLogger import *
 from AFWPluginWeb import AFWPluginWeb
+
 from selenium import webdriver
 
 class PluginSelenium(AFWPluginWeb):
@@ -63,7 +64,7 @@ class PluginSelenium(AFWPluginWeb):
             return None
         return configID
 
-    def OpenWebPage(self, browserID, url, configID):
+    def OpenWebPage(self, browserID, url):
         Info("Open web page: " + url)
         if browserID is None:
             return False
@@ -71,7 +72,6 @@ class PluginSelenium(AFWPluginWeb):
             return False
         browser = self.GetNative(browserID)
         browser.get(url)
-        self.AddNative(configID, browser)
         return True
 
     def GetCurrentURL(self, browserID):

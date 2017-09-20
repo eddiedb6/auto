@@ -7,7 +7,7 @@ class AFWPluginWeb(AFWPlugin):
     def OpenBrowser(self, name, configID):
         return None
 
-    def OpenWebPage(self, browserID, url, configID):
+    def OpenWebPage(self, browserID, url):
         return False
 
     def GetCurrentURL(self, browserID):

@@ -41,8 +41,8 @@ class PluginProxyWeb(AFWPluginWeb):
     def OpenBrowser(self, name, configID):
         return self._proxy.OpenBrowser(name, configID)
 
-    def OpenWebPage(self, browserID, url, configID):
-        return self._proxy.OpenWebPage(browserID, url, configID)
+    def OpenWebPage(self, browserID, url):
+        return self._proxy.OpenWebPage(browserID, url)
 
     def GetCurrentURL(self, browserID):
         return self._proxy.GetCurrentURL(browserID)
