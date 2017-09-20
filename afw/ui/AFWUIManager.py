@@ -67,7 +67,7 @@ class AFWUIManager:
         if not result:
             return None
         
-        if parentUI is not None
+        if parentUI is not None:
             parentConfigID = parentUI.GetID()
             if parentConfigID not in configPath:
                 Warning("UI is not under " + parentUI.GetName() + ": " + name)
@@ -98,7 +98,7 @@ class AFWUIManager:
 
     def __isUIBound(self, configID):
         if configID in self.__uiPool:
-            return true;
+            return True;
         config = self.GetConfig(configID)
         if config[AFWConst.Type] == AFWConst.UIRoot:
             # UIRoot will not be bound to any native object
@@ -161,22 +161,22 @@ class AFWUIManager:
 
     __uiFactory = {
 ### UI type factory initialize start ###
-        AFWConst.UIApp: lambda manager, config, parentConfig: AFWApp(manager, config, parentConfig),
-        AFWConst.AppRoot: lambda manager, config, parentConfig: AFWAppRoot(manager, config, parentConfig),
-        AFWConst.AppForm: lambda manager, config, parentConfig: AFWAppForm(manager, config, parentConfig),
-        AFWConst.AppSubForm: lambda manager, config, parentConfig: AFWAppSubForm(manager, config, parentConfig),
-        AFWConst.AppTab: lambda manager, config, parentConfig: AFWAppTab(manager, config, parentConfig),
-        AFWConst.AppTabPage: lambda manager, config, parentConfig: AFWAppTabPage(manager, config, parentConfig),
-        AFWConst.AppButton: lambda manager, config, parentConfig: AFWAppButton(manager, config, parentConfig),
-        AFWConst.AppCheckbox: lambda manager, config, parentConfig: AFWAppCheckbox(manager, config, parentConfig),
-        AFWConst.AppEditBox: lambda manager, config, parentConfig: AFWAppEditBox(manager, config, parentConfig),
-        AFWConst.UIWeb: lambda manager, config, parentConfig: AFWWeb(manager, config, parentConfig),
-        AFWConst.WebPage: lambda manager, config, parentConfig: AFWWebPage(manager, config, parentConfig),
-        AFWConst.WebElement: lambda manager, config, parentConfig: AFWWebElement(manager, config, parentConfig),
-        AFWConst.WebEditBox: lambda manager, config, parentConfig: AFWWebEditBox(manager, config, parentConfig),
-        AFWConst.WebLink: lambda manager, config, parentConfig: AFWWebLink(manager, config, parentConfig),
-        AFWConst.WebButton: lambda manager, config, parentConfig: AFWWebButton(manager, config, parentConfig),
-        AFWConst.WebURL: lambda manager, config, parentConfig: AFWWebURL(manager, config, parentConfig),
+        AFWConst.UIApp: lambda manager, configID, parentConfigID: AFWApp(manager, configID, parentConfigID),
+        AFWConst.AppRoot: lambda manager, configID, parentConfigID: AFWAppRoot(manager, configID, parentConfigID),
+        AFWConst.AppForm: lambda manager, configID, parentConfigID: AFWAppForm(manager, configID, parentConfigID),
+        AFWConst.AppSubForm: lambda manager, configID, parentConfigID: AFWAppSubForm(manager, configID, parentConfigID),
+        AFWConst.AppTab: lambda manager, configID, parentConfigID: AFWAppTab(manager, configID, parentConfigID),
+        AFWConst.AppTabPage: lambda manager, configID, parentConfigID: AFWAppTabPage(manager, configID, parentConfigID),
+        AFWConst.AppButton: lambda manager, configID, parentConfigID: AFWAppButton(manager, configID, parentConfigID),
+        AFWConst.AppCheckbox: lambda manager, configID, parentConfigID: AFWAppCheckbox(manager, configID, parentConfigID),
+        AFWConst.AppEditBox: lambda manager, configID, parentConfigID: AFWAppEditBox(manager, configID, parentConfigID),
+        AFWConst.UIWeb: lambda manager, configID, parentConfigID: AFWWeb(manager, configID, parentConfigID),
+        AFWConst.WebPage: lambda manager, configID, parentConfigID: AFWWebPage(manager, configID, parentConfigID),
+        AFWConst.WebElement: lambda manager, configID, parentConfigID: AFWWebElement(manager, configID, parentConfigID),
+        AFWConst.WebEditBox: lambda manager, configID, parentConfigID: AFWWebEditBox(manager, configID, parentConfigID),
+        AFWConst.WebLink: lambda manager, configID, parentConfigID: AFWWebLink(manager, configID, parentConfigID),
+        AFWConst.WebButton: lambda manager, configID, parentConfigID: AFWWebButton(manager, configID, parentConfigID),
+        AFWConst.WebURL: lambda manager, configID, parentConfigID: AFWWebURL(manager, configID, parentConfigID),
 ### UI type factory initialize end ###
         "Dummy": "Dummy"
     }

@@ -4,48 +4,48 @@ from AFWProxyManager import AFWProxyManager
 import AFWConst
 
 class PluginProxyWeb(AFWPluginWeb):
-    def __init__(self, config):
-        AFWPluginWeb.__init__(self, config)
-        if AFWConst.Proxy not in config:
-            raise Exception("No proxy defined for proxy plugin: " + config[AFWConst.PluginName])
-        self._proxy = AFWProxyManager().CreateProxy(config[AFWConst.Proxy])
+    def __init__(self, pluginConfig, uiConfigPool):
+        AFWPluginWeb.__init__(self, pluginConfig, uiConfigPool)
+        if AFWConst.Proxy not in pluginConfig:
+            raise Exception("No proxy defined for web proxy plugin: " + pluginConfig[AFWConst.PluginName])
+        self._proxy = AFWProxyManager().CreateProxy(pluginConfig[AFWConst.Proxy])
 
     ### Implement AFWPlugin ###
 
-    def GetElement(self, config, parentConfig):
-        return self._proxy.GetElement(config, parentConfig)
+    def GetElement(self, configID, parentConfigID):
+        return self._proxy.GetElement(configID, parentConfigID)
     
-    def SetFocus(self, ui):
-        return self._proxy.GetForm(ui)
+    def SetFocus(self, uiID):
+        return self._proxy.SetFocus(uiID)
 
-    def Click(self, ui):
-        return self._proxy.Click(ui)
+    def Click(self, uiID):
+        return self._proxy.Click(uiID)
 
-    def IsChecked(self, ui):
-        return self._proxy.IsChecked(ui)
+    def IsChecked(self, uiID):
+        return self._proxy.IsChecked(uiID)
 
-    def IsEnabled(self, ui):
-        return self._proxy.IsEnabled(ui)
+    def IsEnabled(self, uiID):
+        return self._proxy.IsEnabled(uiID)
 
-    def PressKey(self, ui, key):
-        return self._proxy.PressKey(ui, key)
+    def PressKey(self, uiID, key):
+        return self._proxy.PressKey(uiID, key)
 
-    def ReleaseKey(self, ui, key):
-        return self._proxy.ReleaseKey(ui, key)
+    def ReleaseKey(self, uiID, key):
+        return self._proxy.ReleaseKey(uiID, key)
 
-    def GetText(self, ui):
-        return self._proxy.GetText(ui)
+    def GetText(self, uiID):
+        return self._proxy.GetText(uiID)
 
     ### Implement AFWPluginWeb ###
 
-    def OpenBrowser(self, name):
-        return self._proxy.OpenBrowser(name)
+    def OpenBrowser(self, name, configID):
+        return self._proxy.OpenBrowser(name, configID)
 
-    def OpenWebPage(self, browser, url):
-        return self._proxy.OpenWebPage(browser, url)
+    def OpenWebPage(self, browserID, url, configID):
+        return self._proxy.OpenWebPage(browserID, url, configID)
 
-    def GetCurrentURL(self, browser):
-        return self._proxy.GetCurrentURL(browser)
+    def GetCurrentURL(self, browserID):
+        return self._proxy.GetCurrentURL(browserID)
 
-    def SendKeys(self, ui, keys):
-        return self._proxy.SendKeys(ui, keys)
+    def SendKeys(self, uiID, keys):
+        return self._proxy.SendKeys(uiID, keys)

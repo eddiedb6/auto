@@ -1,16 +1,16 @@
 from AFWPlugin import AFWPlugin
 
 class AFWPluginWeb(AFWPlugin):
-    def __init__(self):
-        AFWPlugin.__init__(self)
+    def __init__(self, pluginConfig, uiConfigPool):
+        AFWPlugin.__init__(self, pluginConfig, uiConfigPool)
 
-    def OpenBrowser(self, name):
+    def OpenBrowser(self, name, configID):
         return None
 
-    def OpenWebPage(self, browser, url):
+    def OpenWebPage(self, browserID, url, configID):
         return False
 
-    def GetCurrentURL(self, browser):
+    def GetCurrentURL(self, browserID):
         return None
 
     def SendKeys(self, uiID, keys):

@@ -1,8 +1,6 @@
 import time
 
 import AFWConst
-import AFWUIHelper
-
 from AFWLogger import *
 
 class AFWUI:
@@ -11,9 +9,8 @@ class AFWUI:
         self._id = configID
         self._parentId = parentConfigID
         self._plugin = None
-        self._nativeId = None
         if parentConfigID is not None:
-            parentConfig = self.GetParentConfigConfig()
+            parentConfig = self.GetParentConfig()
             parentUI = manager.GetUI(parentConfigID)
             if parentUI is not None:
                 self._plugin = parentUI._plugin
@@ -51,12 +48,11 @@ class AFWUI:
     def GetChildConfig(self, index):
         if index < 0:
             return None
-        if AFWConst.SubUI in self.__config and len(self.__config[AFWConst.SubUI]) > index:
-            return self.__config[AFWConst.SubUI][index]
+        config = self.GetConfig()
+        if AFWConst.SubUI in config and len(config[AFWConst.SubUI]) > index:
+            subConfigID = config[AFWConst.SubUI][index]
+            return self.__manager.GetConfig(subConfigID)
         return None
-
-    def GetNativeUI(self):
-        return self._native
 
     ### Properties and Operations when bound ###
 
@@ -72,19 +68,19 @@ class AFWUI:
         return ui
 
     def SetFocus(self):
-        return self._plugin.SetFocus(self)
+        return self._plugin.SetFocus(self._id)
 
     def IsEnabled(self):
-        return self._plugin.IsEnabled(self)
+        return self._plugin.IsEnabled(self._id)
 
     def PressKey(self, key):
-        return self._plugin.PressKey(self, key)
+        return self._plugin.PressKey(self._id, key)
 
     def ReleaseKey(self, key):
-        return self._plugin.ReleaseKey(self, key)
+        return self._plugin.ReleaseKey(self._id, key)
 
     def InputText(self, text):
         return False
 
     def GetText(self):
-        return self._plugin.GetText(self)
+        return self._plugin.GetText(self._id)

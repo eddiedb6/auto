@@ -11,7 +11,7 @@ sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../.
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../../ui/abilities"))
 
 from AFWLogger import *
-from AFWProxyMsgUtil import *
+import AFWProxyUtil
 import AFWConst
 
 from AFW import AFW
@@ -147,16 +147,16 @@ registerMsg = {
     AFWConst.MsgName: AFWConst.MsgNameRegisterClient,
     AFWConst.MsgParam1: guid
 }
-regMsgZip, regMsgStr = CompressProxyMessage(registerMsg)
+regMsgZip, regMsgStr = AFWProxyUtil.CompressProxyMessage(registerMsg)
 s.sendall(regMsgZip)
 
 # Handle proxy command
 isContinue = True
 while isContinue:
     cmd = s.recv(AFWConst.MsgLength)
-    msg, msgStr = DecompressProxyMessage(cmd)
+    msg, msgStr = AFWProxyUtil.DecompressProxyMessage(cmd)
     resultMsg, isContinue = __handleCommand(msg)
-    msgZip, msgStr = CompressProxyMessage(resultMsg)
+    msgZip, msgStr = AFWProxyUtil.CompressProxyMessage(resultMsg)
     s.sendall(msgZip)
 s.close()
 Info("[Local Client] Disconnect for client " + guid)

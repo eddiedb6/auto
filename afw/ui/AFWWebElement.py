@@ -6,11 +6,9 @@ class AFWWebElement(AFWWebUI):
         AFWWebUI.__init__(self, manager, configID, parentConfigID)
         config = self.GetConfig()
         parentConfig = self.GetParentConfig()
-        self._nativeId = self._plugin.GetElement(config, parentConfig)
-        if self._nativeId is None:
-            raise Exception("Failed to find Web element: " + config[AFWConst.Name])
+        self._plugin.GetElement(configID, parentConfigID)
 
     ### Implement AFWUI ###
 
     def InputText(self, text):
-        return self._plugin.SendKeys(self, text)
+        return self._plugin.SendKeys(self.GetID(), text)

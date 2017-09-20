@@ -8,17 +8,17 @@ class AFWPluginManager:
     def __init__(self):
         pass
 
-    def GetPlugin(self, config):
+    def CreatePlugin(self, pluginConfig, uiConfigPool):
         if len(AFWPluginManager.__plugins) <= 0:
             self.__loadPlugin()
-        name = config[AFWConst.PluginName]
+        name = pluginConfig[AFWConst.PluginName]
         if name in AFWPluginManager.__plugins:
-            return self.__createPlugin(config)
+            return self.__createPlugin(pluginConfig, uiConfigPool)
         Warning("Could not find plugin: " + name)
         return None
 
-    def __createPlugin(self, config):
-        name = config[AFWConst.PluginName]
+    def __createPlugin(self, pluginConfig, uiConfigPool):
+        name = pluginConfig[AFWConst.PluginName]
         if name not in AFWPluginManager.__plugins:
             Error("Plugin name is not correct: " + name)
             return None
@@ -41,7 +41,7 @@ class AFWPluginManager:
             return None
         plugin = AFWPluginManager.__plugins[name]
         if plugin[AFWConst.PluginInstance] is None:
-            plugin[AFWConst.PluginInstance] = plugin[AFWConst.PluginClass](config)
+            plugin[AFWConst.PluginInstance] = plugin[AFWConst.PluginClass](pluginConfig, uiConfigPool)
         return plugin[AFWConst.PluginInstance]        
 
     def __loadPlugin(self):

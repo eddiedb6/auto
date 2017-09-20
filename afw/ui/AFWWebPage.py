@@ -10,6 +10,3 @@ class AFWWebPage(AFWWebUI):
         parentUI = manager.GetUI(self._parentId)
         if parentUI is None:
             raise Exception("Web page parent is not bound")
-        self._nativeId = parentUI.GetNativeUIID()
-        if self._nativeId is None:
-            raise Exception("Browser is not open")

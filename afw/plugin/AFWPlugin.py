@@ -1,6 +1,17 @@
 class AFWPlugin:
-    def __init__(self):
-        self._uiPool = {}
+    def __init__(self, pluginConfig, uiConfigPool):
+        self._configPool = uiConfigPool
+        self._nativePool = {}
+
+    def GetNative(self, nativeID):
+        if nativeID not in self._nativePool:
+            raise Exception("No native ID exsists: " + nativeID)
+        return self._nativePool[nativeID]
+
+    def AddNative(self, nativeID, native):
+        if nativeID in self._nativePool:
+            raise Exception("Native ID exsists already: " + nativeID)
+        self._nativePool[nativeID] = native
 
     def GetElement(self, configID, parentConfigID):
         return None
@@ -26,10 +37,3 @@ class AFWPlugin:
     def GetText(self, uiID):
         return None
 
-    def _loopTextArray(self, textArray, op):
-        result = None
-        for text in textArray:
-            result = op(text)
-            if result is not None:
-                return result
-        return None
