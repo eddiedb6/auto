@@ -10,4 +10,6 @@ class AFWApp(AFWAppBase):
         self._plugin = AFWPluginManager().CreatePlugin(config[AFWConst.Plugin], AFWLocalConfigPool(manager))
         if self._plugin is None:
             raise Exception("Get app plugin failed")
-        self._plugin.StartApp(config[AFWConst.Path], configID)
+        appID = self._plugin.StartApp(config[AFWConst.Path], configID)
+        if appID is None:
+            raise Exception("Start app failed: " + config[AFWConst.Name])

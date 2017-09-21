@@ -1,7 +1,8 @@
 1. Data Structure
-    [Config Object] Loaded from config files
-     `[UI Object] AFWUI instance, defines kinds of UI operations 
-        `[Native Object] Native object created from plugin, which implements AFWUI operations
+    [Config Object] Loaded from config files, lives in UI manager
+     `[UI Object] AFWUI instance, defines kinds of UI operations and lives in UI manager
+        `[Native Object] Native object created from plugin, which implements AFWUI operations and lives in plugin
+    * The three objects shared the same GUID, so could use one ID to find any of them
 
 2. How to add new UI type?
     Refer to AFWConst.py comments
@@ -22,22 +23,25 @@ AFWUIManagerWrapper
     OpenWebBrowser(name) -> AFWWeb, exception
     
 AFWUIManager
+    GetConfig(configID) -> dict, exception
+    GetUI(uiID) -> obj, exception
+    TryToFindUI(name, parentUI) -> AFWUI
     StartApp(name) -> AFWApp, exception
     FindWinForm(name) -> AFWAppForm, exception	
     OpenWebBrowser(name) -> AFWWeb, exception
-    TryToFindUI(name, parentUI) -> AFWUI
     GetBreakTime() -> int
 
 AFWUI
- |  GetType() -> string
- |  GetName() -> string
+ |  GetID() -> id
+ |  GetParentID() -> id
  |  GetConfig() -> dict
  |  GetParentConfig() -> dict
- |  GetChildConfig(index) -> dict
+ |  GetType() -> string
+ |  GetName() -> string
  |  GetChildConfigCount() -> int
- |  GetNativeUI() -> obj
- |  FindSubUI(name) -> AFWUI, exception
+ |  GetChildConfig(index) -> dict
  |  TryToFindSubUI(name) -> AFWUI
+ |  FindSubUI(name) -> AFWUI, exception
  |  SetFocus() -> bool
  |  IsEnabled() -> bool
  |  PressKey(key) -> bool
@@ -55,8 +59,6 @@ AFWAbility
           IsChecked() -> bool
 
 AFWPlugin
- |  GetNative(nativeID) -> obj
- |  AddNative(nativeID, native) 
  |  GetElement(configID, parentConfigID) -> obj
  |  SetFocus(uiID) -> bool
  |  Click(uiID) -> bool
@@ -71,8 +73,9 @@ AFWPlugin
  |     GetForm(configID) -> id
  `-AFWPluginWeb
        OpenBrowser(name, configID) -> id
-       OpenWebPage(browserID, url) -> bool
+       OpenWebURL(browserID, url, configID) -> bool
        GetCurrentURL(browserID) -> string
+       GetWebPage(browserID, configID) -> id	
        SendKeys(uiID, keys) -> bool
 
 [Classes]

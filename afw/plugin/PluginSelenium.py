@@ -15,7 +15,7 @@ class PluginSelenium(AFWPluginWeb):
     def GetElement(self, configID, parentConfigID):
         if parentConfigID is None:
             return None
-        driverElement = self.GetNative(parentConfigID)
+        driverElement = self._getNative(parentConfigID)
         if driverElement is None:
             return None
         return self.__getElement(driverElement, configID, parentConfigID)
@@ -27,7 +27,7 @@ class PluginSelenium(AFWPluginWeb):
     def Click(self, uiID):
         if uiID is None:
             return False
-        self.GetNative(uiID).click() # No return result
+        self._getNative(uiID).click() # No return result
         return True
 
     def IsChecked(self, uiID):
@@ -37,7 +37,7 @@ class PluginSelenium(AFWPluginWeb):
     def IsEnabled(self, uiID):
         if uiID is None:
             return False
-        return self.GetNative(uiID).is_enabled()
+        return self._getNative(uiID).is_enabled()
 
     def PressKey(self, uiID, key):
         # TODO
@@ -50,7 +50,7 @@ class PluginSelenium(AFWPluginWeb):
     def GetText(self, uiID):
         if uiID is None:
             return None
-        return self.GetNative(uiID).text
+        return self._getNative(uiID).text
     
     ### Implement AFWPluginWeb ###
     
@@ -58,62 +58,71 @@ class PluginSelenium(AFWPluginWeb):
         Info("Open browser: " + name)
         if name in PluginSelenium.__browserFactory:
             browser = PluginSelenium.__browserFactory[name]()
-            self.AddNative(configID, browser)
+            if browser is not None:
+                self._addNative(configID, browser)
+                return configID
         else:
             Error("Browser type is not supported: " + name)
-            return None
-        return configID
+        return None
 
-    def OpenWebPage(self, browserID, url):
-        Info("Open web page: " + url)
+    def OpenWebURL(self, browserID, url, configID):
+        Info("Open web url: " + url)
         if browserID is None:
             return False
         if url is None or len(url) <= 0:
             return False
-        browser = self.GetNative(browserID)
+        browser = self._getNative(browserID)
         browser.get(url)
+        self._addNative(configID, browser)
         return True
 
     def GetCurrentURL(self, browserID):
         if browserID is None:
             return None
-        browser = self.GetNative(browserID)
+        browser = self._getNative(browserID)
         return browser.current_url
+
+    def GetWebPage(self, browserID, configID):
+        if browserID is None:
+            return None
+        browser = self._getNative(browserID)
+        self._addNative(configID, browser)
+        return configID
 
     def SendKeys(self, uiID, keys):
         if uiID is None:
             return False
-        self.GetNative(uiID).send_keys(keys)
+        self._getNative(uiID).send_keys(keys)
         return True
     
     ### Private ###
 
     def __getElement(self, driverElement, configID, parentConfigID):
         element = None
-        config = self._configPool.GetConfig(configID)
+        config = self._getConfig(configID)
         if AFWConst.AttrID in config:
             element = self.__getElementByID(driverElement, config[AFWConst.AttrID])
             if element is not None:
-                self.AddNative(configID, element)
+                self._addNative(configID, element)
                 return configID
         if AFWConst.AttrName in config:
             element = self.__getElementByName(driverElement, config[AFWConst.AttrName])
             if element is not None:
-                self.AddNative(configID, element)
+                self._addNative(configID, element)
                 return configID
         if AFWConst.AttrClass in config:
             element = self.__getElementByClass(driverElement, config[AFWConst.AttrClass])
             if element is not None:
-                self.AddNative(configID, element)
+                self._addNative(configID, element)
                 return configID
         if AFWConst.AttrTag in config:
             element = self.__getElementByTag(driverElement, config[AFWConst.AttrTag], config)
             if element is not None:
-                self.AddNative(configID, element)
+                self._addNative(configID, element)
                 return configID
         element = self.__getElementByType(driverElement, config)
         if element is not None:
-            self.AddNative(configID, element)
+            self._addNative(configID, element)
             return configID
         return None
 

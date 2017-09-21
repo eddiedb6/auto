@@ -103,12 +103,15 @@ def __handleCommand(msg):
     elif msgName == AFWConst.MsgNameOpenBrowser:
         obj = pluginInstance.OpenBrowser(msg[AFWConst.MsgParam1])
         result[AFWConst.MsgResult] = __addObj(obj)
-    elif msgName == AFWConst.MsgNameOpenWebPage:
+    elif msgName == AFWConst.MsgNameOpenWebURL:
         obj = __getObj(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = pluginInstance.OpenWebPage(obj, msg[AFWConst.MsgParam2])
+        result[AFWConst.MsgResult] = pluginInstance.OpenWebURL(obj, msg[AFWConst.MsgParam2], msg[AFWConst.MsgParam3])
     elif msgName == AFWConst.MsgNameGetCurrentURL:
         obj = __getObj(msg[AFWConst.MsgParam1])
         result[AFWConst.MsgResult] = pluginInstance.GetCurrentURL(obj)
+    elif msgName == AFWConst.MsgNameGetWebPage:
+        obj = __getObj(msg[AFWConst.MsgParam1])
+        result[AFWConst.MsgResult] = pluginInstance.GetWebPage(obj, msg[AFWConst.MsgParam2])
     elif msgName == AFWConst.MsgNameSendKeys:
         obj = __getObj(msg[AFWConst.MsgParam1])
         result[AFWConst.MsgResult] = pluginInstance.SendKeys(obj, msg[AFWConst.MsgParam2])

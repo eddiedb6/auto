@@ -1,17 +1,7 @@
 class AFWPlugin:
     def __init__(self, pluginConfig, uiConfigPool):
-        self._configPool = uiConfigPool
-        self._nativePool = {}
-
-    def GetNative(self, nativeID):
-        if nativeID not in self._nativePool:
-            raise Exception("No native ID exsists: " + nativeID)
-        return self._nativePool[nativeID]
-
-    def AddNative(self, nativeID, native):
-        if nativeID in self._nativePool:
-            raise Exception("Native ID exsists already: " + nativeID)
-        self._nativePool[nativeID] = native
+        self.__configPool = uiConfigPool
+        self.__nativePool = {}
 
     ### Need to be implement ###
         
@@ -39,3 +29,17 @@ class AFWPlugin:
     def GetText(self, uiID):
         return None
 
+    ### Protected ###
+    
+    def _getConfig(self, configID):
+        return self.__configPool.GetConfig(configID)
+
+    def _getNative(self, nativeID):
+        if nativeID not in self.__nativePool:
+            raise Exception("No native ID exsists: " + nativeID)
+        return self.__nativePool[nativeID]
+
+    def _addNative(self, nativeID, native):
+        if nativeID in self.__nativePool:
+            raise Exception("Native ID exsists already: " + nativeID)
+        self.__nativePool[nativeID] = native

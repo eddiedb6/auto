@@ -7,9 +7,10 @@ class AFWWebURL(AFWWebBase):
         config = self.GetConfig()
         parentConfig = self.GetParentConfig()
         if parentConfig[AFWConst.Type] != AFWConst.UIWeb:
-            raise Exception("Web URL parent is not browser")
+            raise Exception("Web URL parent is not browser: " + config[AFWConst.Name])
         parentUI = manager.GetUI(parentConfigID)
         if parentUI is None:
             raise Exception("Web URL parent is not bound")
-        if not self._plugin.OpenWebPage(parentConfigID, config[AFWConst.URL]):
-            raise Exception("Open web page failed: " + config[AFWConst.URL])
+        urlID = self._plugin.OpenWebURL(parentConfigID, config[AFWConst.URL], configID)
+        if urlID is None:
+            raise Exception("Open web url failed: " + config[AFWConst.URL])

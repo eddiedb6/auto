@@ -10,7 +10,9 @@ class AFWWeb(AFWWebBase):
         self._plugin = AFWPluginManager().CreatePlugin(config[AFWConst.Plugin], AFWLocalConfigPool(manager))
         if self._plugin is None:
             raise Exception("Get web plugin failed")
-        self._plugin.OpenBrowser(config[AFWConst.Browser], configID)
+        browserID = self._plugin.OpenBrowser(config[AFWConst.Browser], configID)
+        if browserID is None:
+            raise Exception("Open browser failed: " + config[AFWConst.Browser])
 
     def GetCurrentURL(self):
         return self._plugin.GetCurrentURL(self.GetID())

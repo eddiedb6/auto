@@ -5,8 +5,8 @@ from AFWLocalConfigPool import AFWLocalConfigPool
 
 class AFWAppRoot(AFWAppUI):
     def __init__(self, manager, configID, parentConfigID):
-        parent = manager.GetConfig(parentConfigID)
-        if parent is not None and parent[AFWConst.Type] != AFWConst.UIApp:
+        parentConfig = manager.GetConfig(parentConfigID)
+        if parentConfig is not None and parentConfig[AFWConst.Type] != AFWConst.UIApp:
             # This is not from start App, but find win form directly
             parentConfigID = None
         AFWAppUI.__init__(self, manager, configID, parentConfigID)
@@ -23,4 +23,6 @@ class AFWAppRoot(AFWAppUI):
         else:
             if self._plugin is None:
                 raise Exception("Plugin for App root is invalid")
-        self._plugin.GetDesktop(configID)
+        desktopID = self._plugin.GetDesktop(configID)
+        if desktopID is None:
+            raise Exception("Failed to get desktop: " + config[AFWConst.Name])

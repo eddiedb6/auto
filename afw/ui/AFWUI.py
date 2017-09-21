@@ -6,8 +6,8 @@ from AFWLogger import *
 class AFWUI:
     def __init__(self, manager, configID, parentConfigID):
         self.__manager = manager
-        self._id = configID
-        self._parentId = parentConfigID
+        self.__id = configID
+        self.__parentId = parentConfigID
         self._plugin = None
         if parentConfigID is not None:
             parentConfig = self.GetParentConfig()
@@ -25,19 +25,22 @@ class AFWUI:
     ### Properties ###
 
     def GetID(self):
-        return self._id
+        return self.__id
+
+    def GetParentID(self):
+        return self.__parentId
+
+    def GetConfig(self):
+        return self.__manager.GetConfig(self.__id)
+
+    def GetParentConfig(self):
+        return self.__manager.GetConfig(self.__parentId)
 
     def GetType(self):
         return self.GetConfig()[AFWConst.Type]
 
     def GetName(self):
         return self.GetConfig()[AFWConst.Name]
-
-    def GetConfig(self):
-        return self.__manager.GetConfig(self._id)
-
-    def GetParentConfig(self):
-        return self.__manager.GetConfig(self._parentId)
 
     def GetChildConfigCount(self):
         config = self.GetConfig()
@@ -68,19 +71,19 @@ class AFWUI:
         return ui
 
     def SetFocus(self):
-        return self._plugin.SetFocus(self._id)
+        return self._plugin.SetFocus(self.__id)
 
     def IsEnabled(self):
-        return self._plugin.IsEnabled(self._id)
+        return self._plugin.IsEnabled(self.__id)
 
     def PressKey(self, key):
-        return self._plugin.PressKey(self._id, key)
+        return self._plugin.PressKey(self.__id, key)
 
     def ReleaseKey(self, key):
-        return self._plugin.ReleaseKey(self._id, key)
+        return self._plugin.ReleaseKey(self.__id, key)
 
     def InputText(self, text):
         return False
 
     def GetText(self):
-        return self._plugin.GetText(self._id)
+        return self._plugin.GetText(self.__id)

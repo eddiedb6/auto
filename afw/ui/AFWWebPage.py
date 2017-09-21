@@ -7,6 +7,7 @@ class AFWWebPage(AFWWebUI):
         AFWWebUI.__init__(self, manager, configID, parentConfigID)
         if self.GetParentConfig()[AFWConst.Type] != AFWConst.UIWeb:
             raise Exception("Web page parent is not browser")
-        parentUI = manager.GetUI(self._parentId)
-        if parentUI is None:
-            raise Exception("Web page parent is not bound")
+        pageID = self._plugin.GetWebPage(parentConfigID, configID)
+        if pageID is None:
+            raise Exception("Failed to get web page: " + self.GetConfig(configID)[AFWConst.Name])
+        

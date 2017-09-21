@@ -1,6 +1,7 @@
 import AFWConst
-from AFWUI import AFWUI
 import AFWUIUtil
+from AFWUI import AFWUI
+
 
 class AFWAppBase(AFWUI):
     def __init__(self, manager, configID, parentConfigID):
