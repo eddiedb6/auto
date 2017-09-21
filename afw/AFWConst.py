@@ -163,6 +163,7 @@ MsgResult = "msgresult"
 MsgNameRegisterClient = "registerclient"
 MsgNameCloseClient = "closeclient"
 
+MsgNameGetConfig = "msgnamegetconfig"
 MsgNameGetElement = "msgnamegetelement"
 MsgNameSetFocus = "msgnamesetfocus"
 MsgNameClick = "msgnameclick"

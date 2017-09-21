@@ -8,42 +8,42 @@ class PluginProxyApp(AFWPluginApp):
         AFWPluginApp.__init__(self, pluginConfig, uiConfigPool)
         if AFWConst.Proxy not in pluginConfig:
             raise Exception("No proxy defined for app proxy plugin: " + pluginConfig[AFWConst.PluginName])
-        self._proxy = AFWProxyManager().CreateProxy(pluginConfig[AFWConst.Proxy])
+        self.__proxy = AFWProxyManager().CreateProxy(pluginConfig[AFWConst.Proxy], uiConfigPool)
 
     ### Implement AFWPlugin ###
 
     def GetElement(self, configID, parentConfigID):
-        return self._proxy.GetElement(configID, parentConfigID)
+        return self.__proxy.GetElement(configID, parentConfigID)
     
     def SetFocus(self, uiID):
-        return self._proxy.SetFocus(uiID)
+        return self.__proxy.SetFocus(uiID)
 
     def Click(self, uiID):
-        return self._proxy.Click(uiID)
+        return self.__proxy.Click(uiID)
 
     def IsChecked(self, uiID):
-        return self._proxy.IsChecked(uiID)
+        return self.__proxy.IsChecked(uiID)
 
     def IsEnabled(self, uiID):
-        return self._proxy.IsEnabled(uiID)
+        return self.__proxy.IsEnabled(uiID)
 
     def PressKey(self, uiID, key):
-        return self._proxy.PressKey(uiID, key)
+        return self.__proxy.PressKey(uiID, key)
 
     def ReleaseKey(self, uiID, key):
-        return self._proxy.ReleaseKey(uiID, key)
+        return self.__proxy.ReleaseKey(uiID, key)
 
     def GetText(self, uiID):
-        return self._proxy.GetText(uiID)
+        return self.__proxy.GetText(uiID)
 
     ### Implement AFWPluginApp ###
 
     def StartApp(self, path, configID):
-        return self._proxy.StartApp(path, configID)
+        return self.__proxy.StartApp(path, configID)
 
     def GetDesktop(self, configID):
-        return self._proxy.GetDesktop(configID)
+        return self.__proxy.GetDesktop(configID)
 
     def GetForm(self, configID):
-        return self._proxy.GetForm(configID)
+        return self.__proxy.GetForm(configID)
     

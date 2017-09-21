@@ -127,32 +127,6 @@ def UpdateUIManager(originalFile, newFile):
             newFile.write(line)
         line = originalFile.readline()
 
-def UpdateLocalProxy(originalFile, newFile):
-    print "Update Local Proxy Client  file"
-    global config
-    importBuf = ""
-    for element in config:
-        className = element["Class"]
-        importBuf += "from " + className + " import " + className + "\n"
-    line = originalFile.readline()
-    while line:
-        temp = line.strip()
-        if temp == "### UI type import start ###":
-            # Import UI type 
-            importBuf = line + importBuf
-            while line:
-                if line.strip() == "### UI type import end ###":
-                    importBuf += line
-                    newFile.write(importBuf)
-                    break
-                line = originalFile.readline()
-            if not line:
-                print "Could not fine end for ui import in factory"
-                sys.exit(0)
-        else:
-            newFile.write(line)
-        line = originalFile.readline()
-
 def UpdateSchema(originalFile, newFile):
     print "Update Schema file"
     global config
@@ -206,7 +180,3 @@ OperateFile(uiManagerPath, UpdateUIManager)
 # AFWSchema.py
 schemaPath = os.path.join(currentPath, "../AFWSchema.py")
 OperateFile(schemaPath, UpdateSchema)
-
-# AFWProxyLocalClient.py
-proxyPath = os.path.join(currentPath, "../plugin/proxy/AFWProxyLocalClient.py")
-OperateFile(proxyPath, UpdateLocalProxy)

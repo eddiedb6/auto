@@ -20,10 +20,10 @@ class AFWProxyManager:
             return AFWProxyManager.__clientConn[guid]
         return None
 
-    def CreateProxy(self, config):
+    def CreateProxy(self, config, configPool):
         proxyType = config[AFWConst.ProxyType]
         if proxyType == AFWConst.ProxyLocal:
-            return self.__createLocalProxy(config)
+            return self.__createLocalProxy(config, configPool)
         elif proxyType == AFWConst.ProxyRemote:
             # TBD for remote proxy
             pass
@@ -40,7 +40,7 @@ class AFWProxyManager:
         self.__closeSocketHost()
         self.__closeThreads()
         
-    def __createLocalProxy(self, config):
+    def __createLocalProxy(self, config, configPool):
         if AFWProxyManager.__socket is None:
             self.__startSocketHost()
         guid = str(uuid.uuid1())
@@ -55,7 +55,7 @@ class AFWProxyManager:
         # Wait client register finished so following action based on it will not failed
         threadRegister.join()
         
-        proxy = AFWProxy(guid, self)
+        proxy = AFWProxy(guid, self, configPool)
         if guid in AFWProxyManager.__proxy:
             raise Exception("Proxy already there for GUID: " + guid)
         AFWProxyManager.__proxy[guid] = proxy

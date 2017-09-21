@@ -7,36 +7,11 @@ import logging
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "."))
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], ".."))
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../.."))
-sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../../ui"))
-sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../../ui/abilities"))
 
 from AFWLogger import *
+from AFWProxyConfigPool import AFWProxyConfigPool
 import AFWProxyUtil
 import AFWConst
-
-from AFW import AFW
-
-### UI type import start ###
-from AFWApp import AFWApp
-from AFWAppRoot import AFWAppRoot
-from AFWAppForm import AFWAppForm
-from AFWAppSubForm import AFWAppSubForm
-from AFWAppTab import AFWAppTab
-from AFWAppTabPage import AFWAppTabPage
-from AFWAppButton import AFWAppButton
-from AFWAppCheckbox import AFWAppCheckbox
-from AFWAppEditBox import AFWAppEditBox
-from AFWWeb import AFWWeb
-from AFWWebPage import AFWWebPage
-from AFWWebElement import AFWWebElement
-from AFWWebEditBox import AFWWebEditBox
-from AFWWebLink import AFWWebLink
-from AFWWebButton import AFWWebButton
-from AFWWebURL import AFWWebURL
-### UI type import end ###
-
-__objPool = {}
-__objPool.clear()
 
 paramLen = len(sys.argv)
 if paramLen < 3:
@@ -46,24 +21,11 @@ if paramLen < 3:
 logLevel = int(sys.argv[paramLen - 1])
 guid = sys.argv[paramLen - 2]
 pluginName = sys.argv[paramLen - 3]
+pluginInstance = None
 
 logging.basicConfig(level = logLevel)
 
 # Helpers
-
-def __addObj(obj):
-    guid = str(uuid.uuid1())
-    __objPool[guid] = obj
-    return guid
-
-def __getObj(guid):
-    if guid not in __objPool:
-        Fatel("[Local Client] No guid in object pool: " + guid)
-        return None
-    return __objPool[guid]
-
-def __clearObj():
-    __objPool.clear()
 
 def __handleCommand(msg):
     msgName = msg[AFWConst.MsgName]
@@ -74,69 +36,66 @@ def __handleCommand(msg):
     }
     isContinue = True
     if msgName == AFWConst.MsgNameCloseClient:
-        __clearObj()
         isContinue = False
     elif msgName == AFWConst.MsgNameGetElement:
-        obj = pluginInstance.GetElement(msg[AFWConst.MsgParam1], msg[AFWConst.MsgParam2])
-        result[AFWConst.MsgResult] = __addObj(obj)
+        elementID = pluginInstance.GetElement(msg[AFWConst.MsgParam1], msg[AFWConst.MsgParam2])
+        result[AFWConst.MsgResult] = elementID
     elif msgName == AFWConst.MsgNameSetFocus:
-        obj = __getObj(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = pluginInstance.SetFocus(obj)
+        uiID = msg[AFWConst.MsgParam1]
+        result[AFWConst.MsgResult] = pluginInstance.SetFocus(uiID)
     elif msgName == AFWConst.MsgNameClick:
-        obj = __getObj(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = pluginInstance.Click(obj)
+        uiID = msg[AFWConst.MsgParam1]
+        result[AFWConst.MsgResult] = pluginInstance.Click(uiID)
     elif msgName == AFWConst.MsgNameIsChecked:
-        obj = __getObj(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = pluginInstance.IsChecked(obj)
+        uiID = msg[AFWConst.MsgParam1]
+        result[AFWConst.MsgResult] = pluginInstance.IsChecked(uiID)
     elif msgName == AFWConst.MsgNameIsEnabled:
-        obj = __getObj(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = pluginInstance.IsEnabled(obj)
+        uiID = msg[AFWConst.MsgParam1]
+        result[AFWConst.MsgResult] = pluginInstance.IsEnabled(uiID)
     elif msgName == AFWConst.MsgNamePressKey:
-        obj = __getObj(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = pluginInstance.PressKey(obj, msg[AFWConst.MsgParam2])
+        uiID = msg[AFWConst.MsgParam1]
+        key = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.PressKey(uiID, key)
     elif msgName == AFWConst.MsgNameReleaseKey:
-        obj = __getObj(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = pluginInstance.ReleaseKey(obj, msg[AFWConst.MsgParam2])
+        uiID = msg[AFWConst.MsgParam1]
+        key = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.ReleaseKey(uiID, key) 
     elif msgName == AFWConst.MsgNameGetText:
-        obj = __getObj(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = pluginInstance.GetText(obj)
+        uiID = msg[AFWConst.MsgParam1]
+        result[AFWConst.MsgResult] = pluginInstance.GetText(uiID)
     elif msgName == AFWConst.MsgNameOpenBrowser:
-        obj = pluginInstance.OpenBrowser(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = __addObj(obj)
+        name = msg[AFWConst.MsgParam1]
+        browserID = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.OpenBrowser(name, browserID)
     elif msgName == AFWConst.MsgNameOpenWebURL:
-        obj = __getObj(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = pluginInstance.OpenWebURL(obj, msg[AFWConst.MsgParam2], msg[AFWConst.MsgParam3])
+        browserID = msg[AFWConst.MsgParam1]
+        url = msg[AFWConst.MsgParam2]
+        configID = msg[AFWConst.MsgParam3]
+        result[AFWConst.MsgResult] = pluginInstance.OpenWebURL(browserID, url, configID)
     elif msgName == AFWConst.MsgNameGetCurrentURL:
-        obj = __getObj(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = pluginInstance.GetCurrentURL(obj)
+        browserID = msg[AFWConst.MsgParam1]
+        result[AFWConst.MsgResult] = pluginInstance.GetCurrentURL(browserID)
     elif msgName == AFWConst.MsgNameGetWebPage:
-        obj = __getObj(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = pluginInstance.GetWebPage(obj, msg[AFWConst.MsgParam2])
+        browserID = msg[AFWConst.MsgParam1]
+        configID = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.GetWebPage(browserID, configID)
     elif msgName == AFWConst.MsgNameSendKeys:
-        obj = __getObj(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = pluginInstance.SendKeys(obj, msg[AFWConst.MsgParam2])
+        uiID = msg[AFWConst.MsgParam1]
+        keys = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.SendKeys(uiID, keys)
     elif msgName == AFWConst.MsgNameStartApp:
-        obj = pluginInstance.StartApp(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = __addObj(obj)
+        path = msg[AFWConst.MsgParam1]
+        configID = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.StartApp(path, configID)
     elif msgName == AFWConst.MsgNameGetDesktop:
-        obj = pluginInstance.GetDesktop()
-        result[AFWConst.MsgResult] = __addObj(obj)
+        configID = msg[AFWConst.MsgParam1]
+        result[AFWConst.MsgResult] = pluginInstance.GetDesktop(configID)
     elif msgName == AFWConst.MsgNameGetForm:
-        obj = pluginInstance.GetForm(msg[AFWConst.MsgParam1])
-        result[AFWConst.MsgResult] = __addObj(obj)
+        configID = msg[AFWConst.MsgParam1]
+        result[AFWConst.MsgResult] = pluginInstance.GetForm(configID)
     else:
         Warning("[Local Client] Not recognized command: " + msgName)
     return result, isContinue
-
-# Load plugin
-pluginModule = __import__(pluginName)
-if not pluginModule:
-    Error("[Local Client] No plugin imported for " + pluginName)
-    sys.exit(0)
-else:
-    Info("[Local Client] Load plugin: " + pluginName)
-pluginClass = getattr(pluginModule, pluginName)
-pluginInstance = pluginClass(None)
 
 # Start client
 HOST = "localhost"
@@ -145,21 +104,35 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
 Info("[Local Client] Connect to host successfully for client " + guid)
 
-# Regisger client
-registerMsg = {
-    AFWConst.MsgName: AFWConst.MsgNameRegisterClient,
-    AFWConst.MsgParam1: guid
-}
-regMsgZip, regMsgStr = AFWProxyUtil.CompressProxyMessage(registerMsg)
-s.sendall(regMsgZip)
+try:
+    # Regisger client
+    registerMsg = {
+        AFWConst.MsgName: AFWConst.MsgNameRegisterClient,
+        AFWConst.MsgParam1: guid
+    }
+    regMsgZip, regMsgStr = AFWProxyUtil.CompressProxyMessage(registerMsg)
+    s.sendall(regMsgZip)
 
-# Handle proxy command
-isContinue = True
-while isContinue:
-    cmd = s.recv(AFWConst.MsgLength)
-    msg, msgStr = AFWProxyUtil.DecompressProxyMessage(cmd)
-    resultMsg, isContinue = __handleCommand(msg)
-    msgZip, msgStr = AFWProxyUtil.CompressProxyMessage(resultMsg)
-    s.sendall(msgZip)
+    # Load plugin
+    pluginModule = __import__(pluginName)
+    if not pluginModule:
+        Error("[Local Client] No plugin imported for " + pluginName)
+        sys.exit(0)
+    else:
+        Info("[Local Client] Load plugin: " + pluginName)
+    pluginClass = getattr(pluginModule, pluginName)
+    pluginInstance = pluginClass(None, AFWProxyConfigPool(s))
+
+    # Handle proxy command
+    isContinue = True
+    while isContinue:
+        cmd = s.recv(AFWConst.MsgLength)
+        msg, msgStr = AFWProxyUtil.DecompressProxyMessage(cmd)
+        resultMsg, isContinue = __handleCommand(msg)
+        msgZip, msgStr = AFWProxyUtil.CompressProxyMessage(resultMsg)
+        s.sendall(msgZip)
+except:
+    Error("Local proxy client exception: \n" + str(sys.exc_info()[0]) + "\n" + str(sys.exc_info()[1]))
+
 s.close()
 Info("[Local Client] Disconnect for client " + guid)

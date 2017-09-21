@@ -110,3 +110,51 @@ AFWPlugin
  `-AFWPluginWeb
     |-PluginSelenium
     `-PluginSocketWeb
+
+[Messages]
+MsgNameRegisterClient
+    MsgParam1: guid
+MsgNameCloseClient
+MsgNameGetConfig
+    MsgParam1: configID
+MsgNameGetElement
+    MsgParam1: configID
+    MsgParam2: parentConfigID
+MsgNameSetFocus
+    MsgParam1: uiID
+MsgNameClick
+    MsgParam1: uiID
+MsgNameIsChecked
+    MsgParam1: uiID
+MsgNameIsEnabled
+    MsgParam1: uiID
+MsgNamePressKey
+    MsgParam1: uiID
+    MsgParam2: key
+MsgNameReleaseKey
+    MsgParam1: uiID
+    MsgParam2: key
+MsgNameGetText
+    MsgParam1: uiID
+MsgNameOpenBrowser
+    MsgParam1: name
+    MsgParam2: configID	
+MsgNameOpenWebURL
+    MsgParam1: browserID
+    MsgParam2: url
+    MsgParam3: configID
+MsgNameGetCurrentURL
+    MsgParam1: browserID
+MsgNameGetWebPage
+    MsgParam1: browserID
+    MsgParam2: configID
+MsgNameSendKeys
+    MsgParam1: uiID
+    MsgParam2: keys
+MsgNameStartApp
+    MsgParam1: path
+    MsgParam2: configID
+MsgNameGetDesktop
+    MsgParam1: configID
+MsgNameGetForm
+    MsgParam1: configID
