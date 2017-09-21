@@ -5,4 +5,4 @@ class AFWClickable(AFWAbility):
         AFWAbility.__init__(self, plugin)
     
     def Click(self):
-        return self._uiplugin.Click(self)
+        return self._uiplugin.Click(self.GetID())

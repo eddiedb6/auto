@@ -5,4 +5,4 @@ class AFWCheckable(AFWClickable):
         AFWClickable.__init__(self, plugin)
 
     def IsChecked(self):
-        return self._uiplugin.IsChecked(self)
+        return self._uiplugin.IsChecked(self.GetID())
