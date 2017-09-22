@@ -65,6 +65,7 @@ class AFWProxyManager:
         conn, addr = AFWProxyManager.__socket.accept()
         msg = conn.recv(AFWConst.MsgLength)
         msgDict, msgStr = AFWProxyUtil.DecompressProxyMessage(msg)
+        Debug("Recv proxy client register request: " + msgStr)
         if msgDict[AFWConst.MsgName] != AFWConst.MsgNameRegisterClient or AFWConst.MsgParam1 not in msgDict:
             raise Exception("Wrong message when register client: " + self.__config[AFWConst.ProxyGUID])
         guid = msgDict[AFWConst.MsgParam1]

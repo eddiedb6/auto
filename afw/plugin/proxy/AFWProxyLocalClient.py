@@ -6,7 +6,9 @@ import logging
 
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "."))
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], ".."))
+sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../pool"))
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../.."))
+sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../../util"))
 
 from AFWLogger import *
 from AFWProxyConfigPool import AFWProxyConfigPool
@@ -27,9 +29,8 @@ logging.basicConfig(level = logLevel)
 
 # Helpers
 
-def __handleCommand(msg):
+def __handleMessage(msg):
     msgName = msg[AFWConst.MsgName]
-    Debug("[Local Client] Get command " + msgName + " to handle")
     result = {
         AFWConst.MsgName: msgName,
         AFWConst.MsgResult: None
@@ -111,6 +112,7 @@ try:
         AFWConst.MsgParam1: guid
     }
     regMsgZip, regMsgStr = AFWProxyUtil.CompressProxyMessage(registerMsg)
+    Debug("[Local Client] Send proxy host register request: " + regMsgStr)
     s.sendall(regMsgZip)
 
     # Load plugin
@@ -128,11 +130,13 @@ try:
     while isContinue:
         cmd = s.recv(AFWConst.MsgLength)
         msg, msgStr = AFWProxyUtil.DecompressProxyMessage(cmd)
-        resultMsg, isContinue = __handleCommand(msg)
+        Debug("[Local Client] Recv proxy host message: " + msgStr)
+        resultMsg, isContinue = __handleMessage(msg)
         msgZip, msgStr = AFWProxyUtil.CompressProxyMessage(resultMsg)
+        Debug("[Local Client] Send proxy host result: " + msgStr)
         s.sendall(msgZip)
 except:
-    Error("Local proxy client exception: \n" + str(sys.exc_info()[0]) + "\n" + str(sys.exc_info()[1]))
+    Error("Exception: local proxy client\n" + str(sys.exc_info()[0]) + "\n" + str(sys.exc_info()[1]))
 
 s.close()
 Info("[Local Client] Disconnect for client " + guid)

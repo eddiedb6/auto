@@ -165,7 +165,7 @@ class AFWProxy:
             raise Exception("No connection for proxy " + self.__guid)
         return conn
 
-    def __getConfig(self, configID):
+    def __sendConfig(self, configID):
         conn = self.__getConn()
         config = self.__configPool.GetConfig(configID)
         msg = {
@@ -173,13 +173,14 @@ class AFWProxy:
             AFWConst.MsgResult: config
         }
         msgZip, msgStr = AFWProxyUtil.CompressProxyMessage(msg)
+        Debug("Send proxy client get config result: " + msgStr)
         conn.sendall(msgZip)
 
     def __handleMessage(self, msg):
         conn = self.__getConn()
         msgZip, msgStr = AFWProxyUtil.CompressProxyMessage(msg)
-        conn.sendall(msgZip)
         Debug("Send proxy client message: " + msgStr)
+        conn.sendall(msgZip)
         while True:
             result = conn.recv(AFWConst.MsgLength)
             resultDict, resultStr = AFWProxyUtil.DecompressProxyMessage(result)
@@ -187,10 +188,11 @@ class AFWProxy:
                 raise Exception("Message result name is not defined: " + msg[AFWConst.MsgName])
             if resultDict[AFWConst.MsgName] == AFWConst.MsgNameGetConfig:
                 # It's not result but new requst to get config
+                Debug("Recv proxy client get config request: " + resultStr)
                 if AFWConst.MsgParam1 not in resultDict:
                     raise Exception("Config ID is not defined in request")
                 configID = resultDict[AFWConst.MsgParam1]
-                self.__getConfig(configID)
+                self.__sendConfig(configID)
             else:
                 # Now it's request result returned
                 Debug("Recv proxy client result: " + resultStr)

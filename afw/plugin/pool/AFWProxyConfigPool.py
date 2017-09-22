@@ -1,4 +1,5 @@
 from AFWConfigPool import AFWConfigPool
+from AFWLogger import *
 import AFWProxyUtil
 import AFWConst
 
@@ -18,12 +19,12 @@ class AFWProxyConfigPool(AFWConfigPool):
             AFWConst.MsgParam1: configID            
         }
         msgZip, msgStr = AFWProxyUtil.CompressProxyMessage(msg)
+        Debug("[Local Client] Send proxy host get config request: " + msgStr)
         self.__socket.sendall(msgZip)
-        Debug("Send get config message: " + msgStr)
         # Get config
-        result = s.recv(AFWConst.MsgLength)
+        result = self.__socket.recv(AFWConst.MsgLength)
         resultDict, resultStr = AFWProxyUtil.DecompressProxyMessage(result)
-        Debug("Recv get config result: " + resultStr)
+        Debug("[Local Client] Recv proxy host get config result: " + resultStr)
         if AFWConst.MsgName not in resultDict or AFWConst.MsgResult not in resultDict or resultDict[AFWConst.MsgName] != AFWConst.MsgNameGetConfig:
             raise Exception("Get config result is not match: " + msgName)
         config = resultDict[AFWConst.MsgResult]

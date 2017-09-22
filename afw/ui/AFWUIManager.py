@@ -83,8 +83,7 @@ class AFWUIManager:
                 try:
                     uiID = self.__createUI(configID, lastConfigID)
                 except:
-                    Error("Create UI exception: " + config[AFWConst.Name])
-                    Error("    Exception: \n" + str(sys.exc_info()[0]) + "\n" + str(sys.exc_info()[1]))
+                    Error("Exception: create UI " + config[AFWConst.Name] + "\n" + str(sys.exc_info()[0]) + "\n" + str(sys.exc_info()[1]))
                     return None
                 if uiID is None:
                     Error("Failed to create UI: " + config[AFWConst.Name])
