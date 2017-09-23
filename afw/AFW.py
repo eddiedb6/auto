@@ -107,7 +107,9 @@ class AFW:
                 Error("Action script does not exist: " + action[AFWConst.Script])
                 return False
             afw = self.__uiManager
-            execfile(path)
+            sf = open(path, "r")
+            exec(sf.read())
+            sf.close()
         if AFWConst.SubAction in action:
             for subAction in action[AFWConst.SubAction]:
                 if not self.__executeAction(subAction):
