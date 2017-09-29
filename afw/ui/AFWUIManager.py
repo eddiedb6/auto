@@ -137,7 +137,6 @@ class AFWUIManager:
         if configID in self.__uiPool:
             raise Exception("UI guid is already in pool")
         config = self.GetConfig(configID)
-        parentConfig = self.GetConfig(parentConfigID)
         uiType = config[AFWConst.Type]
         if uiType in AFWUIManager.__uiFactory:
             uiObj = AFWUIManager.__uiFactory[uiType](self, configID, parentConfigID)
