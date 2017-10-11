@@ -111,6 +111,12 @@
         ]
     },
     {
+        "Name": "WebCombobox",
+        "Class": "AFWWebCombobox",
+        "Parent": "AFWWebElement",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
+    },
+    {
         "Name": "WebURL",
         "Class": "AFWWebURL",
         "Parent": "AFWWebBase",

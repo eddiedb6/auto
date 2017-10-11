@@ -12,13 +12,13 @@ schemaPath = os.path.join(currentPath, "uischema.py")
 configChecker = SchemaChecker(configPath, schemaPath)
 result, config = configChecker.Check()
 if not result:
-    print "Schema check failed"
+    print("Schema check failed")
     sys.exit(0)
 else:
-    print "Schema check successful"
+    print("Schema check successful")
 
 def GenerateUIClassFile(element):
-    print "Generate class file " + element["Class"] + ".py"
+    print("Generate class file " + element["Class"] + ".py")
     className = element["Class"]
     parentName = element["Parent"]
     parents = [parentName]
@@ -38,7 +38,7 @@ def GenerateUIClassFile(element):
     return buf
 
 def OperateFile(filePath, operator):
-    print "Operate on file " + filePath
+    print("Operate on file " + filePath)
     originalFile = open(filePath, "r")
     newFile = open(filePath + ".tmp", "w")
     operator(originalFile, newFile)
@@ -48,7 +48,7 @@ def OperateFile(filePath, operator):
     os.rename(filePath + ".tmp", filePath)
     
 def UpdateConst(originalFile, newFile):
-    print "Update Const file"
+    print("Update Const file")
     global config
     typeBuf = ""
     collectionBuf = ""
@@ -68,7 +68,7 @@ def UpdateConst(originalFile, newFile):
                     break
                 line = originalFile.readline()
             if not line:
-                print "Could not fine end for type definition"
+                print("Could not fine end for type definition")
                 sys.exit(0)
         elif temp == "### UI types collection start ###":
             # Add types in collection
@@ -80,14 +80,14 @@ def UpdateConst(originalFile, newFile):
                     break
                 line = originalFile.readline()
             if not line:
-                print "Could not fine end for type collection"
+                print("Could not fine end for type collection")
                 sys.exit(0)
         else:
             newFile.write(line)
         line = originalFile.readline()
 
 def UpdateUIManager(originalFile, newFile):
-    print "Update UI Manager file"
+    print("Update UI Manager file")
     global config
     factoryBuf = ""
     importBuf = ""
@@ -109,7 +109,7 @@ def UpdateUIManager(originalFile, newFile):
                     break
                 line = originalFile.readline()
             if not line:
-                print "Could not fine end for ui factory"
+                print("Could not fine end for ui factory")
                 sys.exit(0)
         elif temp == "### UI type import start ###":
             # Import UI type in UI factory
@@ -121,14 +121,14 @@ def UpdateUIManager(originalFile, newFile):
                     break
                 line = originalFile.readline()
             if not line:
-                print "Could not fine end for ui import in factory"
+                print("Could not fine end for ui import in factory")
                 sys.exit(0)
         else:
             newFile.write(line)
         line = originalFile.readline()
 
 def UpdateSchema(originalFile, newFile):
-    print "Update Schema file"
+    print("Update Schema file")
     global config
     buf = ""
     for element in config:
@@ -154,7 +154,7 @@ def UpdateSchema(originalFile, newFile):
                     break
                 line = originalFile.readline()
             if not line:
-                print "Could not fine end for ui schema"
+                print("Could not fine end for ui schema")
                 sys.exit(0)
         else:
             newFile.write(line)

@@ -20,6 +20,7 @@ from AFWWebElement import AFWWebElement
 from AFWWebEditBox import AFWWebEditBox
 from AFWWebLink import AFWWebLink
 from AFWWebButton import AFWWebButton
+from AFWWebCombobox import AFWWebCombobox
 from AFWWebURL import AFWWebURL
 ### UI type import end ###
 
@@ -175,6 +176,7 @@ class AFWUIManager:
         AFWConst.WebEditBox: lambda manager, configID, parentConfigID: AFWWebEditBox(manager, configID, parentConfigID),
         AFWConst.WebLink: lambda manager, configID, parentConfigID: AFWWebLink(manager, configID, parentConfigID),
         AFWConst.WebButton: lambda manager, configID, parentConfigID: AFWWebButton(manager, configID, parentConfigID),
+        AFWConst.WebCombobox: lambda manager, configID, parentConfigID: AFWWebCombobox(manager, configID, parentConfigID),
         AFWConst.WebURL: lambda manager, configID, parentConfigID: AFWWebURL(manager, configID, parentConfigID),
 ### UI type factory initialize end ###
         "Dummy": "Dummy"

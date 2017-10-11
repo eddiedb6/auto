@@ -62,6 +62,7 @@ WebElement = "webelement"
 WebEditBox = "webeditbox"
 WebLink = "weblink"
 WebButton = "webbutton"
+WebCombobox = "webcombobox"
 WebURL = "weburl"
 ### UI types definition end ###
 
@@ -82,6 +83,7 @@ UIType = [
     WebEditBox,
     WebLink,
     WebButton,
+    WebCombobox,
     WebURL,
 ### UI types collection end ###
     UIRoot

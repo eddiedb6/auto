@@ -220,6 +220,12 @@
         ],
         SchemaType: SchemaTypeDict
     },
+    AFWConst.WebCombobox: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
     AFWConst.WebURL: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)

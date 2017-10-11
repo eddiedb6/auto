@@ -101,7 +101,8 @@ AFWUI
        `-AFWWebElement (WebElement) 
           |-AFWWebEditBox (WebEditBox)
 	  |-AFWWebLink (WebLink)
-	  `-AFWWebButton (WebButton)
+	  |-AFWWebButton (WebButton)
+	  `-AFWWebCombobox (WebCombobox)
 
 AFWPlugin
  |-AFWPluginApp
