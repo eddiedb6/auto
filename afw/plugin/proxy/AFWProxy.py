@@ -103,6 +103,14 @@ class AFWProxy:
         result = self.__handleMessage(msg)
         return result[AFWConst.MsgResult]
 
+    def DumpUI(self, uiID):
+        msg = {
+            AFWConst.MsgName: AFWConst.MsgNameDumpUI,
+            AFWConst.MsgParam1: uiID
+        }
+        result = self.__handleMessage(msg)
+        return result[AFWConst.MsgResult]
+
     ### Implement AFWPluginWeb ###
 
     def OpenBrowser(self, name, configID):

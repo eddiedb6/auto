@@ -42,6 +42,9 @@ class PluginProxyApp(AFWPluginApp):
     def GetCellText(self, uiID, row, column):
         return self.__proxy.GetCellText(uiID, row, column)
 
+    def DumpUI(self, uiID):
+        return self.__proxy.DumpUI(uiID)
+
     ### Implement AFWPluginApp ###
 
     def StartApp(self, path, configID):

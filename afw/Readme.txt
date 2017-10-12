@@ -30,6 +30,7 @@ AFWUIManager
     FindWinForm(name) -> AFWAppForm, exception	
     OpenWebBrowser(name) -> AFWWeb, exception
     GetBreakTime() -> int
+    DumpUI(uiID) -> bool
 
 AFWUI
  |  GetID() -> id
@@ -43,6 +44,7 @@ AFWUI
  |  GetName() -> string
  |  TryToFindSubUI(name) -> AFWUI
  |  FindSubUI(name) -> AFWUI, exception
+ |  Dump() -> bool
  |  SetFocus() -> bool
  |  IsEnabled() -> bool
  |  PressKey(key) -> bool
@@ -77,6 +79,7 @@ AFWPlugin
  |  ReleaseKey(uiID, key) -> bool
  |  GetText(uiID) -> string
  |  GetCellText(uiID, row, column) -> string
+ |  DumpUI(uiID) -> bool
  |-AFWPluginApp
  |     StartApp(path, configID) -> id
  |     GetDesktop(configID) -> id
@@ -151,6 +154,12 @@ MsgNameReleaseKey
     MsgParam1: uiID
     MsgParam2: key
 MsgNameGetText
+    MsgParam1: uiID
+MsgNameGetCellText
+    MsgParam1: uiID
+    MsgParam2: row
+    MsgParam3: column
+MsgNameDumpUI
     MsgParam1: uiID
 MsgNameOpenBrowser
     MsgParam1: name

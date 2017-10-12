@@ -73,6 +73,9 @@ def __handleMessage(msg):
         row = msg[AFWConst.MsgParam2]
         column = msg[AFWConst.MsgParam3]
         result[AFWConst.MsgResult] = pluginInstance.GetCellText(uiID, row, column)
+    elif msgName == AFWConst.MsgNameDumpUI:
+        uiID = msg[AFWConst.MsgParam1]
+        result[AFWConst.MsgResult] = pluginInstance.DumpUI(uiID)
     elif msgName == AFWConst.MsgNameOpenBrowser:
         name = msg[AFWConst.MsgParam1]
         browserID = msg[AFWConst.MsgParam2]

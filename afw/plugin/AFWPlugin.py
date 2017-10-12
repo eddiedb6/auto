@@ -34,6 +34,12 @@ class AFWPlugin:
 
     def GetCellText(self, uiID, row, column):
         return None
+
+    def DumpUI(self, uiID):
+        if uiID in self.__nativePool:
+            del self.__nativePool[uiID]
+            return True
+        return False
     
     ### Protected ###
     

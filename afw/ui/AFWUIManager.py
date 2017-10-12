@@ -57,6 +57,12 @@ class AFWUIManager:
 
     def GetBreakTime(self):
         return self.__afw.BreakTime
+
+    def DumpUI(self, uiID):
+        if uiID in self.__uiPool:
+            del self.__uiPool[uiID]
+            return True
+        return False
     
     ### Private ###
 

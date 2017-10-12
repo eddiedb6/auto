@@ -77,6 +77,7 @@ class AFWUI:
         return ui
 
     def Dump(self):
+        isDumped = True
         childrenCount = self.GetChildCount()
         # Dump children first
         for index in range(0, childrenCount):
@@ -87,9 +88,12 @@ class AFWUI:
             except:
                 childUI = None
             if childUI is not None:
-                childUI.Dump()
+                isDumped = isDumped & childUI.Dump()
         # Now dump itself
-        # TODO
+        isDumped = isDumped & self.__manager.DumpUI(self.__id)
+        if self._plugin is not None:
+            isDumped = isDumped & self._plugin.DumpUI(self.__id)
+        return isDumped
 
     def SetFocus(self):
         return self._plugin.SetFocus(self.__id)
