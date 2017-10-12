@@ -21,7 +21,9 @@ from AFWWebEditBox import AFWWebEditBox
 from AFWWebLink import AFWWebLink
 from AFWWebButton import AFWWebButton
 from AFWWebCombobox import AFWWebCombobox
-from AFWWebURL import AFWWebURL
+from AFWWebPanel import AFWWebPanel
+from AFWWebTable import AFWWebTable
+from AFWWebEntry import AFWWebEntry
 ### UI type import end ###
 
 class AFWUIManager:
@@ -68,13 +70,13 @@ class AFWUIManager:
         result, configPath = self.__findConfig(name)
         if not result:
             return None
-        
+
         if parentUI is not None:
             parentConfigID = parentUI.GetID()
             if parentConfigID not in configPath:
                 Warning("UI is not under " + parentUI.GetName() + ": " + name)
                 return None
-            
+
         ui = None
         uiID = None
         lastConfigID = None
@@ -89,6 +91,8 @@ class AFWUIManager:
                 if uiID is None:
                     Error("Failed to create UI: " + config[AFWConst.Name])
                     return None
+            else:
+                 uiID = configID   
             lastConfigID = configID
 
         ui = self.GetUI(uiID)
@@ -177,7 +181,9 @@ class AFWUIManager:
         AFWConst.WebLink: lambda manager, configID, parentConfigID: AFWWebLink(manager, configID, parentConfigID),
         AFWConst.WebButton: lambda manager, configID, parentConfigID: AFWWebButton(manager, configID, parentConfigID),
         AFWConst.WebCombobox: lambda manager, configID, parentConfigID: AFWWebCombobox(manager, configID, parentConfigID),
-        AFWConst.WebURL: lambda manager, configID, parentConfigID: AFWWebURL(manager, configID, parentConfigID),
+        AFWConst.WebPanel: lambda manager, configID, parentConfigID: AFWWebPanel(manager, configID, parentConfigID),
+        AFWConst.WebTable: lambda manager, configID, parentConfigID: AFWWebTable(manager, configID, parentConfigID),
+        AFWConst.WebEntry: lambda manager, configID, parentConfigID: AFWWebEntry(manager, configID, parentConfigID),
 ### UI type factory initialize end ###
         "Dummy": "Dummy"
     }

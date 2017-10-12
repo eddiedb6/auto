@@ -12,13 +12,13 @@ schemaPath = os.path.join(currentPath, "keyschema.py")
 configChecker = SchemaChecker(configPath, schemaPath)
 result, config = configChecker.Check()
 if not result:
-    print "Schema check failed"
+    print("Schema check failed")
     sys.exit(0)
 else:
-    print "Schema check successful"
+    print("Schema check successful")
 
 def OperateFile(filePath, operator):
-    print "Operate on file " + filePath
+    print("Operate on file " + filePath)
     originalFile = open(filePath, "r")
     newFile = open(filePath + ".tmp", "w")
     operator(originalFile, newFile)
@@ -28,7 +28,7 @@ def OperateFile(filePath, operator):
     os.rename(filePath + ".tmp", filePath)
 
 def UpdateConst(originalFile, newFile):
-    print "Update Const file"
+    print("Update Const file")
     global config
     keyBuf = ""
     for key in config:
@@ -46,14 +46,14 @@ def UpdateConst(originalFile, newFile):
                     break
                 line = originalFile.readline()
             if not line:
-                print "Could not fine end for type definition"
+                print("Could not fine end for type definition")
                 sys.exit(0)
         else:
             newFile.write(line)
         line = originalFile.readline()
 
 def UpdateSchema(originalFile, newFile):
-    print "Update Schema file"
+    print("Update Schema file")
     global config
     buf = ""
     for key in config:
@@ -82,7 +82,7 @@ def UpdateSchema(originalFile, newFile):
                     break
                 line = originalFile.readline()
             if not line:
-                print "Could not fine end for ui schema"
+                print("Could not fine end for ui schema")
                 sys.exit(0)
         else:
             newFile.write(line)

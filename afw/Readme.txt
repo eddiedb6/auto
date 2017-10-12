@@ -34,12 +34,13 @@ AFWUIManager
 AFWUI
  |  GetID() -> id
  |  GetParentID() -> id
+ |  GetChildID(index) -> id
  |  GetConfig() -> dict
  |  GetParentConfig() -> dict
+ |  GetChildConfig(index) -> dict	
+ |  GetChildCount() -> int
  |  GetType() -> string
  |  GetName() -> string
- |  GetChildConfigCount() -> int
- |  GetChildConfig(index) -> dict
  |  TryToFindSubUI(name) -> AFWUI
  |  FindSubUI(name) -> AFWUI, exception
  |  SetFocus() -> bool
@@ -48,25 +49,34 @@ AFWUI
  |  ReleaseKey(key) -> bool
  |  InputText(text) -> bool
  |  GetText() -> string
- `-AFWWeb
-       GetCurrentURL() -> string
-       OpenURL(name) -> bool
+ `-AFWWebBase
+    `-AFWWeb
+       |  GetCurrentURL() -> string
+       |  OpenURL(name) -> bool
+       `-AFWWebUI
+          `-AFWWebElement
+	     `-AFWWebTable
+	           GetCellText(row, column) -> string    
 
 AFWAbility
- `-AFWClickable
-    |  Click() -> bool
-    `-AFWCheckable
-          IsChecked() -> bool
+ |-AFWClickable
+ |  |  Click() -> bool
+ |  `-AFWCheckable
+ |        IsChecked() -> bool
+ `-AFWSelectable
+       Select(itemValue) -> bool
 
 AFWPlugin
  |  GetElement(configID, parentConfigID) -> obj
  |  SetFocus(uiID) -> bool
  |  Click(uiID) -> bool
+ |  Select(uiID, itemValue) -> bool
  |  IsChecked(uiID) -> bool
  |  IsEnabled(uiID) -> bool
  |  PressKey(uiID, key) -> bool
  |  ReleaseKey(uiID, key) -> bool
  |  GetText(uiID) -> string
+ |  GetCellText(uiID, row, column) -> string
  |-AFWPluginApp
  |     StartApp(path, configID) -> id
  |     GetDesktop(configID) -> id
@@ -95,10 +105,12 @@ AFWUI
  |        `-AFWAppButton (AppButton)
  `-AFWWebBase
     |-AFWWeb (UIWeb)
-    |-AFWWebURL (WebURL)
+    |-AFWWebEntry (WebEntry)
     `-AFWWebUI
        |-AFWWebPage (WebPage)
-       `-AFWWebElement (WebElement) 
+       `-AFWWebElement (WebElement)
+          |-AFWWebPanel (WebPanel)
+	  |-AFWWebTable (WebTable)
           |-AFWWebEditBox (WebEditBox)
 	  |-AFWWebLink (WebLink)
 	  |-AFWWebButton (WebButton)
@@ -125,6 +137,9 @@ MsgNameSetFocus
     MsgParam1: uiID
 MsgNameClick
     MsgParam1: uiID
+MsgNameSelect
+    MsgParam1: uiID
+    MsgParam2: item
 MsgNameIsChecked
     MsgParam1: uiID
 MsgNameIsEnabled

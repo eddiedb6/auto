@@ -47,6 +47,10 @@ def __handleMessage(msg):
     elif msgName == AFWConst.MsgNameClick:
         uiID = msg[AFWConst.MsgParam1]
         result[AFWConst.MsgResult] = pluginInstance.Click(uiID)
+    elif msgName == AFWConst.MsgNameSelect:
+        uiID = msg[AFWConst.MsgParam1]
+        itemValue = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.Select(uiID, itemValue)
     elif msgName == AFWConst.MsgNameIsChecked:
         uiID = msg[AFWConst.MsgParam1]
         result[AFWConst.MsgResult] = pluginInstance.IsChecked(uiID)
@@ -64,6 +68,11 @@ def __handleMessage(msg):
     elif msgName == AFWConst.MsgNameGetText:
         uiID = msg[AFWConst.MsgParam1]
         result[AFWConst.MsgResult] = pluginInstance.GetText(uiID)
+    elif msgName == AFWConst.MsgNameGetCellText:
+        uiID = msg[AFWConst.MsgParam1]
+        row = msg[AFWConst.MsgParam2]
+        column = msg[AFWConst.MsgParam3]
+        result[AFWConst.MsgResult] = pluginInstance.GetCellText(uiID, row, column)
     elif msgName == AFWConst.MsgNameOpenBrowser:
         name = msg[AFWConst.MsgParam1]
         browserID = msg[AFWConst.MsgParam2]

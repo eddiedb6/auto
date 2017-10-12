@@ -21,6 +21,9 @@ class PluginProxyWeb(AFWPluginWeb):
     def Click(self, uiID):
         return self.__proxy.Click(uiID)
 
+    def Select(self, uiID, itemValue):
+        return self.__proxy.Select(uiID, itemValue)
+
     def IsChecked(self, uiID):
         return self.__proxy.IsChecked(uiID)
 
@@ -35,6 +38,9 @@ class PluginProxyWeb(AFWPluginWeb):
 
     def GetText(self, uiID):
         return self.__proxy.GetText(uiID)
+
+    def GetCellText(self, uiID, row, column):
+        return self.__proxy.GetCellText(uiID, row, column)
 
     ### Implement AFWPluginWeb ###
 

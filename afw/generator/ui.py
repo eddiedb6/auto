@@ -114,11 +114,26 @@
         "Name": "WebCombobox",
         "Class": "AFWWebCombobox",
         "Parent": "AFWWebElement",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
+        "Abilities": [
+            "AFWSelectable"
+        ]
+    },
+    {
+        "Name": "WebPanel",
+        "Class": "AFWWebPanel",
+        "Parent": "AFWWebElement",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
     },
     {
-        "Name": "WebURL",
-        "Class": "AFWWebURL",
+        "Name": "WebTable",
+        "Class": "AFWWebTable",
+        "Parent": "AFWWebElement",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
+    },
+    {
+        "Name": "WebEntry",
+        "Class": "AFWWebEntry",
         "Parent": "AFWWebBase",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)"
     }

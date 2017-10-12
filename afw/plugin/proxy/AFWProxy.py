@@ -41,6 +41,16 @@ class AFWProxy:
         result = self.__handleMessage(msg)
         return result[AFWConst.MsgResult]
 
+    def Select(self, uiID, itemValue):
+        msg = {
+            AFWConst.MsgName: AFWConst.MsgNameSelect,
+            AFWConst.MsgParam1: uiID,
+            AFWConst.MsgParam2: itemValue
+        }
+        result = self.__handleMessage(msg)
+        return result[AFWConst.MsgResult]
+
+
     def IsChecked(self, uiID):
         msg = {
             AFWConst.MsgName: AFWConst.MsgNameIsChecked,
@@ -79,6 +89,16 @@ class AFWProxy:
         msg = {
             AFWConst.MsgName: AFWConst.MsgNameGetText,
             AFWConst.MsgParam1: uiID
+        }
+        result = self.__handleMessage(msg)
+        return result[AFWConst.MsgResult]
+
+    def GetCellText(self, uiID, row, column):
+        msg = {
+            AFWConst.MsgName: AFWConst.MsgNameGetCellText,
+            AFWConst.MsgParam1: uiID,
+            AFWConst.MsgParam2: row,
+            AFWConst.MsgParam3: column
         }
         result = self.__handleMessage(msg)
         return result[AFWConst.MsgResult]

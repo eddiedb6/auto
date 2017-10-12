@@ -49,6 +49,12 @@ class PluginMSApp(AFWPluginApp):
             return False
         return MS.MSWrapper.Click(self._getNative(uiID))
 
+    def Select(self, uiID, itemValue):
+        if uiID is None:
+            return False
+        # [TODO]
+        return False
+
     def IsChecked(self, uiID):
         if uiID is None:
             return False
@@ -74,6 +80,12 @@ class PluginMSApp(AFWPluginApp):
         if uiID is None:
             return None
         return MS.MSWrapper.GetText(self._getNative(uiID))
+
+    def GetCellText(self, uiID, row, column):
+        if uiID is None:
+            return None
+        # [TODO]
+        return None
 
     ### Implement AFWPluginApp ###
 

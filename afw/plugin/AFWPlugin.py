@@ -14,6 +14,9 @@ class AFWPlugin:
     def Click(self, uiID):
         return False
 
+    def Select(self, uiID, itemValue):
+        return False
+
     def IsChecked(self, uiID):
         return False
 
@@ -29,6 +32,9 @@ class AFWPlugin:
     def GetText(self, uiID):
         return None
 
+    def GetCellText(self, uiID, row, column):
+        return None
+    
     ### Protected ###
     
     def _getConfig(self, configID):

@@ -4,7 +4,7 @@
     AFWConst.Plugin: {
         AFWConst.PluginName: AFWConst.PluginSelenium
     },
-    AFWConst.Browser: AFWConst.BrowserChrome,
+    AFWConst.Browser: AFWConst.BrowserFireFox,
     AFWConst.SubUI: [
         ImportFile("ConfigWebBaidu.py")
     ]

@@ -30,32 +30,38 @@ class AFWUI:
     def GetParentID(self):
         return self.__parentId
 
+    def GetChildID(self, index):
+        if index < 0:
+            return None
+        config = self.GetConfig()
+        if AFWConst.SubUI in config and len(config[AFWConst.SubUI]) > index:
+            subConfigID = config[AFWConst.SubUI][index]
+            return subConfigID
+        return None
+
     def GetConfig(self):
         return self.__manager.GetConfig(self.__id)
 
     def GetParentConfig(self):
         return self.__manager.GetConfig(self.__parentId)
 
-    def GetType(self):
-        return self.GetConfig()[AFWConst.Type]
+    def GetChildConfig(self, index):
+        childID = self.GetChildID(index)
+        if childID is not None:
+            return self.__manager.GetConfig(childID)    
+        return None
 
-    def GetName(self):
-        return self.GetConfig()[AFWConst.Name]
-
-    def GetChildConfigCount(self):
+    def GetChildCount(self):
         config = self.GetConfig()
         if AFWConst.SubUI in config:
             return len(config[AFWConst.SubUI])
         return 0
 
-    def GetChildConfig(self, index):
-        if index < 0:
-            return None
-        config = self.GetConfig()
-        if AFWConst.SubUI in config and len(config[AFWConst.SubUI]) > index:
-            subConfigID = config[AFWConst.SubUI][index]
-            return self.__manager.GetConfig(subConfigID)
-        return None
+    def GetType(self):
+        return self.GetConfig()[AFWConst.Type]
+
+    def GetName(self):
+        return self.GetConfig()[AFWConst.Name]
 
     ### Properties and Operations when bound ###
 
@@ -69,6 +75,21 @@ class AFWUI:
             Warning(msg)
             raise Exception(msg)
         return ui
+
+    def Dump(self):
+        childrenCount = self.GetChildCount()
+        # Dump children first
+        for index in range(0, childrenCount):
+            childID = self.GetChildID(index)
+            childUI = None
+            try:
+                childUI = self.__manager.GetUI(childID)
+            except:
+                childUI = None
+            if childUI is not None:
+                childUI.Dump()
+        # Now dump itself
+        # TODO
 
     def SetFocus(self):
         return self._plugin.SetFocus(self.__id)

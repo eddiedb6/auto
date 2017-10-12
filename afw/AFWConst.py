@@ -63,7 +63,9 @@ WebEditBox = "webeditbox"
 WebLink = "weblink"
 WebButton = "webbutton"
 WebCombobox = "webcombobox"
-WebURL = "weburl"
+WebPanel = "webpanel"
+WebTable = "webtable"
+WebEntry = "webentry"
 ### UI types definition end ###
 
 UIType = [
@@ -84,7 +86,9 @@ UIType = [
     WebLink,
     WebButton,
     WebCombobox,
-    WebURL,
+    WebPanel,
+    WebTable,
+    WebEntry,
 ### UI types collection end ###
     UIRoot
 ]
@@ -169,11 +173,13 @@ MsgNameGetConfig = "msgnamegetconfig"
 MsgNameGetElement = "msgnamegetelement"
 MsgNameSetFocus = "msgnamesetfocus"
 MsgNameClick = "msgnameclick"
+MsgNameSelect = "msgnameselect"
 MsgNameIsChecked = "msgnameischecked"
 MsgNameIsEnabled = "msgnameisenabled"
 MsgNamePressKey = "msgnamepresskey"
 MsgNameReleaseKey = "msgnamereleasekey"
 MsgNameGetText = "msgnamegettext"
+MsgNameGetCellText = "msgnamegetcelltext"
 MsgNameOpenBrowser = "msgnameopenbrowser"
 MsgNameOpenWebURL = "msgnameopenweburl"
 MsgNameGetCurrentURL = "msgnamegetcurrenturl"

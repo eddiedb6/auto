@@ -30,6 +30,23 @@ class PluginSelenium(AFWPluginWeb):
         self._getNative(uiID).click() # No return result
         return True
 
+    def Select(self, uiID, itemValue):
+        if uiID is None:
+            return False
+        driverElement = self._getNative(uiID)
+        if driverElement is None:
+            return False
+        config = {
+            AFWConst.Attributes: {
+                "value": itemValue
+            }
+        }
+        itemElement = self.__getElementByTag(driverElement, "option", config)
+        if itemElement is None:
+            return False
+        itemElement.click()
+        return True
+
     def IsChecked(self, uiID):
         # TODO
         return False
@@ -51,7 +68,39 @@ class PluginSelenium(AFWPluginWeb):
         if uiID is None:
             return None
         return self._getNative(uiID).text
-    
+
+    def GetCellText(self, uiID, row, column):
+        if uiID is None or row < 1 or column < 1:
+            return None
+        # Get table
+        tableElement = self._getNative(uiID)
+        if tableElement is None:
+            return None
+        # Get table rows
+        rowElements = tableElement.find_elements_by_tag_name("tr")
+        if rowElements is None:
+            return None
+        rowSize = len(rowElements)
+        if rowSize <= 0 or row > rowSize:
+            return None
+        rowElement = rowElements[row - 1]
+        if rowElement is None:
+            return None
+        # Get table column
+        columnTag = "td"
+        if row == 1:
+            columnTag = "th"
+        columnElements = rowElement.find_elements_by_tag_name(columnTag)
+        if columnElements is None:
+            return None
+        columnSize = len(columnElements)
+        if columnSize <= 0 or column > columnSize:
+            return None
+        columnElement = columnElements[column - 1]
+        if columnElement is None:
+            return None
+        return columnElement.text
+
     ### Implement AFWPluginWeb ###
     
     def OpenBrowser(self, name, configID):
@@ -158,9 +207,12 @@ class PluginSelenium(AFWPluginWeb):
         return None
         
     def __getElementByType(self, driverElement, config):
+        Debug("Find by type: " + config[AFWConst.Type])
         if config[AFWConst.Type] == AFWConst.WebLink and AFWConst.Text in config:
             op = lambda text: self.__getElementByLinkText(driverElement, text) 
             return AFWPluginUtil.LoopTextArray(config[AFWConst.Text], op)
+        if config[AFWConst.Type] == AFWConst.WebTable:
+            return driverElement.find_element_by_tag_name("table")
         return None
     
     __browserFactory = {

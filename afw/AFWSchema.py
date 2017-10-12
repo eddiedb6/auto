@@ -226,7 +226,19 @@
         ],
         SchemaType: SchemaTypeDict
     },
-    AFWConst.WebURL: {
+    AFWConst.WebPanel: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.WebTable: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.WebEntry: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)
         ],
