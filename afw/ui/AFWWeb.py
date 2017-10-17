@@ -31,3 +31,9 @@ class AFWWeb(AFWWebBase):
             return False
         self.__urlCache[name] = url
         return True
+
+    def Quit(self):
+        if self._plugin.CloseBrowser(self.GetID()):
+            return self.Dump()
+        return False
+        

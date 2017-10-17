@@ -55,6 +55,7 @@ AFWUI
     `-AFWWeb
        |  GetCurrentURL() -> string
        |  OpenURL(name) -> bool
+       |  Quit() -> bool
        `-AFWWebUI
           `-AFWWebElement
 	     `-AFWWebTable
@@ -86,6 +87,7 @@ AFWPlugin
  |     GetForm(configID) -> id
  `-AFWPluginWeb
        OpenBrowser(name, configID) -> id
+       CloseBrowser(browserID) -> bool
        OpenWebURL(browserID, url, configID) -> bool
        GetCurrentURL(browserID) -> string
        GetWebPage(browserID, configID) -> id	
@@ -163,7 +165,9 @@ MsgNameDumpUI
     MsgParam1: uiID
 MsgNameOpenBrowser
     MsgParam1: name
-    MsgParam2: configID	
+    MsgParam2: configID
+MsgNameCloseBrowser
+    MsgParam1: browserID
 MsgNameOpenWebURL
     MsgParam1: browserID
     MsgParam2: url

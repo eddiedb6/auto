@@ -114,6 +114,12 @@ class PluginSelenium(AFWPluginWeb):
             Error("Browser type is not supported: " + name)
         return None
 
+    def CloseBrowser(self, browserID):
+        Info("Close browser: " + browserID)
+        browser = self._getNative(browserID)
+        browser.quit()
+        return self.DumpUI(browserID)
+
     def OpenWebURL(self, browserID, url, configID):
         Info("Open web url: " + url)
         if browserID is None:

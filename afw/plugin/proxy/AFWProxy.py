@@ -122,6 +122,14 @@ class AFWProxy:
         result = self.__handleMessage(msg)
         return result[AFWConst.MsgResult]
 
+    def CloseBrowser(self, browserID):
+        msg = {
+            AFWConst.MsgName: AFWConst.MsgNameCloseBrowser,
+            AFWConst.MsgParam1: browserID
+        }
+        result = self.__handleMessage(msg)
+        return result[AFWConst.MsgResult]
+
     def OpenWebURL(self, browserID, url, configID):
         msg = {
             AFWConst.MsgName: AFWConst.MsgNameOpenWebURL,

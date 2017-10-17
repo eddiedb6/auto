@@ -80,6 +80,9 @@ def __handleMessage(msg):
         name = msg[AFWConst.MsgParam1]
         browserID = msg[AFWConst.MsgParam2]
         result[AFWConst.MsgResult] = pluginInstance.OpenBrowser(name, browserID)
+    elif msgName == AFWConst.MsgNameCloseBrowser:
+        browserID = msg[AFWConst.MsgParam1]
+        result[AFWConst.MsgResult] = pluginInstance.CloseBrowser(browserID)
     elif msgName == AFWConst.MsgNameOpenWebURL:
         browserID = msg[AFWConst.MsgParam1]
         url = msg[AFWConst.MsgParam2]
