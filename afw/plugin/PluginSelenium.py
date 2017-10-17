@@ -208,12 +208,18 @@ class PluginSelenium(AFWPluginWeb):
         
     def __getElementByType(self, driverElement, config):
         Debug("Find by type: " + config[AFWConst.Type])
-        if config[AFWConst.Type] == AFWConst.WebLink and AFWConst.Text in config:
-            op = lambda text: self.__getElementByLinkText(driverElement, text) 
-            return AFWPluginUtil.LoopTextArray(config[AFWConst.Text], op)
-        if config[AFWConst.Type] == AFWConst.WebTable:
-            return driverElement.find_element_by_tag_name("table")
-        return None
+        tag = ""
+        if config[AFWConst.Type] == AFWConst.WebLink:
+            if AFWConst.Text in config:
+                op = lambda text: self.__getElementByLinkText(driverElement, text) 
+                return AFWPluginUtil.LoopTextArray(config[AFWConst.Text], op)
+            else:
+                tag = "a"
+        elif config[AFWConst.Type] == AFWConst.WebTable:
+            tag = "table"
+        else:
+            return None
+        return driverElement.find_element_by_tag_name(tag)
     
     __browserFactory = {
         AFWConst.BrowserChrome: lambda : webdriver.Chrome(),
