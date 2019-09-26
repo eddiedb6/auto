@@ -26,14 +26,14 @@ class PluginMSApp(AFWPluginApp):
         parentConfig = self._getConfig(parentConfigID)
         parentNative = self._getNative(parentConfigID)
         Debug("Get element: " + config[AFWConst.Name])
-        op = lambda text: MS.MSWrapper.GetElementByTextInDescendantScope(text, parentNative)
+        op = lambda text: MS.MSWrapper.TryGetElementByText(text, parentNative)
         element = None
         if AFWConst.Text in config:
             element = AFWPluginUtil.LoopTextArray(config[AFWConst.Text], op)
         elif AFWConst.Caption in config:
             element = AFWPluginUtil.LoopTextArray(config[AFWConst.Caption], op)
         else:
-            element = MS.MSWrapper.GetElementByTypeInDescendantScope(config[AFWConst.Type], parentNative)
+            element = MS.MSWrapper.TryGetElementByType(config[AFWConst.Type], parentNative)
         if element is not None:
             self._addNative(configID, element)
             return configID

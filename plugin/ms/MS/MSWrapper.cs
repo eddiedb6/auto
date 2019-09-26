@@ -38,7 +38,59 @@ namespace MS
         {
             // If use descendant scope, it could find the form. 
             // But following element finding in the form will be failed.
-            return GetElementByTextInChildrenScope(caption, GetDesktop());
+            AutomationElement form = GetElementByTextInChildrenScope(caption, GetDesktop());
+            if (form != null)
+            {
+                return form;
+            }
+
+            return TryGetElementByText(caption, GetDesktop());
+        }
+
+        public static AutomationElement TryGetElementByText(String text, AutomationElement parent)
+        {
+            AutomationElement element = GetElementByTextInDescendantScope(text, parent);
+            if (element != null)
+            {
+                return element;
+            }
+
+            element = GetElementByTextInChildrenScope(text, parent);
+            if (element != null)
+            {
+                return element;
+            }
+
+            element = GetElementByTextInSubtreeScope(text, parent);
+            if (element != null)
+            {
+                return element;
+            }
+
+            return element;
+        }
+
+        public static AutomationElement TryGetElementByType(String typeText, AutomationElement parent)
+        {
+            AutomationElement element = GetElementByTypeInDescendantScope(typeText, parent);
+            if (element != null)
+            {
+                return element;
+            }
+
+            element = GetElementByTypeInChildrenScope(typeText, parent);
+            if (element != null)
+            {
+                return element;
+            }
+
+            element = GetElementByTypeInSubtreeScope(typeText, parent);
+            if (element != null)
+            {
+                return element;
+            }
+
+            return element;
         }
 
         public static AutomationElement GetElementByTextInChildrenScope(String text, AutomationElement parent)
@@ -49,6 +101,11 @@ namespace MS
         public static AutomationElement GetElementByTextInDescendantScope(String text, AutomationElement parent)
         {
             return GetElementByText(text, parent, TreeScope.Descendants);
+        }
+
+        public static AutomationElement GetElementByTextInSubtreeScope(String text, AutomationElement parent)
+        {
+            return GetElementByText(text, parent, TreeScope.Subtree);
         }
         
         public static AutomationElement GetElementByText(String text, AutomationElement parent, TreeScope scop)
@@ -71,6 +128,11 @@ namespace MS
         public static AutomationElement GetElementByTypeInChildrenScope(String typeText, AutomationElement parent)
         {
             return GetElementByType(typeText, parent, TreeScope.Children);
+        }
+
+        public static AutomationElement GetElementByTypeInSubtreeScope(String typeText, AutomationElement parent)
+        {
+            return GetElementByType(typeText, parent, TreeScope.Subtree);
         }
         
         public static AutomationElement GetElementByType(String typeText, AutomationElement parent, TreeScope scop)
@@ -263,7 +325,7 @@ namespace MS
             return Encoding.UTF8.GetString(utf8Bytes);
         }
 
-        static bool debug = true;
+        static bool debug = false;
         static Dictionary<String, ControlType> controlTypeMap = new Dictionary<string, ControlType>()
         {
             {"apptab", ControlType.Tab},
