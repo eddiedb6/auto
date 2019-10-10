@@ -6,4 +6,4 @@ class AFWAppElement(AFWAppUI):
         AFWAppUI.__init__(self, manager, configID, parentConfigID)
         elementID = self._plugin.GetElement(configID, parentConfigID)
         if elementID is None:
-            raise Exception("Failed to get app element: " + self.GetConfig(configID)[AFWConst.Name])
+            raise Exception("Failed to get app element: " + self.GetConfig()[AFWConst.Name])

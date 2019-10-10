@@ -42,7 +42,7 @@ Attributes = "attributes"
 #     4. Add new type to __uiFactory in AFWUIManager and import new py file in this manager
 #     5. Add new type to AFWSchema
 #     6. Update Readme description
-#     *. There is uigen.py script to help
+#     *. There is uigen.py script to help except #6
 
 UIRoot = "uiroot"
 
@@ -66,6 +66,7 @@ WebCombobox = "webcombobox"
 WebPanel = "webpanel"
 WebTable = "webtable"
 WebEntry = "webentry"
+WebClickableElement = "webclickableelement"
 ### UI types definition end ###
 
 UIType = [
@@ -89,6 +90,7 @@ UIType = [
     WebPanel,
     WebTable,
     WebEntry,
+    WebClickableElement,
 ### UI types collection end ###
     UIRoot
 ]

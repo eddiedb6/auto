@@ -1,4 +1,6 @@
 [
+    ### APP ###
+
     {
         # Application
         "Name": "UIApp",
@@ -66,6 +68,9 @@
             "AFWClickable"
         ]
     },
+
+    #### WEB ###
+
     {
         # Browser
         "Name": "UIWeb",
@@ -136,5 +141,14 @@
         "Class": "AFWWebEntry",
         "Parent": "AFWWebBase",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)"
+    },
+    {
+        "Name": "WebClickableElement",
+        "Class": "AFWWebClickableElement",
+        "Parent": "AFWWebElement",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
+        "Abilities": [
+            "AFWClickable"
+        ]
     }
 ]

@@ -6,4 +6,4 @@ class AFWAppSubForm(AFWAppUI):
         AFWAppUI.__init__(self, manager, configID, parentConfigID)
         subFormID = self._plugin.GetElement(configID, parentConfigID)
         if subFormID is None:
-            raise Exception("Failed to find sub form: " + self.GetConfig(configID)[AFWConst.Name])
+            raise Exception("Failed to find sub form: " + self.GetConfig()[AFWConst.Name])

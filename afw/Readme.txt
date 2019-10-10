@@ -114,6 +114,7 @@ AFWUI
     `-AFWWebUI
        |-AFWWebPage (WebPage)
        `-AFWWebElement (WebElement)
+          |-AFWClickableElement (WebClickableElement)
           |-AFWWebPanel (WebPanel)
 	  |-AFWWebTable (WebTable)
           |-AFWWebEditBox (WebEditBox)

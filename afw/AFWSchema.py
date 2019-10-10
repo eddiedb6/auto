@@ -244,6 +244,12 @@
         ],
         SchemaType: SchemaTypeDict
     },
+    AFWConst.WebClickableElement: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
 ### App types schema end ###
 
     # Schema for key in attributes

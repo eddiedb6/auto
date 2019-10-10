@@ -24,6 +24,7 @@ from AFWWebCombobox import AFWWebCombobox
 from AFWWebPanel import AFWWebPanel
 from AFWWebTable import AFWWebTable
 from AFWWebEntry import AFWWebEntry
+from AFWWebClickableElement import AFWWebClickableElement
 ### UI type import end ###
 
 class AFWUIManager:
@@ -190,6 +191,7 @@ class AFWUIManager:
         AFWConst.WebPanel: lambda manager, configID, parentConfigID: AFWWebPanel(manager, configID, parentConfigID),
         AFWConst.WebTable: lambda manager, configID, parentConfigID: AFWWebTable(manager, configID, parentConfigID),
         AFWConst.WebEntry: lambda manager, configID, parentConfigID: AFWWebEntry(manager, configID, parentConfigID),
+        AFWConst.WebClickableElement: lambda manager, configID, parentConfigID: AFWWebClickableElement(manager, configID, parentConfigID),
 ### UI type factory initialize end ###
         "Dummy": "Dummy"
     }

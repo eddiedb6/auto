@@ -121,15 +121,6 @@ s.connect((HOST, PORT))
 Info("[Local Client] Connect to host successfully for client " + guid)
 
 try:
-    # Regisger client
-    registerMsg = {
-        AFWConst.MsgName: AFWConst.MsgNameRegisterClient,
-        AFWConst.MsgParam1: guid
-    }
-    regMsgZip, regMsgStr = AFWProxyUtil.CompressProxyMessage(registerMsg)
-    Debug("[Local Client] Send proxy host register request: " + regMsgStr)
-    s.sendall(regMsgZip)
-
     # Load plugin
     pluginModule = __import__(pluginName)
     if not pluginModule:
@@ -139,6 +130,15 @@ try:
         Info("[Local Client] Load plugin: " + pluginName)
     pluginClass = getattr(pluginModule, pluginName)
     pluginInstance = pluginClass(None, AFWProxyConfigPool(s))
+
+    # Regisger client
+    registerMsg = {
+        AFWConst.MsgName: AFWConst.MsgNameRegisterClient,
+        AFWConst.MsgParam1: guid
+    }
+    regMsgZip, regMsgStr = AFWProxyUtil.CompressProxyMessage(registerMsg)
+    Debug("[Local Client] Send proxy host register request: " + regMsgStr)
+    s.sendall(regMsgZip)
 
     # Handle proxy command
     isContinue = True
