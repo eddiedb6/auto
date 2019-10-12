@@ -61,7 +61,7 @@ class AFWUIManager:
 
     def DumpUI(self, uiID):
         if uiID in self.__uiPool:
-            del self.__uiPool[uiID]
+            del self.__uiPool[uiID] # This will delete both key and value
             return True
         return False
     

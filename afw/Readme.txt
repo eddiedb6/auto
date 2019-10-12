@@ -4,6 +4,23 @@
         `[Native Object] Native object created from plugin, which implements AFWUI operations and lives in plugin
     * The three objects shared the same GUID, so could use one ID to find any of them
 
+    a. Configure Object
+        * Configure objects are defined as dictionary in config file
+        * The entry key in config file is "AFWConst.UI"
+        * When loaded to UI manager, there will be an uuid generated for each configure object and saved in map "AFWUIManager.__configPool" using the uuid as key
+        * Meanwhile, the sub configure objects (which are defined as array) in parent configure object will be replaced as map using uuid as key
+        * The UI parent children structure is saved in the configure objects level
+
+    b. UI Object
+        * When call "AFWUIManager.TryToFindUI", the configure object pool is searched
+        * Whe the configure object is found, corresponding UI object is created
+        * When UI object is saved in "AFWUIManager.__uiPool" as map using the uuid as key
+        * When call "AFWUIManager.DumpUI", the UI object will be removed from the pool including its uuid
+        * When call "AFWUI.Dump", the UI object and all its children will be dumped, including corresponding native object in plugin
+
+    c. Native Object
+        * Native object will be created in UI object constructure
+
 2. How to add new UI type?
     Refer to AFWConst.py comments
 
@@ -15,7 +32,22 @@
     b. User "afw" instance variable to execuete AFWUIManager operations, e.g. "afw.StartApp"
     c. When get AFWUI instance successfully, call its operations defined by AFWUI or its subclass
 
+5. Plugin
+    a. Plugin is named as "^Plugin[\w]+\.py$" and saved in plugin folder which is the same one as AFWPluginManager.py
+    b. Plugin will be loaded and created only in following UI object constructor:
+        AFWApp
+        AFWAppRoot
+        AFWWeb
+    c. Proxy
+    
 [APIs]
+
+AFW
+    Load(path) -> bool
+    Destroy()
+    Execute() -> bool
+    @LogLevel
+    @BreakTime
 
 AFWUIManagerWrapper
     StartApp(name) -> AFWApp, exception

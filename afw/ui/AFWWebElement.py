@@ -6,7 +6,7 @@ class AFWWebElement(AFWWebUI):
         AFWWebUI.__init__(self, manager, configID, parentConfigID)
         elementID = self._plugin.GetElement(configID, parentConfigID)
         if elementID is None:
-            raise Exception("Failed to get web element: " + self.GetConfig(configID)[AFWConst.Name])
+            raise Exception("Failed to get web element: " + self.GetConfig()[AFWConst.Name])
 
     ### Implement AFWUI ###
 
