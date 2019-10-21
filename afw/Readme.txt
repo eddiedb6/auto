@@ -19,7 +19,7 @@
         * When call "AFWUI.Dump", the UI object and all its children will be dumped, including corresponding native object in plugin
 
     c. Native Object
-        * Native object will be created in UI object constructure
+        * Native object will be created in UI object constructor
 
 2. How to add new UI type?
     Refer to AFWConst.py comments
@@ -81,25 +81,25 @@ AFWUI
  |  IsEnabled() -> bool
  |  PressKey(key) -> bool
  |  ReleaseKey(key) -> bool
- |  InputText(text) -> bool
  |  GetText() -> string
- `-AFWWebBase
-    `-AFWWeb
-       |  GetCurrentURL() -> string
-       |  OpenURL(name) -> bool
-       |  Quit() -> bool
-       `-AFWWebUI
-          `-AFWWebElement
-	     `-AFWWebTable
-	           GetCellText(row, column) -> string    
+ |-AFBrowser
+ |  |  GetCurrentURL() -> string
+ |  |  OpenURL(name) -> bool
+ |  `  Quit() -> bool
+ `-AFWWebTable
+    `  GetCellText(row, column) -> string    
 
 AFWAbility
  |-AFWClickable
- |  |  Click() -> bool
- |  `-AFWCheckable
- |        IsChecked() -> bool
+ |  `  Click() -> bool
+ |-AFWCheckable
+ |  |  Check() -> bool
+ |  |  Uncheck() -> bool
+ |  `  IsChecked() -> bool
+ |-AFWInputable
+ |  `  Input(text) -> bool
  `-AFWSelectable
-       Select(itemValue) -> bool
+    `  Select(itemValue) -> bool
 
 AFWPlugin
  |  GetElement(configID, parentConfigID) -> obj
@@ -110,6 +110,7 @@ AFWPlugin
  |  IsEnabled(uiID) -> bool
  |  PressKey(uiID, key) -> bool
  |  ReleaseKey(uiID, key) -> bool
+ |  SetText(uiID, text) -> bool
  |  GetText(uiID) -> string
  |  GetCellText(uiID, row, column) -> string
  |  DumpUI(uiID) -> bool
@@ -122,45 +123,37 @@ AFWPlugin
        CloseBrowser(browserID) -> bool
        OpenWebURL(browserID, url, configID) -> bool
        GetCurrentURL(browserID) -> string
-       GetWebPage(browserID, configID) -> id	
-       SendKeys(uiID, keys) -> bool
+       GetWebPage(browserID, configID) -> id
 
 [Classes]
 
 AFWUI
- |-AFWAppBase
- |  |-AFWApp (UIApp)
- |  `-AFWAppUI
- |     |-AFWAppRoot (AppRoot) 
- |     |-AFWAppForm (AppForm)
- |     |-AFWAppSubForm (AppSubForm)
- |     `-AFWAppElement
- |        |-AFWAppTab (AppTab)
- |        |-AFWAppTabPage (AppTabPage)
- |        |-AFWAppEditBox (AppEditBox)
- |        |-AFWAppCheckbox (AppCheckbox)
- |        `-AFWAppButton (AppButton)
- `-AFWWebBase
-    |-AFWWeb (UIWeb)
-    |-AFWWebEntry (WebEntry)
-    `-AFWWebUI
-       |-AFWWebPage (WebPage)
-       `-AFWWebElement (WebElement)
-          |-AFWClickableElement (WebClickableElement)
-          |-AFWWebPanel (WebPanel)
-	  |-AFWWebTable (WebTable)
-          |-AFWWebEditBox (WebEditBox)
-	  |-AFWWebLink (WebLink)
-	  |-AFWWebButton (WebButton)
-	  `-AFWWebCombobox (WebCombobox)
+ |-AFWApp (UIApp)
+ |-AFWDesktop (UIDesktop) 
+ |-AFWForm (UIForm)
+ |-AFWAppDialog (UIAppDialog)
+ |-AFWAppTab (UIAppTab)
+ |-AFWAppTabPage (UIAppTabPage)
+ |
+ |-AFWClickableUI (UIClickable)
+ |  `-AFWWebLink (UIWebLink)
+ |-AFWCheckableUI (UICheckable)
+ |-AFWInputableUI (UIInputable)
+ |-AFWSelectableUI (UISelectable)
+ |
+ |-AFWBrowser (UIBrowser)
+ |-AFWWebEntry (UIWebEntry)
+ |-AFWWebPage (UIWebPage)
+ `-AFWWebTable (UIWebTable)
+
 
 AFWPlugin
  |-AFWPluginApp
  |  |-PluginMSApp
- |  `-PluginSocketApp
+ |  `-PluginProxyApp
  `-AFWPluginWeb
     |-PluginSelenium
-    `-PluginSocketWeb
+    `-PluginProxyWeb
 
 [Messages]
 MsgNameRegisterClient
@@ -210,9 +203,9 @@ MsgNameGetCurrentURL
 MsgNameGetWebPage
     MsgParam1: browserID
     MsgParam2: configID
-MsgNameSendKeys
+MsgNameSetText
     MsgParam1: uiID
-    MsgParam2: keys
+    MsgParam2: text
 MsgNameStartApp
     MsgParam1: path
     MsgParam2: configID

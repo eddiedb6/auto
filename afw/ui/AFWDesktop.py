@@ -1,15 +1,15 @@
 import AFWConst
-from AFWAppUI import AFWAppUI
+from AFWUI import AFWUI
 from AFWPluginManager import AFWPluginManager
 from AFWLocalConfigPool import AFWLocalConfigPool
 
-class AFWAppRoot(AFWAppUI):
+class AFWDesktop(AFWUI):
     def __init__(self, manager, configID, parentConfigID):
         parentConfig = manager.GetConfig(parentConfigID)
         if parentConfig is not None and parentConfig[AFWConst.Type] != AFWConst.UIApp:
             # This is not from start App, but find win form directly
             parentConfigID = None
-        AFWAppUI.__init__(self, manager, configID, parentConfigID)
+        AFWUI.__init__(self, manager, configID, parentConfigID)
         config = self.GetConfig()
         if parentConfigID is None:
             if self._plugin is None :

@@ -36,6 +36,9 @@ class PluginProxyApp(AFWPluginApp):
     def ReleaseKey(self, uiID, key):
         return self.__proxy.ReleaseKey(uiID, key)
 
+    def SetText(self, uiID, text):
+        return self.__proxy.SetText(uiID, text)
+
     def GetText(self, uiID):
         return self.__proxy.GetText(uiID)
 

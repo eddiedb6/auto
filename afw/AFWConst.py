@@ -48,49 +48,39 @@ UIRoot = "uiroot"
 
 ### UI types definition start ###
 UIApp = "uiapp"
-AppRoot = "approot"
-AppForm = "appform"
-AppSubForm = "appsubform"
-AppTab = "apptab"
-AppTabPage = "apptabpage"
-AppButton = "appbutton"
-AppCheckbox = "appcheckbox"
-AppEditBox = "appeditbox"
-UIWeb = "uiweb"
-WebPage = "webpage"
-WebElement = "webelement"
-WebEditBox = "webeditbox"
-WebLink = "weblink"
-WebButton = "webbutton"
-WebCombobox = "webcombobox"
-WebPanel = "webpanel"
-WebTable = "webtable"
-WebEntry = "webentry"
-WebClickableElement = "webclickableelement"
+UIDesktop = "uidesktop"
+UIForm = "uiform"
+UIAppDialog = "uiappdialog"
+UIAppTab = "uiapptab"
+UIAppTabPage = "uiapptabpage"
+UIBrowser = "uibrowser"
+UIWebEntry = "uiwebentry"
+UIWebLink = "uiweblink"
+UIWebPage = "uiwebpage"
+UIWebTable = "uiwebtable"
+UIClickable = "uiclickable"
+UICheckable = "uicheckable"
+UIInputable = "uiinputable"
+UISelectable = "uiselectable"
 ### UI types definition end ###
 
 UIType = [
 ### UI types collection start ###
     UIApp,
-    AppRoot,
-    AppForm,
-    AppSubForm,
-    AppTab,
-    AppTabPage,
-    AppButton,
-    AppCheckbox,
-    AppEditBox,
-    UIWeb,
-    WebPage,
-    WebElement,
-    WebEditBox,
-    WebLink,
-    WebButton,
-    WebCombobox,
-    WebPanel,
-    WebTable,
-    WebEntry,
-    WebClickableElement,
+    UIDesktop,
+    UIForm,
+    UIAppDialog,
+    UIAppTab,
+    UIAppTabPage,
+    UIBrowser,
+    UIWebEntry,
+    UIWebLink,
+    UIWebPage,
+    UIWebTable,
+    UIClickable,
+    UICheckable,
+    UIInputable,
+    UISelectable,
 ### UI types collection end ###
     UIRoot
 ]
@@ -188,7 +178,7 @@ MsgNameCloseBrowser = "msgnameclosebrowser"
 MsgNameOpenWebURL = "msgnameopenweburl"
 MsgNameGetCurrentURL = "msgnamegetcurrenturl"
 MsgNameGetWebPage = "msgnamegetwebpage"
-MsgNameSendKeys = "msgnamesendkeys"
+MsgNameSendKeys = "msgnamesettext"
 MsgNameStartApp = "msgnamestartapp"
 MsgNameGetDesktop = "msgnamegetdesktop"
 MsgNameGetForm = "msgnamegetform"

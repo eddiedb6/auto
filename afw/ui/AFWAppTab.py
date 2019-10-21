@@ -1,6 +1,6 @@
 import AFWConst
-from AFWAppElement import AFWAppElement
+from AFWUI import AFWUI
 
-class AFWAppTab(AFWAppElement):
+class AFWAppTab(AFWUI):
     def __init__(self, manager, configID, parentConfigID):
-        AFWAppElement.__init__(self, manager, configID, parentConfigID)
+        AFWUI.__init__(self, manager, configID, parentConfigID)

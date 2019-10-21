@@ -1,8 +1,8 @@
 import AFWConst
-from AFWAppElement import AFWAppElement
+from AFWUI import AFWUI
 from AFWCheckable import AFWCheckable
 
-class AFWAppCheckbox(AFWAppElement, AFWCheckable):
+class AFWCheckableUI(AFWUI, AFWCheckable):
     def __init__(self, manager, configID, parentConfigID):
-        AFWAppElement.__init__(self, manager, configID, parentConfigID)
+        AFWUI.__init__(self, manager, configID, parentConfigID)
         AFWCheckable.__init__(self, self._plugin)

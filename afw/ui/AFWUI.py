@@ -107,8 +107,5 @@ class AFWUI:
     def ReleaseKey(self, key):
         return self._plugin.ReleaseKey(self.__id, key)
 
-    def InputText(self, text):
-        return False
-
     def GetText(self):
         return self._plugin.GetText(self.__id)

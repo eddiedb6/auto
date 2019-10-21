@@ -101,6 +101,12 @@ class PluginSelenium(AFWPluginWeb):
             return None
         return columnElement.text
 
+    def SetText(self, uiID, text):
+        if uiID is None:
+            return False
+        self._getNative(uiID).send_keys(text)
+        return True
+
     ### Implement AFWPluginWeb ###
     
     def OpenBrowser(self, name, configID):
@@ -143,12 +149,6 @@ class PluginSelenium(AFWPluginWeb):
         browser = self._getNative(browserID)
         self._addNative(configID, browser)
         return configID
-
-    def SendKeys(self, uiID, keys):
-        if uiID is None:
-            return False
-        self._getNative(uiID).send_keys(keys)
-        return True
     
     ### Private ###
 

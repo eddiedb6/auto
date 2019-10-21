@@ -29,6 +29,9 @@ class AFWPlugin:
     def ReleaseKey(self, uiID, key):
         return False
 
+    def SetText(self, uiID, text):
+        return False
+
     def GetText(self, uiID):
         return None
 

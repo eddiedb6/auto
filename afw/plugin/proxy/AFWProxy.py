@@ -85,6 +85,15 @@ class AFWProxy:
         result = self.__handleMessage(msg)
         return result[AFWConst.MsgResult]
 
+    def SetText(self, uiID, text):
+        msg = {
+            AFWConst.MsgName: AFWConst.MsgNameSetText,
+            AFWConst.MsgParam1: uiID,
+            AFWConst.MsgParam2: text
+        }
+        result = self.__handleMessage(msg)
+        return result[AFWConst.MsgResult]
+
     def GetText(self, uiID):
         msg = {
             AFWConst.MsgName: AFWConst.MsgNameGetText,
@@ -153,15 +162,6 @@ class AFWProxy:
             AFWConst.MsgName: AFWConst.MsgNameGetWebPage,
             AFWConst.MsgParam1: browserID,
             AFWConst.MsgParam2: configID
-        }
-        result = self.__handleMessage(msg)
-        return result[AFWConst.MsgResult]
-
-    def SendKeys(self, uiID, keys):
-        msg = {
-            AFWConst.MsgName: AFWConst.MsgNameSendKeys,
-            AFWConst.MsgParam1: uiID,
-            AFWConst.MsgParam2: keys
         }
         result = self.__handleMessage(msg)
         return result[AFWConst.MsgResult]

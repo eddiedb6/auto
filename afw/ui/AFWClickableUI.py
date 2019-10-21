@@ -1,8 +1,8 @@
 import AFWConst
-from AFWWebElement import AFWWebElement
+from AFWUI import AFWUI
 from AFWClickable import AFWClickable
 
-class AFWWebButton(AFWWebElement, AFWClickable):
+class AFWClickableUI(AFWUI, AFWClickable):
     def __init__(self, manager, configID, parentConfigID):
-        AFWWebElement.__init__(self, manager, configID, parentConfigID)
+        AFWUI.__init__(self, manager, configID, parentConfigID)
         AFWClickable.__init__(self, self._plugin)

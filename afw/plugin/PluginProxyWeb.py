@@ -36,6 +36,9 @@ class PluginProxyWeb(AFWPluginWeb):
     def ReleaseKey(self, uiID, key):
         return self.__proxy.ReleaseKey(uiID, key)
 
+    def SetText(self, uiID, text):
+        return self.__proxy.SetText(uiID, text)
+
     def GetText(self, uiID):
         return self.__proxy.GetText(uiID)
 
@@ -61,6 +64,3 @@ class PluginProxyWeb(AFWPluginWeb):
 
     def GetWebPage(self, browserID, configID):
         return self.__proxy.GetWebPage(browserID, configID)
-
-    def SendKeys(self, uiID, keys):
-        return self.__proxy.SendKeys(uiID, keys)

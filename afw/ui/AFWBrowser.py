@@ -1,11 +1,11 @@
 import AFWConst
-from AFWWebBase import AFWWebBase
+from AFWUI import AFWUI
 from AFWPluginManager import AFWPluginManager
 from AFWLocalConfigPool import AFWLocalConfigPool
 
-class AFWWeb(AFWWebBase):
+class AFWBrowser(AFWUI):
     def __init__(self, manager, configID, parentConfigID):
-        AFWWebBase.__init__(self, manager, configID, None)
+        AFWUI.__init__(self, manager, configID, None)
         self.__urlCache = {}
         config = self.GetConfig()
         self._plugin = AFWPluginManager().CreatePlugin(config[AFWConst.Plugin], AFWLocalConfigPool(manager))
@@ -27,7 +27,7 @@ class AFWWeb(AFWWebBase):
         url = self.TryToFindSubUI(name)
         if url is None:
             return False
-        if url.GetType() != AFWConst.WebEntry:
+        if url.GetType() != AFWConst.UIWebEntry:
             return False
         self.__urlCache[name] = url
         return True

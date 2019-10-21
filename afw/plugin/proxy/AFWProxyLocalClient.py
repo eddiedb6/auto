@@ -95,10 +95,10 @@ def __handleMessage(msg):
         browserID = msg[AFWConst.MsgParam1]
         configID = msg[AFWConst.MsgParam2]
         result[AFWConst.MsgResult] = pluginInstance.GetWebPage(browserID, configID)
-    elif msgName == AFWConst.MsgNameSendKeys:
+    elif msgName == AFWConst.MsgNameSetText:
         uiID = msg[AFWConst.MsgParam1]
-        keys = msg[AFWConst.MsgParam2]
-        result[AFWConst.MsgResult] = pluginInstance.SendKeys(uiID, keys)
+        text = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.SetText(uiID, text)
     elif msgName == AFWConst.MsgNameStartApp:
         path = msg[AFWConst.MsgParam1]
         configID = msg[AFWConst.MsgParam2]

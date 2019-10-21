@@ -5,150 +5,114 @@
         # Application
         "Name": "UIApp",
         "Class": "AFWApp",
-        "Parent": "AFWAppBase",
+        "Parent": "AFWUI",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Path, AFWConst.Plugin)"
     },
     {
         # Desktop
-        "Name": "AppRoot",
-        "Class": "AFWAppRoot",
-        "Parent": "AFWAppUI",
+        "Name": "UIDesktop",
+        "Class": "AFWDesktop",
+        "Parent": "AFWUI",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
     },
     {
         # Windows Form
-        "Name": "AppForm",
-        "Class": "AFWAppForm",
-        "Parent": "AFWAppUI",
+        "Name": "UIForm",
+        "Class": "AFWForm",
+        "Parent": "AFWUI",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
     },
     {
         # Popup Dialog
-        "Name": "AppSubForm",
-        "Class": "AFWAppSubForm",
-        "Parent": "AFWAppUI",
+        "Name": "UIAppDialog",
+        "Class": "AFWAppDialog",
+        "Parent": "AFWUI",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
     },
     {
-        "Name": "AppTab",
+        "Name": "UIAppTab",
         "Class": "AFWAppTab",
-        "Parent": "AFWAppElement",
+        "Parent": "AFWUI",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.SubUI)"
     },
     {
-        "Name": "AppTabPage",
+        "Name": "UIAppTabPage",
         "Class": "AFWAppTabPage",
-        "Parent": "AFWAppElement",
+        "Parent": "AFWUI",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
-    },
-    {
-        "Name": "AppButton",
-        "Class": "AFWAppButton",
-        "Parent": "AFWAppElement",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
-        "Abilities": [
-            "AFWClickable"
-        ]
-    },
-    {
-        "Name": "AppCheckbox",
-        "Class": "AFWAppCheckbox",
-        "Parent": "AFWAppElement",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
-        "Abilities": [
-            "AFWCheckable"
-        ]
-    },
-    {
-        "Name": "AppEditBox",
-        "Class": "AFWAppEditBox",
-        "Parent": "AFWAppElement",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
-        "Abilities": [
-            "AFWClickable"
-        ]
     },
 
     #### WEB ###
 
     {
         # Browser
-        "Name": "UIWeb",
-        "Class": "AFWWeb",
-        "Parent": "AFWWebBase",
+        "Name": "UIBrowser",
+        "Class": "AFWBrowser",
+        "Parent": "AFWUI",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Browser, AFWConst.Plugin)"
     },
     {
-        # Web Page
-        "Name": "WebPage",
-        "Class": "AFWWebPage",
-        "Parent": "AFWWebUI",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
-    },
-    {
-        "Name": "WebElement",
-        "Class": "AFWWebElement",
-        "Parent": "AFWWebUI",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
-    },
-    {
-        "Name": "WebEditBox",
-        "Class": "AFWWebEditBox",
-        "Parent": "AFWWebElement",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
-    },
-    {
-        "Name": "WebLink",
-        "Class": "AFWWebLink",
-        "Parent": "AFWWebElement",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
-        "Abilities": [
-            "AFWClickable"
-        ]
-    },
-    {
-        "Name": "WebButton",
-        "Class": "AFWWebButton",
-        "Parent": "AFWWebElement",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
-        "Abilities": [
-            "AFWClickable"
-        ]
-    },
-    {
-        "Name": "WebCombobox",
-        "Class": "AFWWebCombobox",
-        "Parent": "AFWWebElement",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
-        "Abilities": [
-            "AFWSelectable"
-        ]
-    },
-    {
-        "Name": "WebPanel",
-        "Class": "AFWWebPanel",
-        "Parent": "AFWWebElement",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
-    },
-    {
-        "Name": "WebTable",
-        "Class": "AFWWebTable",
-        "Parent": "AFWWebElement",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
-    },
-    {
-        "Name": "WebEntry",
+        "Name": "UIWebEntry",
         "Class": "AFWWebEntry",
-        "Parent": "AFWWebBase",
+        "Parent": "AFWUI",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)"
     },
     {
-        "Name": "WebClickableElement",
-        "Class": "AFWWebClickableElement",
-        "Parent": "AFWWebElement",
+        # Web Page
+        "Name": "UIWebPage",
+        "Class": "AFWWebPage",
+        "Parent": "AFWUI",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
+    },
+    {
+        "Name": "UIWebTable",
+        "Class": "AFWWebTable",
+        "Parent": "AFWUI",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
+    },
+    {
+        "Name": "UIWebLink",
+        "Class": "AFWWebLink",
+        "Parent": "AFWClickableUI",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
+    },
+
+    #### Common ###
+    
+    {
+        "Name": "UIClickable",
+        "Class": "AFWClickableUI",
+        "Parent": "AFWUI",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
         "Abilities": [
             "AFWClickable"
+        ]
+    },
+    {
+        "Name": "UICheckable",
+        "Class": "AFWCheckableUI",
+        "Parent": "AFWUI",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
+        "Abilities": [
+            "AFWCheckable"
+        ]
+    },
+    {
+        "Name": "UIInputable",
+        "Class": "AFWInputableUI",
+        "Parent": "AFWUI",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
+        "Abilities": [
+            "AFWInputable"
+        ]
+    },
+    {
+        "Name": "UISelectable",
+        "Class": "AFWSelectableUI",
+        "Parent": "AFWUI",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)",
+        "Abilities": [
+            "AFWSelectable"
         ]
     }
 ]

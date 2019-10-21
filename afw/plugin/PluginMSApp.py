@@ -5,6 +5,7 @@ import time
 from AFWLogger import *
 from AFWPluginApp import AFWPluginApp
 import AFWConst
+import AFWUIUtil
 import AFWPluginUtil
 
 sys.path.append(os.path.join(os.path.split(os.path.realpath(__file__))[0], "../../plugin/ms/bin"))
@@ -74,6 +75,20 @@ class PluginMSApp(AFWPluginApp):
 
     def ReleaseKey(self, uiID, key):
         MS.MSWrapper.SendKeyEvent(key, 0, 2, 0)
+        return True
+
+    # Simulate key down and key up to do text input
+    def SetText(self, text):
+        for char in text:
+            key, needShift = AFWUIUtil.GetKeyFromChar(char)
+            if key is None:
+                continue
+            if needShift:
+                self.PressKey(AFWConst.AFWKeyShift)
+            self.PressKey(key)
+            self.ReleaseKey(key)
+            if needShift:
+                self.ReleaseKey(AFWConst.AFWKeyShift)
         return True
 
     def GetText(self, uiID):
