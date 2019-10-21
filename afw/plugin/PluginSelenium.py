@@ -215,13 +215,13 @@ class PluginSelenium(AFWPluginWeb):
     def __getElementByType(self, driverElement, config):
         Debug("Find by type: " + config[AFWConst.Type])
         tag = ""
-        if config[AFWConst.Type] == AFWConst.WebLink:
+        if config[AFWConst.Type] == AFWConst.UIWebLink:
             if AFWConst.Text in config:
                 op = lambda text: self.__getElementByLinkText(driverElement, text) 
                 return AFWPluginUtil.LoopTextArray(config[AFWConst.Text], op)
             else:
                 tag = "a"
-        elif config[AFWConst.Type] == AFWConst.WebTable:
+        elif config[AFWConst.Type] == AFWConst.UIWebTable:
             tag = "table"
         else:
             return None

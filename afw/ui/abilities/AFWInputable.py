@@ -1,3 +1,4 @@
+import AFWConst
 from AFWAbility import AFWAbility
 
 class AFWInputable(AFWAbility):

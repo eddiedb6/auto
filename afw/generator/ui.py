@@ -120,5 +120,11 @@
         "Class": "AFWEditBox",
         "Parent": "AFWInputableUI",
         "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
+    },
+    {
+        "Name": "UICommon",
+        "Class": "AFWCommon",
+        "Parent": "AFWUI",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
     }
 ]

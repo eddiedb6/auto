@@ -226,6 +226,12 @@
         ],
         SchemaType: SchemaTypeDict
     },
+    AFWConst.UICommon: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
 ### App types schema end ###
 
     # Schema for key in attributes

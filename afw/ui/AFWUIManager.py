@@ -21,6 +21,7 @@ from AFWCheckableUI import AFWCheckableUI
 from AFWInputableUI import AFWInputableUI
 from AFWSelectableUI import AFWSelectableUI
 from AFWEditBox import AFWEditBox
+from AFWCommon import AFWCommon
 ### UI type import end ###
 
 class AFWUIManager:
@@ -184,6 +185,7 @@ class AFWUIManager:
         AFWConst.UIInputable: lambda manager, configID, parentConfigID: AFWInputableUI(manager, configID, parentConfigID),
         AFWConst.UISelectable: lambda manager, configID, parentConfigID: AFWSelectableUI(manager, configID, parentConfigID),
         AFWConst.UIEditBox: lambda manager, configID, parentConfigID: AFWEditBox(manager, configID, parentConfigID),
+        AFWConst.UICommon: lambda manager, configID, parentConfigID: AFWCommon(manager, configID, parentConfigID),
 ### UI type factory initialize end ###
         "Dummy": "Dummy"
     }

@@ -63,6 +63,7 @@ UICheckable = "uicheckable"
 UIInputable = "uiinputable"
 UISelectable = "uiselectable"
 UIEditBox = "uieditbox"
+UICommon = "uicommon"
 ### UI types definition end ###
 
 UIType = [
@@ -83,6 +84,7 @@ UIType = [
     UIInputable,
     UISelectable,
     UIEditBox,
+    UICommon,
 ### UI types collection end ###
     UIRoot
 ]
