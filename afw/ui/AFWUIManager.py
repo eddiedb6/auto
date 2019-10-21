@@ -11,15 +11,16 @@ from AFWForm import AFWForm
 from AFWAppDialog import AFWAppDialog
 from AFWAppTab import AFWAppTab
 from AFWAppTabPage import AFWAppTabPage
-from AFWCheckableUI import AFWCheckableUI
-from AFWClickableUI import AFWClickableUI
-from AFWSelectableUI import AFWSelectableUI
-from AFWInputableUI import AFWInputableUI
 from AFWBrowser import AFWBrowser
 from AFWWebEntry import AFWWebEntry
-from AFWWebLink import AFWWebLink
 from AFWWebPage import AFWWebPage
 from AFWWebTable import AFWWebTable
+from AFWWebLink import AFWWebLink
+from AFWClickableUI import AFWClickableUI
+from AFWCheckableUI import AFWCheckableUI
+from AFWInputableUI import AFWInputableUI
+from AFWSelectableUI import AFWSelectableUI
+from AFWEditBox import AFWEditBox
 ### UI type import end ###
 
 class AFWUIManager:
@@ -173,14 +174,16 @@ class AFWUIManager:
         AFWConst.UIAppDialog: lambda manager, configID, parentConfigID: AFWAppDialog(manager, configID, parentConfigID),
         AFWConst.UIAppTab: lambda manager, configID, parentConfigID: AFWAppTab(manager, configID, parentConfigID),
         AFWConst.UIAppTabPage: lambda manager, configID, parentConfigID: AFWAppTabPage(manager, configID, parentConfigID),
-        AFWConst.UIClickable: lambda manager, configID, parentConfigID: AFWClickableUI(manager, configID, parentConfigID),
-        AFWConst.UISelectable: lambda manager, configID, parentConfigID: AFWSelectableUI(manager, configID, parentConfigID),
-        AFWConst.UIInputable: lambda manager, configID, parentConfigID: AFWInputableUI(manager, configID, parentConfigID),
         AFWConst.UIBrowser: lambda manager, configID, parentConfigID: AFWBrowser(manager, configID, parentConfigID),
+        AFWConst.UIWebEntry: lambda manager, configID, parentConfigID: AFWWebEntry(manager, configID, parentConfigID),
         AFWConst.UIWebPage: lambda manager, configID, parentConfigID: AFWWebPage(manager, configID, parentConfigID),
         AFWConst.UIWebTable: lambda manager, configID, parentConfigID: AFWWebTable(manager, configID, parentConfigID),
-        AFWConst.UIWebEntry: lambda manager, configID, parentConfigID: AFWWebEntry(manager, configID, parentConfigID),
         AFWConst.UIWebLink: lambda manager, configID, parentConfigID: AFWWebLink(manager, configID, parentConfigID),
+        AFWConst.UIClickable: lambda manager, configID, parentConfigID: AFWClickableUI(manager, configID, parentConfigID),
+        AFWConst.UICheckable: lambda manager, configID, parentConfigID: AFWCheckableUI(manager, configID, parentConfigID),
+        AFWConst.UIInputable: lambda manager, configID, parentConfigID: AFWInputableUI(manager, configID, parentConfigID),
+        AFWConst.UISelectable: lambda manager, configID, parentConfigID: AFWSelectableUI(manager, configID, parentConfigID),
+        AFWConst.UIEditBox: lambda manager, configID, parentConfigID: AFWEditBox(manager, configID, parentConfigID),
 ### UI type factory initialize end ###
         "Dummy": "Dummy"
     }

@@ -59,9 +59,8 @@ class PluginMSApp(AFWPluginApp):
     def IsChecked(self, uiID):
         if uiID is None:
             return False
-        config = self._getConfig(uiID)
-        if config[AFWConst.Type] != AFWConst.AppCheckbox:
-            return False
+        # This function should always be called from ability
+        # So no need to check it's UI Type
         return MS.MSWrapper.IsCheckboxChecked(self._getNative(uiID))
 
     def IsEnabled(self, uiID):
@@ -78,17 +77,17 @@ class PluginMSApp(AFWPluginApp):
         return True
 
     # Simulate key down and key up to do text input
-    def SetText(self, text):
+    def SetText(self, uiID, text):
         for char in text:
             key, needShift = AFWUIUtil.GetKeyFromChar(char)
             if key is None:
                 continue
             if needShift:
-                self.PressKey(AFWConst.AFWKeyShift)
-            self.PressKey(key)
-            self.ReleaseKey(key)
+                self.PressKey(uiID, AFWConst.AFWKeyShift)
+            self.PressKey(uiID, key)
+            self.ReleaseKey(uiID, key)
             if needShift:
-                self.ReleaseKey(AFWConst.AFWKeyShift)
+                self.ReleaseKey(uiID, AFWConst.AFWKeyShift)
         return True
 
     def GetText(self, uiID):

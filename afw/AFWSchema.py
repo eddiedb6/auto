@@ -166,6 +166,36 @@
         ],
         SchemaType: SchemaTypeDict
     },
+    AFWConst.UIBrowser: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Browser, AFWConst.Plugin)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UIWebEntry: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UIWebPage: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UIWebTable: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UIWebLink: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
     AFWConst.UIClickable: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type)
@@ -190,33 +220,9 @@
         ],
         SchemaType: SchemaTypeDict
     },
-    AFWConst.UIBrowser: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Browser, AFWConst.Plugin)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.UIWebPage: {
+    AFWConst.UIEditBox: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.UIWebTable: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.UIWebLink: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.UIWebEntry: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)
         ],
         SchemaType: SchemaTypeDict
     },

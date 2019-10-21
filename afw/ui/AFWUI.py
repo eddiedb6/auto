@@ -2,6 +2,7 @@ import time
 
 import AFWConst
 from AFWLogger import *
+from AFWAbility import *
 
 class AFWUI:
     def __init__(self, manager, configID, parentConfigID):
@@ -9,6 +10,7 @@ class AFWUI:
         self.__id = configID
         self.__parentId = parentConfigID
         self._plugin = None
+        self._abilityObj = AFWAbility(None)
         if parentConfigID is not None:
             parentConfig = self.GetParentConfig()
             parentUI = manager.GetUI(parentConfigID)
@@ -62,6 +64,9 @@ class AFWUI:
 
     def GetName(self):
         return self.GetConfig()[AFWConst.Name]
+
+    def GetAbility(self):
+        return AFWAbilityChecker(self._abilityObj)
 
     ### Properties and Operations when bound ###
 

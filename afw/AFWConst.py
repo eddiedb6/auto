@@ -55,13 +55,14 @@ UIAppTab = "uiapptab"
 UIAppTabPage = "uiapptabpage"
 UIBrowser = "uibrowser"
 UIWebEntry = "uiwebentry"
-UIWebLink = "uiweblink"
 UIWebPage = "uiwebpage"
 UIWebTable = "uiwebtable"
+UIWebLink = "uiweblink"
 UIClickable = "uiclickable"
 UICheckable = "uicheckable"
 UIInputable = "uiinputable"
 UISelectable = "uiselectable"
+UIEditBox = "uieditbox"
 ### UI types definition end ###
 
 UIType = [
@@ -74,16 +75,23 @@ UIType = [
     UIAppTabPage,
     UIBrowser,
     UIWebEntry,
-    UIWebLink,
     UIWebPage,
     UIWebTable,
+    UIWebLink,
     UIClickable,
     UICheckable,
     UIInputable,
     UISelectable,
+    UIEditBox,
 ### UI types collection end ###
     UIRoot
 ]
+
+AbilityNone = 0x00
+AbilityClickable = 0x01
+AbilityCheckable = 0x02
+AbilityInputable = 0x04
+AbilitySelectable = 0x08
 
 ###########
 # Browser #

@@ -82,6 +82,7 @@ AFWUI
  |  PressKey(key) -> bool
  |  ReleaseKey(key) -> bool
  |  GetText() -> string
+ |  GetAbility() -> obj
  |-AFBrowser
  |  |  GetCurrentURL() -> string
  |  |  OpenURL(name) -> bool
@@ -139,6 +140,7 @@ AFWUI
  |  `-AFWWebLink (UIWebLink)
  |-AFWCheckableUI (UICheckable)
  |-AFWInputableUI (UIInputable)
+ |  `-AFWEditBox (UIEditBox)
  |-AFWSelectableUI (UISelectable)
  |
  |-AFWBrowser (UIBrowser)

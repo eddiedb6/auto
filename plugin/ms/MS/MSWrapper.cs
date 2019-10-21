@@ -328,8 +328,8 @@ namespace MS
         static bool debug = false;
         static Dictionary<String, ControlType> controlTypeMap = new Dictionary<string, ControlType>()
         {
-            {"apptab", ControlType.Tab},
-            {"appeditbox", ControlType.Edit}
+            {"uiapptab", ControlType.Tab},
+            {"uieditbox", ControlType.Edit}
         };
 
         const int MOUSEEVENT_LEFTDOWN = 0x02;

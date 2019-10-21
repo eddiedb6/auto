@@ -114,5 +114,11 @@
         "Abilities": [
             "AFWSelectable"
         ]
+    },
+    {
+        "Name": "UIEditBox",
+        "Class": "AFWEditBox",
+        "Parent": "AFWInputableUI",
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type)"
     }
 ]

@@ -3,6 +3,8 @@ from AFWAbility import AFWAbility
 class AFWCheckable(AFWAbility):
     def __init__(self, plugin):
         AFWAbility.__init__(self, plugin)
+        self._ability = AFWConst.AbilityCheckable
+        self._abilityObj = self # Tricky because _abilityObj belongs to another parent
 
     def IsChecked(self):
         return self._uiplugin.IsChecked(self.GetID())
