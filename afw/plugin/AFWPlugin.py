@@ -7,7 +7,10 @@ class AFWPlugin:
         
     def GetElement(self, configID, parentConfigID):
         return None
-    
+
+    def GetDynamicElement(self, parentID, config):
+        return None
+
     def SetFocus(self, uiID):
         return False
 
@@ -37,6 +40,9 @@ class AFWPlugin:
 
     def GetCellText(self, uiID, row, column):
         return None
+
+    def GetAttribute(self, uiID, name):
+        return ""
 
     def DumpUI(self, uiID):
         if uiID in self.__nativePool:

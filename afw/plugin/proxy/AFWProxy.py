@@ -24,7 +24,7 @@ class AFWProxy:
         }
         result = self.__handleMessage(msg)
         return result[AFWConst.MsgResult]
-    
+
     def SetFocus(self, uiID):
         msg = {
             AFWConst.MsgName: AFWConst.MsgNameSetFocus,
@@ -49,7 +49,6 @@ class AFWProxy:
         }
         result = self.__handleMessage(msg)
         return result[AFWConst.MsgResult]
-
 
     def IsChecked(self, uiID):
         msg = {
@@ -108,6 +107,24 @@ class AFWProxy:
             AFWConst.MsgParam1: uiID,
             AFWConst.MsgParam2: row,
             AFWConst.MsgParam3: column
+        }
+        result = self.__handleMessage(msg)
+        return result[AFWConst.MsgResult]
+
+    def GetDynamicElement(self, parentID, config):
+        msg = {
+            AFWConst.MsgName: AFWConst.MsgNameGetDynamicElement,
+            AFWConst.MsgParam1: parentID,
+            AFWConst.MsgParam2: config
+        }
+        result = self.__handleMessage(msg)
+        return result[AFWConst.MsgResult]
+
+    def GetAttribute(self, uiID, name):
+        msg = {
+            AFWConst.MsgName: AFWConst.MsgNameGetAttribute,
+            AFWConst.MsgParam1: uiID,
+            AFWConst.MsgParam2: name
         }
         result = self.__handleMessage(msg)
         return result[AFWConst.MsgResult]
@@ -194,7 +211,7 @@ class AFWProxy:
         return result[AFWConst.MsgResult]
 
     ### Private ###
-    
+
     def __getConn(self):
         conn = self.__manager.GetClientConn(self.__guid)
         if conn is None:
@@ -210,6 +227,17 @@ class AFWProxy:
         }
         msgZip, msgStr = AFWProxyUtil.CompressProxyMessage(msg)
         Debug("Send proxy client get config result: " + msgStr)
+        conn.sendall(msgZip)
+
+    def __sendConfigDirty(self):
+        conn = self.__getConn()
+        isDirty = self.__configPool.GetConfigDirty()
+        msg = {
+            AFWConst.MsgName: AFWConst.MsgNameCheckConfigDirty,
+            AFWConst.MsgResult: isDirty
+        }
+        msgZip, msgStr = AFWProxyUtil.CompressProxyMessage(msg)
+        Debug("Send proxy client check config dirty result: " + msgStr)
         conn.sendall(msgZip)
 
     def __handleMessage(self, msg):
@@ -229,6 +257,10 @@ class AFWProxy:
                     raise Exception("Config ID is not defined in request")
                 configID = resultDict[AFWConst.MsgParam1]
                 self.__sendConfig(configID)
+            elif resultDict[AFWConst.MsgName] == AFWConst.MsgNameCheckConfigDirty:
+                # It's not result but new requst to check config dirty
+                Debug("Recv proxy client check config dirty request: " + resultStr)
+                self.__sendConfigDirty()
             else:
                 # Now it's request result returned
                 Debug("Recv proxy client result: " + resultStr)

@@ -9,10 +9,16 @@ from selenium import webdriver
 class PluginSelenium(AFWPluginWeb):
     def __init__(self, pluginConfig, uiConfigPool):
         AFWPluginWeb.__init__(self, pluginConfig, uiConfigPool)
+        self.__listCache = []
 
     ### Implement AFWPlugin ###
 
     def GetElement(self, configID, parentConfigID):
+        # Check if native is cached
+        config = self._getConfig(configID)
+        if AFWConst.UICacheIndex in config:
+            return self.__getCachedElement(configID, config[AFWConst.UICacheIndex])
+
         if parentConfigID is None:
             return None
         driverElement = self._getNative(parentConfigID)
@@ -20,10 +26,34 @@ class PluginSelenium(AFWPluginWeb):
             return None
         return self.__getElement(driverElement, configID, parentConfigID)
 
+    def GetDynamicElement(self, parentID, config):
+        self.__listCache = []
+
+        driverElement = self._getNative(parentID)
+        elements = []
+        if AFWConst.AttrClass in config:
+            Debug("Find dynamic by class: " + config[AFWConst.AttrClass])
+            elements = driverElement.find_elements_by_class_name(config[AFWConst.AttrClass])
+
+        if len(elements) == 0 and AFWConst.AttrTag in config and AFWConst.Attributes in config:
+            Debug("Find dynamic by tag: " + config[AFWConst.AttrTag])
+            tagMatched = driverElement.find_elements_by_tag_name(config[AFWConst.AttrTag])
+            for element in tagMatched:
+                isMatched = True
+                for attribute in config[AFWConst.Attributes]:
+                    if element.get_attribute(attribute) != config[AFWConst.Attributes][attribute]:
+                        isMatched = False
+                        break
+                if isMatched:
+                    elements.append(element)
+
+        self.__listCache = elements
+        return len(elements)
+
     def SetFocus(self, uiID):
         # Web element do not need focus
         return True
-    
+
     def Click(self, uiID):
         if uiID is None:
             return False
@@ -107,6 +137,9 @@ class PluginSelenium(AFWPluginWeb):
         self._getNative(uiID).send_keys(text)
         return True
 
+    def GetAttribute(self, uiID, name):
+        return self._getNative(uiID).get_attribute(name)
+
     ### Implement AFWPluginWeb ###
     
     def OpenBrowser(self, name, configID):
@@ -151,6 +184,15 @@ class PluginSelenium(AFWPluginWeb):
         return configID
     
     ### Private ###
+
+    def __getCachedElement(self, configID, index):
+        if index < 0 or index >= len(self.__listCache):
+            return None
+        element = self.__listCache[index]
+        if element is None:
+            return None
+        self._addNative(configID, element)
+        return configID
 
     def __getElement(self, driverElement, configID, parentConfigID):
         element = None
@@ -211,7 +253,7 @@ class PluginSelenium(AFWPluginWeb):
             if isMatch:
                 return element
         return None
-        
+
     def __getElementByType(self, driverElement, config):
         Debug("Find by type: " + config[AFWConst.Type])
         tag = ""
@@ -226,7 +268,7 @@ class PluginSelenium(AFWPluginWeb):
         else:
             return None
         return driverElement.find_element_by_tag_name(tag)
-    
+
     __browserFactory = {
         AFWConst.BrowserChrome: lambda : webdriver.Chrome(),
         AFWConst.BrowserIE: lambda : webdriver.Ie(),

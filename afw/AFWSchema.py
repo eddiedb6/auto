@@ -127,6 +127,12 @@
     AFWConst.Attributes: {
         SchemaType: SchemaTypeDict
     },
+    AFWConst.UICacheIndex: {
+        SchemaType: SchemaTypeInteger
+    },
+    AFWConst.IsDynamic: {
+        SchemaType: SchemaTypeInteger
+    },
 ### Schema key schema end ###
 
 ### App types schema start ###

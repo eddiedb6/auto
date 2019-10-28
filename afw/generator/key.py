@@ -106,5 +106,13 @@
     {
         "Name": "Attributes",
         "SchemaType": "SchemaTypeDict"
+    },
+    {
+        "Name": "UICacheIndex",
+        "SchemaType": "SchemaTypeInteger"
+    },
+    {
+        "Name": "IsDynamic",
+        "SchemaType": "SchemaTypeInteger"
     }
 ]

@@ -30,6 +30,13 @@ class AFWUIManager:
         self.__configPool = {}
         self.__uiPool = {}
         self.__configEntryID = self.__fillConfigPool(config[AFWConst.UI])
+        self.__configDirty = False
+
+    def GetConfigDirty(self):
+        # !!! There is risk if there are more than one proxy client
+        result = self.__configDirty
+        self.__configDirty = False
+        return result
 
     def GetConfig(self, configID):
         if configID not in self.__configPool:
@@ -43,13 +50,13 @@ class AFWUIManager:
 
     def TryToFindUI(self, name, parentUI):
         return self.__tryToFindUI(name, parentUI, None)
-    
+
     def StartApp(self, name):
         return self.__findUI(name, None, AFWConst.UIApp)
 
     def FindWinForm(self, name):
         return self.__findUI(name, None, AFWConst.UIForm)
-    
+
     def OpenWebBrowser(self, name):
         return self.__findUI(name, None, AFWConst.UIBrowser)
 
@@ -61,7 +68,23 @@ class AFWUIManager:
             del self.__uiPool[uiID] # This will delete both key and value
             return True
         return False
-    
+
+    def DumpDynamicUI(self, uiID):
+        if uiID in self.__configPool:
+            Debug("Delete ID: " + uiID)
+            self.__configDirty = True
+            del self.__configPool[uiID]
+        return self.DumpUI(uiID)
+
+    def AddDynamicUI(self, parentID, config):
+        parentConfig = self.GetConfig(parentID)
+        id = self.__fillConfigPool(config)
+        self.__configDirty = True
+        if AFWConst.SubUI not in parentConfig:
+            parentConfig[AFWConst.SubUI] = []
+        parentConfig[AFWConst.SubUI].append(id)
+        return True
+
     ### Private ###
 
     def __findUI(self, name, parentUI, uiType):
@@ -113,7 +136,7 @@ class AFWUIManager:
             # UIRoot will not be bound to any native object
             return True
         return False
-        
+
     def __findConfig(self, name):
         configPath = []
         result = self.__findConfigImpl(name, self.__configEntryID, configPath)
@@ -122,7 +145,7 @@ class AFWUIManager:
         else:
             Debug("Find UI config: " + name)
         return result, configPath
-    
+
     def __findConfigImpl(self, name, configID, configPath):
         config = self.GetConfig(configID)
         if config[AFWConst.Name] == name:
@@ -156,6 +179,7 @@ class AFWUIManager:
 
     def __fillConfigPool(self, config):
         guid = str(uuid.uuid1())
+        Debug("Generate id: " + guid + ", for UI: " + config[AFWConst.Name])
         if guid in self.__configPool:
             raise Exception("Config guid is already in pool")
         self.__configPool[guid] = config
@@ -164,7 +188,7 @@ class AFWUIManager:
             children = config[AFWConst.SubUI]
             for i in range(0, len(children)):
                 children[i] = self.__fillConfigPool(children[i])
-                
+
         return guid
 
     __uiFactory = {
@@ -201,7 +225,6 @@ class AFWUIManagerWrapper:
 
     def FindWinForm(self, name):
         return self.__manager.FindWinForm(name)
-    
+
     def OpenWebBrowser(self, name):
         return self.__manager.OpenWebBrowser(name)
-

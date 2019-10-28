@@ -16,7 +16,9 @@
         * Whe the configure object is found, corresponding UI object is created
         * When UI object is saved in "AFWUIManager.__uiPool" as map using the uuid as key
         * When call "AFWUIManager.DumpUI", the UI object will be removed from the pool including its uuid
-        * When call "AFWUI.Dump", the UI object and all its children will be dumped, including corresponding native object in plugin
+        * When call "AFWUI.Dump", the object and its children will be dumped, including corresponding native object in plugin
+        * When call "AFWUI.DumpSubUI", its children will be dumped, including corresponding native object in plugin
+        * "DumpDynamic" will also delete the config if its dynamic UI
 
     c. Native Object
         * Native object will be created in UI object constructor
@@ -56,6 +58,7 @@ AFWUIManagerWrapper
     
 AFWUIManager
     GetConfig(configID) -> dict, exception
+    GetConfigDirty() -> bool
     GetUI(uiID) -> obj, exception
     TryToFindUI(name, parentUI) -> AFWUI
     StartApp(name) -> AFWApp, exception
@@ -63,6 +66,8 @@ AFWUIManager
     OpenWebBrowser(name) -> AFWWeb, exception
     GetBreakTime() -> int
     DumpUI(uiID) -> bool
+    DumpDynamicUI(uiID) -> bool
+    AddDynamicUI(parentID, config) -> bool
 
 AFWUI
  |  GetID() -> id
@@ -74,21 +79,28 @@ AFWUI
  |  GetChildCount() -> int
  |  GetType() -> string
  |  GetName() -> string
+ |  GetAbility() -> obj
+ |  IsDynamic() -> bool
+ |  GetDynamicUIName(name, index) -> string
  |  TryToFindSubUI(name) -> AFWUI
  |  FindSubUI(name) -> AFWUI, exception
+ |  TryToFindDynamicSubUI(config) -> AFWUI array
  |  Dump() -> bool
+ |  DumpDynamic() -> bool
+ |  DumpSubUI() -> bool
+ |  DumpDynamicSubUI() -> bool
  |  SetFocus() -> bool
  |  IsEnabled() -> bool
  |  PressKey(key) -> bool
  |  ReleaseKey(key) -> bool
  |  GetText() -> string
- |  GetAbility() -> obj
+ |  GetAttribute(name) -> attr
  |-AFBrowser
  |  |  GetCurrentURL() -> string
  |  |  OpenURL(name) -> bool
  |  `  Quit() -> bool
  `-AFWWebTable
-    `  GetCellText(row, column) -> string    
+    `  GetCellText(row, column) -> string
 
 AFWAbility
  |-AFWClickable
@@ -104,6 +116,7 @@ AFWAbility
 
 AFWPlugin
  |  GetElement(configID, parentConfigID) -> obj
+ |  GetDynamicElement(parentID, config) -> int
  |  SetFocus(uiID) -> bool
  |  Click(uiID) -> bool
  |  Select(uiID, itemValue) -> bool
@@ -113,6 +126,7 @@ AFWPlugin
  |  ReleaseKey(uiID, key) -> bool
  |  SetText(uiID, text) -> bool
  |  GetText(uiID) -> string
+ |  GetAttribute(uiID, name) -> attr
  |  GetCellText(uiID, row, column) -> string
  |  DumpUI(uiID) -> bool
  |-AFWPluginApp
@@ -148,7 +162,6 @@ AFWUI
  |-AFWWebPage (UIWebPage)
  `-AFWWebTable (UIWebTable)
 
-
 AFWPlugin
  |-AFWPluginApp
  |  |-PluginMSApp
@@ -161,6 +174,7 @@ AFWPlugin
 MsgNameRegisterClient
     MsgParam1: guid
 MsgNameCloseClient
+MsgNameCheckConfigDirty
 MsgNameGetConfig
     MsgParam1: configID
 MsgNameGetElement
@@ -189,6 +203,12 @@ MsgNameGetCellText
     MsgParam1: uiID
     MsgParam2: row
     MsgParam3: column
+MsgNameGetDynamicElement
+    MsgParam1: parentID
+    MsgParam2: config
+MsgNameGetAttribute
+    MsgParam1: uiID
+    MsgParam2: name
 MsgNameDumpUI
     MsgParam1: uiID
 MsgNameOpenBrowser

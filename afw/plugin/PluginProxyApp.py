@@ -45,6 +45,12 @@ class PluginProxyApp(AFWPluginApp):
     def GetCellText(self, uiID, row, column):
         return self.__proxy.GetCellText(uiID, row, column)
 
+    def GetDynamicElement(self, parentID, config):
+        return self.__proxy.GetDynamicElement(parentID, config)
+
+    def GetAttribute(self, uiID, name):
+        return self.__proxy.GetAttribute(uiID, name)
+
     def DumpUI(self, uiID):
         return self.__proxy.DumpUI(uiID)
 

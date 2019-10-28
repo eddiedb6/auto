@@ -73,6 +73,14 @@ def __handleMessage(msg):
         row = msg[AFWConst.MsgParam2]
         column = msg[AFWConst.MsgParam3]
         result[AFWConst.MsgResult] = pluginInstance.GetCellText(uiID, row, column)
+    elif msgName == AFWConst.MsgNameGetDynamicElement:
+        parentID = msg[AFWConst.MsgParam1]
+        config = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.GetDynamicElement(parentID, config)
+    elif msgName == AFWConst.MsgNameGetAttribute:
+        uiID = msg[AFWConst.MsgParam1]
+        name = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.GetAttribute(uiID, name)
     elif msgName == AFWConst.MsgNameDumpUI:
         uiID = msg[AFWConst.MsgParam1]
         result[AFWConst.MsgResult] = pluginInstance.DumpUI(uiID)
