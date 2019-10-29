@@ -17,6 +17,19 @@ def GetKeyFromChar(char):
         needShift = True
     return key, needShift
 
+def SimulateTextInput(ui, text):
+    for char in text:
+        key, needShift = GetKeyFromChar(char)
+        if key is None:
+            continue
+        if needShift:
+            ui.PressKey(AFWConst.AFWKeyShift)
+        ui.PressKey(key)
+        ui.ReleaseKey(key)
+        if needShift:
+            ui.ReleaseKey(AFWConst.AFWKeyShift)
+    return True
+
 __keyMap = {
     '`': AFWConst.AFWKeyTidle,
         
