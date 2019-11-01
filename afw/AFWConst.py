@@ -197,6 +197,7 @@ MsgNameSendKeys = "msgnamesettext"
 MsgNameStartApp = "msgnamestartapp"
 MsgNameGetDesktop = "msgnamegetdesktop"
 MsgNameGetForm = "msgnamegetform"
+MsgNameSetText = "msgnamesettext"
 
 ################
 # AFW Keyboard #

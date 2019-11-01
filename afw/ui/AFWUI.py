@@ -174,14 +174,13 @@ class AFWUI:
                     isChildDelete = childUI.IsDynamic()
                 else:
                     isDumped = isDumped & childUI.DumpSubUI()
-            if isDeleteDynamic:
+            if isChildDelete:
                 isDumped = isDumped & self.__manager.DumpDynamicUI(childID)
+                del self.GetConfig()[AFWConst.SubUI][index]
             else:
                 isDumped = isDumped & self.__manager.DumpUI(childID)
             if self._plugin is not None:
                 isDumped = isDumped & self._plugin.DumpUI(childID)
-            if isChildDelete:
-                del self.GetConfig()[AFWConst.SubUI][index]
         return isDumped
 
     def __doDump(self, isDeleteDynamic):

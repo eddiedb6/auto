@@ -6,4 +6,4 @@ class AFWAppTab(AFWUI):
         AFWUI.__init__(self, manager, configID, parentConfigID)
         id = self._plugin.GetElement(configID, parentConfigID)
         if id is None:
-            raise Exception("Failed to get app tab: " + self.GetConfig(configID)[AFWConst.Name])
+            raise Exception("Failed to get app tab: " + self.GetConfig()[AFWConst.Name])

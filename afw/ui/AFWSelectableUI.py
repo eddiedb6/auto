@@ -8,4 +8,4 @@ class AFWSelectableUI(AFWUI, AFWSelectable):
         AFWSelectable.__init__(self, self._plugin)
         id = self._plugin.GetElement(configID, parentConfigID)
         if id is None:
-            raise Exception("Failed to get selectable UI: " + self.GetConfig(configID)[AFWConst.Name])
+            raise Exception("Failed to get selectable UI: " + self.GetConfig()[AFWConst.Name])
