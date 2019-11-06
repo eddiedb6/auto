@@ -95,6 +95,7 @@ AFWUI
  |  ReleaseKey(key) -> bool
  |  GetText() -> string
  |  GetAttribute(name) -> attr
+ |  ScrollHere() -> bool
  |-AFBrowser
  |  |  GetCurrentURL() -> string
  |  |  OpenURL(name) -> bool
@@ -111,8 +112,10 @@ AFWAbility
  |  `  IsChecked() -> bool
  |-AFWInputable
  |  `  Input(text) -> bool
- `-AFWSelectable
-    `  Select(itemValue) -> bool
+ |-AFWSelectable
+ |   `  Select(itemValue) -> bool
+ `-AFWExecutable
+     `  ExecuteScript(script) -> bool
 
 AFWPlugin
  |  GetElement(configID, parentConfigID) -> obj
@@ -129,6 +132,8 @@ AFWPlugin
  |  GetAttribute(uiID, name) -> attr
  |  GetCellText(uiID, row, column) -> string
  |  DumpUI(uiID) -> bool
+ |  ExecuteScript(uiID, script) -> bool
+ |  ScrollTo(uiID) -> bool
  |-AFWPluginApp
  |     StartApp(path, configID) -> id
  |     GetDesktop(configID) -> id
@@ -235,3 +240,8 @@ MsgNameGetDesktop
     MsgParam1: configID
 MsgNameGetForm
     MsgParam1: configID
+MsgNameExecuteScript
+    MsgParam1: uiID
+    MsgParam2: script
+MsgNameScrollTo
+    MsgParam1: uiID

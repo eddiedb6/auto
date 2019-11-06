@@ -96,6 +96,7 @@ AbilityClickable = 0x01
 AbilityCheckable = 0x02
 AbilityInputable = 0x04
 AbilitySelectable = 0x08
+AbilityExecutable = 0x10
 
 ###########
 # Browser #
@@ -198,6 +199,8 @@ MsgNameStartApp = "msgnamestartapp"
 MsgNameGetDesktop = "msgnamegetdesktop"
 MsgNameGetForm = "msgnamegetform"
 MsgNameSetText = "msgnamesettext"
+MsgNameExecuteScript = "msgnameexecutescript"
+MsgNameScrollTo = "msgnamescrollto"
 
 ################
 # AFW Keyboard #

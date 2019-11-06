@@ -2,8 +2,9 @@ import AFWConst
 from AFWUI import AFWUI
 from AFWPluginManager import AFWPluginManager
 from AFWLocalConfigPool import AFWLocalConfigPool
+from AFWExecutable import AFWExecutable
 
-class AFWBrowser(AFWUI):
+class AFWBrowser(AFWUI, AFWExecutable):
     def __init__(self, manager, configID, parentConfigID):
         AFWUI.__init__(self, manager, configID, None)
         self.__urlCache = {}
@@ -11,6 +12,7 @@ class AFWBrowser(AFWUI):
         self._plugin = AFWPluginManager().CreatePlugin(config[AFWConst.Plugin], AFWLocalConfigPool(manager))
         if self._plugin is None:
             raise Exception("Get web plugin failed")
+        AFWExecutable.__init__(self, self._plugin)
         browserID = self._plugin.OpenBrowser(config[AFWConst.Browser], configID)
         if browserID is None:
             raise Exception("Open browser failed: " + config[AFWConst.Browser])

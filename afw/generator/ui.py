@@ -49,7 +49,10 @@
         "Name": "UIBrowser",
         "Class": "AFWBrowser",
         "Parent": "AFWUI",
-        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Browser, AFWConst.Plugin)"
+        "SchemaRule": "HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Browser, AFWConst.Plugin)",
+        "Abilities": [
+            "AFWExecutable"
+        ]
     },
     {
         "Name": "UIWebEntry",

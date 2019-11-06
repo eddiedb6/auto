@@ -54,6 +54,12 @@ class PluginProxyApp(AFWPluginApp):
     def DumpUI(self, uiID):
         return self.__proxy.DumpUI(uiID)
 
+    def ExecuteScript(self, uiID, script):
+        return self.__proxy.ExecuteScript(uiID, script)
+
+    def ScrollTo(self, uiID):
+        return self.__proxy.ScrollTo(uiID)
+
     ### Implement AFWPluginApp ###
 
     def StartApp(self, path, configID):

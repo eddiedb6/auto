@@ -145,6 +145,9 @@ class AFWUI:
     def GetAttribute(self, name):
         return self._plugin.GetAttribute(self.__id, name)
 
+    def ScrollHere(self):
+        return self._plugin.ScrollTo(self.__id)
+
     ### Private ###
 
     def __allocateDynamicUIConfig(self, index, config):

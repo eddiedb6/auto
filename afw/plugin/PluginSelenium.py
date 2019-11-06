@@ -140,6 +140,20 @@ class PluginSelenium(AFWPluginWeb):
     def GetAttribute(self, uiID, name):
         return self._getNative(uiID).get_attribute(name)
 
+    def ExecuteScript(self, browserID, script):
+        if browserID is None:
+            return False
+        browser = self._getNative(browserID)
+        browser.execute_script(script)
+        return True
+
+    def ScrollTo(self, uiID):
+        if uiID is None:
+            return False
+        ui = self._getNative(uiID)
+        ui.location_once_scrolled_into_view
+        return True
+
     ### Implement AFWPluginWeb ###
     
     def OpenBrowser(self, name, configID):

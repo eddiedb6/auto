@@ -84,6 +84,13 @@ def __handleMessage(msg):
     elif msgName == AFWConst.MsgNameDumpUI:
         uiID = msg[AFWConst.MsgParam1]
         result[AFWConst.MsgResult] = pluginInstance.DumpUI(uiID)
+    elif msgName == AFWConst.MsgNameExecuteScript:
+        uiID = msg[AFWConst.MsgParam1]
+        script = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.ExecuteScript(uiID, script)
+    elif msgName == AFWConst.MsgNameScrollTo:
+        uiID = msg[AFWConst.MsgParam1]
+        result[AFWConst.MsgResult] = pluginInstance.ScrollTo(uiID)
     elif msgName == AFWConst.MsgNameOpenBrowser:
         name = msg[AFWConst.MsgParam1]
         browserID = msg[AFWConst.MsgParam2]

@@ -49,7 +49,13 @@ class AFWPlugin:
             del self.__nativePool[uiID]
             return True
         return False
-    
+
+    def ExecuteScript(self, uiID, script):
+        return False
+
+    def ScrollTo(self, uiID):
+        return False
+
     ### Protected ###
     
     def _getConfig(self, configID):

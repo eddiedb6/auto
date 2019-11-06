@@ -54,6 +54,12 @@ class PluginProxyWeb(AFWPluginWeb):
     def DumpUI(self, uiID):
         return self.__proxy.DumpUI(uiID)
 
+    def ExecuteScript(self, uiID, script):
+        return self.__proxy.ExecuteScript(uiID, script)
+
+    def ScrollTo(self, uiID):
+        return self.__proxy.ScrollTo(uiID)
+
     ### Implement AFWPluginWeb ###
 
     def OpenBrowser(self, name, configID):

@@ -137,6 +137,23 @@ class AFWProxy:
         result = self.__handleMessage(msg)
         return result[AFWConst.MsgResult]
 
+    def ExecuteScript(self, uiID, script):
+        msg = {
+            AFWConst.MsgName: AFWConst.MsgNameExecuteScript,
+            AFWConst.MsgParam1: uiID,
+            AFWConst.MsgParam2: script,
+        }
+        result = self.__handleMessage(msg)
+        return result[AFWConst.MsgResult]
+
+    def ScrollTo(self, uiID):
+        msg = {
+            AFWConst.MsgName: AFWConst.MsgNameScrollTo,
+            AFWConst.MsgParam1: uiID
+        }
+        result = self.__handleMessage(msg)
+        return result[AFWConst.MsgResult]
+
     ### Implement AFWPluginWeb ###
 
     def OpenBrowser(self, name, configID):
