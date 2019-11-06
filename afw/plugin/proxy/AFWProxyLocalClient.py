@@ -73,9 +73,24 @@ def __handleMessage(msg):
         row = msg[AFWConst.MsgParam2]
         column = msg[AFWConst.MsgParam3]
         result[AFWConst.MsgResult] = pluginInstance.GetCellText(uiID, row, column)
+    elif msgName == AFWConst.MsgNameGetDynamicElement:
+        parentID = msg[AFWConst.MsgParam1]
+        config = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.GetDynamicElement(parentID, config)
+    elif msgName == AFWConst.MsgNameGetAttribute:
+        uiID = msg[AFWConst.MsgParam1]
+        name = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.GetAttribute(uiID, name)
     elif msgName == AFWConst.MsgNameDumpUI:
         uiID = msg[AFWConst.MsgParam1]
         result[AFWConst.MsgResult] = pluginInstance.DumpUI(uiID)
+    elif msgName == AFWConst.MsgNameExecuteScript:
+        uiID = msg[AFWConst.MsgParam1]
+        script = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.ExecuteScript(uiID, script)
+    elif msgName == AFWConst.MsgNameScrollTo:
+        uiID = msg[AFWConst.MsgParam1]
+        result[AFWConst.MsgResult] = pluginInstance.ScrollTo(uiID)
     elif msgName == AFWConst.MsgNameOpenBrowser:
         name = msg[AFWConst.MsgParam1]
         browserID = msg[AFWConst.MsgParam2]
@@ -95,10 +110,10 @@ def __handleMessage(msg):
         browserID = msg[AFWConst.MsgParam1]
         configID = msg[AFWConst.MsgParam2]
         result[AFWConst.MsgResult] = pluginInstance.GetWebPage(browserID, configID)
-    elif msgName == AFWConst.MsgNameSendKeys:
+    elif msgName == AFWConst.MsgNameSetText:
         uiID = msg[AFWConst.MsgParam1]
-        keys = msg[AFWConst.MsgParam2]
-        result[AFWConst.MsgResult] = pluginInstance.SendKeys(uiID, keys)
+        text = msg[AFWConst.MsgParam2]
+        result[AFWConst.MsgResult] = pluginInstance.SetText(uiID, text)
     elif msgName == AFWConst.MsgNameStartApp:
         path = msg[AFWConst.MsgParam1]
         configID = msg[AFWConst.MsgParam2]
@@ -121,15 +136,6 @@ s.connect((HOST, PORT))
 Info("[Local Client] Connect to host successfully for client " + guid)
 
 try:
-    # Regisger client
-    registerMsg = {
-        AFWConst.MsgName: AFWConst.MsgNameRegisterClient,
-        AFWConst.MsgParam1: guid
-    }
-    regMsgZip, regMsgStr = AFWProxyUtil.CompressProxyMessage(registerMsg)
-    Debug("[Local Client] Send proxy host register request: " + regMsgStr)
-    s.sendall(regMsgZip)
-
     # Load plugin
     pluginModule = __import__(pluginName)
     if not pluginModule:
@@ -139,6 +145,15 @@ try:
         Info("[Local Client] Load plugin: " + pluginName)
     pluginClass = getattr(pluginModule, pluginName)
     pluginInstance = pluginClass(None, AFWProxyConfigPool(s))
+
+    # Regisger client
+    registerMsg = {
+        AFWConst.MsgName: AFWConst.MsgNameRegisterClient,
+        AFWConst.MsgParam1: guid
+    }
+    regMsgZip, regMsgStr = AFWProxyUtil.CompressProxyMessage(registerMsg)
+    Debug("[Local Client] Send proxy host register request: " + regMsgStr)
+    s.sendall(regMsgZip)
 
     # Handle proxy command
     isContinue = True

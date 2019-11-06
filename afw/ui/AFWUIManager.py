@@ -6,24 +6,22 @@ from AFWLogger import *
 
 ### UI type import start ###
 from AFWApp import AFWApp
-from AFWAppRoot import AFWAppRoot
-from AFWAppForm import AFWAppForm
-from AFWAppSubForm import AFWAppSubForm
+from AFWDesktop import AFWDesktop
+from AFWForm import AFWForm
+from AFWAppDialog import AFWAppDialog
 from AFWAppTab import AFWAppTab
 from AFWAppTabPage import AFWAppTabPage
-from AFWAppButton import AFWAppButton
-from AFWAppCheckbox import AFWAppCheckbox
-from AFWAppEditBox import AFWAppEditBox
-from AFWWeb import AFWWeb
-from AFWWebPage import AFWWebPage
-from AFWWebElement import AFWWebElement
-from AFWWebEditBox import AFWWebEditBox
-from AFWWebLink import AFWWebLink
-from AFWWebButton import AFWWebButton
-from AFWWebCombobox import AFWWebCombobox
-from AFWWebPanel import AFWWebPanel
-from AFWWebTable import AFWWebTable
+from AFWBrowser import AFWBrowser
 from AFWWebEntry import AFWWebEntry
+from AFWWebPage import AFWWebPage
+from AFWWebTable import AFWWebTable
+from AFWWebLink import AFWWebLink
+from AFWClickableUI import AFWClickableUI
+from AFWCheckableUI import AFWCheckableUI
+from AFWInputableUI import AFWInputableUI
+from AFWSelectableUI import AFWSelectableUI
+from AFWEditBox import AFWEditBox
+from AFWCommon import AFWCommon
 ### UI type import end ###
 
 class AFWUIManager:
@@ -32,6 +30,13 @@ class AFWUIManager:
         self.__configPool = {}
         self.__uiPool = {}
         self.__configEntryID = self.__fillConfigPool(config[AFWConst.UI])
+        self.__configDirty = False
+
+    def GetConfigDirty(self):
+        # !!! There is risk if there are more than one proxy client
+        result = self.__configDirty
+        self.__configDirty = False
+        return result
 
     def GetConfig(self, configID):
         if configID not in self.__configPool:
@@ -45,25 +50,41 @@ class AFWUIManager:
 
     def TryToFindUI(self, name, parentUI):
         return self.__tryToFindUI(name, parentUI, None)
-    
+
     def StartApp(self, name):
         return self.__findUI(name, None, AFWConst.UIApp)
 
     def FindWinForm(self, name):
-        return self.__findUI(name, None, AFWConst.AppForm)
-    
+        return self.__findUI(name, None, AFWConst.UIForm)
+
     def OpenWebBrowser(self, name):
-        return self.__findUI(name, None, AFWConst.UIWeb)
+        return self.__findUI(name, None, AFWConst.UIBrowser)
 
     def GetBreakTime(self):
         return self.__afw.BreakTime
 
     def DumpUI(self, uiID):
         if uiID in self.__uiPool:
-            del self.__uiPool[uiID]
+            del self.__uiPool[uiID] # This will delete both key and value
             return True
         return False
-    
+
+    def DumpDynamicUI(self, uiID):
+        if uiID in self.__configPool:
+            Debug("Delete ID: " + uiID)
+            self.__configDirty = True
+            del self.__configPool[uiID]
+        return self.DumpUI(uiID)
+
+    def AddDynamicUI(self, parentID, config):
+        parentConfig = self.GetConfig(parentID)
+        id = self.__fillConfigPool(config)
+        self.__configDirty = True
+        if AFWConst.SubUI not in parentConfig:
+            parentConfig[AFWConst.SubUI] = []
+        parentConfig[AFWConst.SubUI].append(id)
+        return True
+
     ### Private ###
 
     def __findUI(self, name, parentUI, uiType):
@@ -115,7 +136,7 @@ class AFWUIManager:
             # UIRoot will not be bound to any native object
             return True
         return False
-        
+
     def __findConfig(self, name):
         configPath = []
         result = self.__findConfigImpl(name, self.__configEntryID, configPath)
@@ -124,7 +145,7 @@ class AFWUIManager:
         else:
             Debug("Find UI config: " + name)
         return result, configPath
-    
+
     def __findConfigImpl(self, name, configID, configPath):
         config = self.GetConfig(configID)
         if config[AFWConst.Name] == name:
@@ -158,6 +179,7 @@ class AFWUIManager:
 
     def __fillConfigPool(self, config):
         guid = str(uuid.uuid1())
+        Debug("Generate id: " + guid + ", for UI: " + config[AFWConst.Name])
         if guid in self.__configPool:
             raise Exception("Config guid is already in pool")
         self.__configPool[guid] = config
@@ -166,30 +188,28 @@ class AFWUIManager:
             children = config[AFWConst.SubUI]
             for i in range(0, len(children)):
                 children[i] = self.__fillConfigPool(children[i])
-                
+
         return guid
 
     __uiFactory = {
 ### UI type factory initialize start ###
         AFWConst.UIApp: lambda manager, configID, parentConfigID: AFWApp(manager, configID, parentConfigID),
-        AFWConst.AppRoot: lambda manager, configID, parentConfigID: AFWAppRoot(manager, configID, parentConfigID),
-        AFWConst.AppForm: lambda manager, configID, parentConfigID: AFWAppForm(manager, configID, parentConfigID),
-        AFWConst.AppSubForm: lambda manager, configID, parentConfigID: AFWAppSubForm(manager, configID, parentConfigID),
-        AFWConst.AppTab: lambda manager, configID, parentConfigID: AFWAppTab(manager, configID, parentConfigID),
-        AFWConst.AppTabPage: lambda manager, configID, parentConfigID: AFWAppTabPage(manager, configID, parentConfigID),
-        AFWConst.AppButton: lambda manager, configID, parentConfigID: AFWAppButton(manager, configID, parentConfigID),
-        AFWConst.AppCheckbox: lambda manager, configID, parentConfigID: AFWAppCheckbox(manager, configID, parentConfigID),
-        AFWConst.AppEditBox: lambda manager, configID, parentConfigID: AFWAppEditBox(manager, configID, parentConfigID),
-        AFWConst.UIWeb: lambda manager, configID, parentConfigID: AFWWeb(manager, configID, parentConfigID),
-        AFWConst.WebPage: lambda manager, configID, parentConfigID: AFWWebPage(manager, configID, parentConfigID),
-        AFWConst.WebElement: lambda manager, configID, parentConfigID: AFWWebElement(manager, configID, parentConfigID),
-        AFWConst.WebEditBox: lambda manager, configID, parentConfigID: AFWWebEditBox(manager, configID, parentConfigID),
-        AFWConst.WebLink: lambda manager, configID, parentConfigID: AFWWebLink(manager, configID, parentConfigID),
-        AFWConst.WebButton: lambda manager, configID, parentConfigID: AFWWebButton(manager, configID, parentConfigID),
-        AFWConst.WebCombobox: lambda manager, configID, parentConfigID: AFWWebCombobox(manager, configID, parentConfigID),
-        AFWConst.WebPanel: lambda manager, configID, parentConfigID: AFWWebPanel(manager, configID, parentConfigID),
-        AFWConst.WebTable: lambda manager, configID, parentConfigID: AFWWebTable(manager, configID, parentConfigID),
-        AFWConst.WebEntry: lambda manager, configID, parentConfigID: AFWWebEntry(manager, configID, parentConfigID),
+        AFWConst.UIDesktop: lambda manager, configID, parentConfigID: AFWDesktop(manager, configID, parentConfigID),
+        AFWConst.UIForm: lambda manager, configID, parentConfigID: AFWForm(manager, configID, parentConfigID),
+        AFWConst.UIAppDialog: lambda manager, configID, parentConfigID: AFWAppDialog(manager, configID, parentConfigID),
+        AFWConst.UIAppTab: lambda manager, configID, parentConfigID: AFWAppTab(manager, configID, parentConfigID),
+        AFWConst.UIAppTabPage: lambda manager, configID, parentConfigID: AFWAppTabPage(manager, configID, parentConfigID),
+        AFWConst.UIBrowser: lambda manager, configID, parentConfigID: AFWBrowser(manager, configID, parentConfigID),
+        AFWConst.UIWebEntry: lambda manager, configID, parentConfigID: AFWWebEntry(manager, configID, parentConfigID),
+        AFWConst.UIWebPage: lambda manager, configID, parentConfigID: AFWWebPage(manager, configID, parentConfigID),
+        AFWConst.UIWebTable: lambda manager, configID, parentConfigID: AFWWebTable(manager, configID, parentConfigID),
+        AFWConst.UIWebLink: lambda manager, configID, parentConfigID: AFWWebLink(manager, configID, parentConfigID),
+        AFWConst.UIClickable: lambda manager, configID, parentConfigID: AFWClickableUI(manager, configID, parentConfigID),
+        AFWConst.UICheckable: lambda manager, configID, parentConfigID: AFWCheckableUI(manager, configID, parentConfigID),
+        AFWConst.UIInputable: lambda manager, configID, parentConfigID: AFWInputableUI(manager, configID, parentConfigID),
+        AFWConst.UISelectable: lambda manager, configID, parentConfigID: AFWSelectableUI(manager, configID, parentConfigID),
+        AFWConst.UIEditBox: lambda manager, configID, parentConfigID: AFWEditBox(manager, configID, parentConfigID),
+        AFWConst.UICommon: lambda manager, configID, parentConfigID: AFWCommon(manager, configID, parentConfigID),
 ### UI type factory initialize end ###
         "Dummy": "Dummy"
     }
@@ -205,7 +225,6 @@ class AFWUIManagerWrapper:
 
     def FindWinForm(self, name):
         return self.__manager.FindWinForm(name)
-    
+
     def OpenWebBrowser(self, name):
         return self.__manager.OpenWebBrowser(name)
-

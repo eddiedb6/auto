@@ -1,6 +1,6 @@
 {
     AFWConst.Name: "Web",
-    AFWConst.Type: AFWConst.UIWeb,
+    AFWConst.Type: AFWConst.UIBrowser,
     AFWConst.Plugin: {
         AFWConst.PluginName: AFWConst.PluginProxyWeb,
         AFWConst.Proxy: {

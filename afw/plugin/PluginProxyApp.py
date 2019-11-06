@@ -36,14 +36,29 @@ class PluginProxyApp(AFWPluginApp):
     def ReleaseKey(self, uiID, key):
         return self.__proxy.ReleaseKey(uiID, key)
 
+    def SetText(self, uiID, text):
+        return self.__proxy.SetText(uiID, text)
+
     def GetText(self, uiID):
         return self.__proxy.GetText(uiID)
 
     def GetCellText(self, uiID, row, column):
         return self.__proxy.GetCellText(uiID, row, column)
 
+    def GetDynamicElement(self, parentID, config):
+        return self.__proxy.GetDynamicElement(parentID, config)
+
+    def GetAttribute(self, uiID, name):
+        return self.__proxy.GetAttribute(uiID, name)
+
     def DumpUI(self, uiID):
         return self.__proxy.DumpUI(uiID)
+
+    def ExecuteScript(self, uiID, script):
+        return self.__proxy.ExecuteScript(uiID, script)
+
+    def ScrollTo(self, uiID):
+        return self.__proxy.ScrollTo(uiID)
 
     ### Implement AFWPluginApp ###
 

@@ -7,7 +7,10 @@ class AFWPlugin:
         
     def GetElement(self, configID, parentConfigID):
         return None
-    
+
+    def GetDynamicElement(self, parentID, config):
+        return None
+
     def SetFocus(self, uiID):
         return False
 
@@ -29,18 +32,30 @@ class AFWPlugin:
     def ReleaseKey(self, uiID, key):
         return False
 
+    def SetText(self, uiID, text):
+        return False
+
     def GetText(self, uiID):
         return None
 
     def GetCellText(self, uiID, row, column):
         return None
 
+    def GetAttribute(self, uiID, name):
+        return ""
+
     def DumpUI(self, uiID):
         if uiID in self.__nativePool:
             del self.__nativePool[uiID]
             return True
         return False
-    
+
+    def ExecuteScript(self, uiID, script):
+        return False
+
+    def ScrollTo(self, uiID):
+        return False
+
     ### Protected ###
     
     def _getConfig(self, configID):

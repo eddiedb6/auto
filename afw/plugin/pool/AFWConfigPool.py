@@ -5,3 +5,6 @@ class AFWConfigPool:
     def GetConfig(self, configID):
         return None
 
+    def GetConfigDirty(self):
+        return False
+

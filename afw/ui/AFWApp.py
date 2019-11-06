@@ -1,11 +1,11 @@
 import AFWConst
-from AFWAppBase import AFWAppBase
+from AFWUI import AFWUI
 from AFWPluginManager import AFWPluginManager
 from AFWLocalConfigPool import AFWLocalConfigPool
 
-class AFWApp(AFWAppBase):
+class AFWApp(AFWUI):
     def __init__(self, manager, configID, parentConfigID):
-        AFWAppBase.__init__(self, manager, configID, None)
+        AFWUI.__init__(self, manager, configID, None)
         config = self.GetConfig()
         self._plugin = AFWPluginManager().CreatePlugin(config[AFWConst.Plugin], AFWLocalConfigPool(manager))
         if self._plugin is None:

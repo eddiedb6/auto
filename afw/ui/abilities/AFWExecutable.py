@@ -1,11 +1,11 @@
 import AFWConst
 from AFWAbility import AFWAbility
 
-class AFWClickable(AFWAbility):
+class AFWExecutable(AFWAbility):
     def __init__(self, plugin):
         AFWAbility.__init__(self, plugin)
-        self._ability = AFWConst.AbilityClickable
+        self._ability = AFWConst.AbilityExecutable
         self._abilityObj = self # Tricky because _abilityObj belongs to another parent
 
-    def Click(self):
-        return self._uiplugin.Click(self.GetID())
+    def ExecuteScript(self, script):
+        return self._uiplugin.ExecuteScript(self.GetID(), script)

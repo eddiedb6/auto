@@ -127,6 +127,12 @@
     AFWConst.Attributes: {
         SchemaType: SchemaTypeDict
     },
+    AFWConst.UICacheIndex: {
+        SchemaType: SchemaTypeInteger
+    },
+    AFWConst.IsDynamic: {
+        SchemaType: SchemaTypeInteger
+    },
 ### Schema key schema end ###
 
 ### App types schema start ###
@@ -136,111 +142,99 @@
         ],
         SchemaType: SchemaTypeDict
     },
-    AFWConst.AppRoot: {
+    AFWConst.UIDesktop: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type)
         ],
         SchemaType: SchemaTypeDict
     },
-    AFWConst.AppForm: {
+    AFWConst.UIForm: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type)
         ],
         SchemaType: SchemaTypeDict
     },
-    AFWConst.AppSubForm: {
+    AFWConst.UIAppDialog: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type)
         ],
         SchemaType: SchemaTypeDict
     },
-    AFWConst.AppTab: {
+    AFWConst.UIAppTab: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type, AFWConst.SubUI)
         ],
         SchemaType: SchemaTypeDict
     },
-    AFWConst.AppTabPage: {
+    AFWConst.UIAppTabPage: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type)
         ],
         SchemaType: SchemaTypeDict
     },
-    AFWConst.AppButton: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.AppCheckbox: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.AppEditBox: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.UIWeb: {
+    AFWConst.UIBrowser: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type, AFWConst.Browser, AFWConst.Plugin)
         ],
         SchemaType: SchemaTypeDict
     },
-    AFWConst.WebPage: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.WebElement: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.WebEditBox: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.WebLink: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.WebButton: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.WebCombobox: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.WebPanel: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.WebTable: {
-        SchemaRule: [
-            HasKey(AFWConst.Name, AFWConst.Type)
-        ],
-        SchemaType: SchemaTypeDict
-    },
-    AFWConst.WebEntry: {
+    AFWConst.UIWebEntry: {
         SchemaRule: [
             HasKey(AFWConst.Name, AFWConst.Type, AFWConst.URL)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UIWebPage: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UIWebTable: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UIWebLink: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UIClickable: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UICheckable: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UIInputable: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UISelectable: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UIEditBox: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
+        ],
+        SchemaType: SchemaTypeDict
+    },
+    AFWConst.UICommon: {
+        SchemaRule: [
+            HasKey(AFWConst.Name, AFWConst.Type)
         ],
         SchemaType: SchemaTypeDict
     },

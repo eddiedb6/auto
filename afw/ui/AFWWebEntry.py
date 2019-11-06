@@ -1,12 +1,12 @@
 import AFWConst
-from AFWWebBase import AFWWebBase
+from AFWUI import AFWUI
 
-class AFWWebEntry(AFWWebBase):
+class AFWWebEntry(AFWUI):
     def __init__(self, manager, configID, parentConfigID):
-        AFWWebBase.__init__(self, manager, configID, parentConfigID)
+        AFWUI.__init__(self, manager, configID, parentConfigID)
         config = self.GetConfig()
         parentConfig = self.GetParentConfig()
-        if parentConfig[AFWConst.Type] != AFWConst.UIWeb:
+        if parentConfig[AFWConst.Type] != AFWConst.UIBrowser:
             raise Exception("Web entry parent is not browser: " + config[AFWConst.Name])
         parentUI = manager.GetUI(parentConfigID)
         if parentUI is None:

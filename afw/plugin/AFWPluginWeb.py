@@ -18,6 +18,3 @@ class AFWPluginWeb(AFWPlugin):
 
     def GetWebPage(self, browserID, configID):
         return None
-
-    def SendKeys(self, uiID, keys):
-        return False

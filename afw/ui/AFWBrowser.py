@@ -1,16 +1,18 @@
 import AFWConst
-from AFWWebBase import AFWWebBase
+from AFWUI import AFWUI
 from AFWPluginManager import AFWPluginManager
 from AFWLocalConfigPool import AFWLocalConfigPool
+from AFWExecutable import AFWExecutable
 
-class AFWWeb(AFWWebBase):
+class AFWBrowser(AFWUI, AFWExecutable):
     def __init__(self, manager, configID, parentConfigID):
-        AFWWebBase.__init__(self, manager, configID, None)
+        AFWUI.__init__(self, manager, configID, None)
         self.__urlCache = {}
         config = self.GetConfig()
         self._plugin = AFWPluginManager().CreatePlugin(config[AFWConst.Plugin], AFWLocalConfigPool(manager))
         if self._plugin is None:
             raise Exception("Get web plugin failed")
+        AFWExecutable.__init__(self, self._plugin)
         browserID = self._plugin.OpenBrowser(config[AFWConst.Browser], configID)
         if browserID is None:
             raise Exception("Open browser failed: " + config[AFWConst.Browser])
@@ -27,7 +29,7 @@ class AFWWeb(AFWWebBase):
         url = self.TryToFindSubUI(name)
         if url is None:
             return False
-        if url.GetType() != AFWConst.WebEntry:
+        if url.GetType() != AFWConst.UIWebEntry:
             return False
         self.__urlCache[name] = url
         return True

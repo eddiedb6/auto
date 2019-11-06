@@ -29,6 +29,8 @@ AttrName = "attrname"
 AttrClass = "attrclass"
 AttrTag = "attrtag"
 Attributes = "attributes"
+UICacheIndex = "uicacheindex"
+IsDynamic = "isdynamic"
 ### Schema key definition end ###
 
 ######################
@@ -42,56 +44,59 @@ Attributes = "attributes"
 #     4. Add new type to __uiFactory in AFWUIManager and import new py file in this manager
 #     5. Add new type to AFWSchema
 #     6. Update Readme description
-#     *. There is uigen.py script to help
+#     *. There is uigen.py script to help except #6
 
 UIRoot = "uiroot"
 
 ### UI types definition start ###
 UIApp = "uiapp"
-AppRoot = "approot"
-AppForm = "appform"
-AppSubForm = "appsubform"
-AppTab = "apptab"
-AppTabPage = "apptabpage"
-AppButton = "appbutton"
-AppCheckbox = "appcheckbox"
-AppEditBox = "appeditbox"
-UIWeb = "uiweb"
-WebPage = "webpage"
-WebElement = "webelement"
-WebEditBox = "webeditbox"
-WebLink = "weblink"
-WebButton = "webbutton"
-WebCombobox = "webcombobox"
-WebPanel = "webpanel"
-WebTable = "webtable"
-WebEntry = "webentry"
+UIDesktop = "uidesktop"
+UIForm = "uiform"
+UIAppDialog = "uiappdialog"
+UIAppTab = "uiapptab"
+UIAppTabPage = "uiapptabpage"
+UIBrowser = "uibrowser"
+UIWebEntry = "uiwebentry"
+UIWebPage = "uiwebpage"
+UIWebTable = "uiwebtable"
+UIWebLink = "uiweblink"
+UIClickable = "uiclickable"
+UICheckable = "uicheckable"
+UIInputable = "uiinputable"
+UISelectable = "uiselectable"
+UIEditBox = "uieditbox"
+UICommon = "uicommon"
 ### UI types definition end ###
 
 UIType = [
 ### UI types collection start ###
     UIApp,
-    AppRoot,
-    AppForm,
-    AppSubForm,
-    AppTab,
-    AppTabPage,
-    AppButton,
-    AppCheckbox,
-    AppEditBox,
-    UIWeb,
-    WebPage,
-    WebElement,
-    WebEditBox,
-    WebLink,
-    WebButton,
-    WebCombobox,
-    WebPanel,
-    WebTable,
-    WebEntry,
+    UIDesktop,
+    UIForm,
+    UIAppDialog,
+    UIAppTab,
+    UIAppTabPage,
+    UIBrowser,
+    UIWebEntry,
+    UIWebPage,
+    UIWebTable,
+    UIWebLink,
+    UIClickable,
+    UICheckable,
+    UIInputable,
+    UISelectable,
+    UIEditBox,
+    UICommon,
 ### UI types collection end ###
     UIRoot
 ]
+
+AbilityNone = 0x00
+AbilityClickable = 0x01
+AbilityCheckable = 0x02
+AbilityInputable = 0x04
+AbilitySelectable = 0x08
+AbilityExecutable = 0x10
 
 ###########
 # Browser #
@@ -169,6 +174,7 @@ MsgResult = "msgresult"
 MsgNameRegisterClient = "registerclient"
 MsgNameCloseClient = "closeclient"
 
+MsgNameCheckConfigDirty = "msgnamecheckconfigdirty"
 MsgNameGetConfig = "msgnamegetconfig"
 MsgNameGetElement = "msgnamegetelement"
 MsgNameSetFocus = "msgnamesetfocus"
@@ -180,16 +186,21 @@ MsgNamePressKey = "msgnamepresskey"
 MsgNameReleaseKey = "msgnamereleasekey"
 MsgNameGetText = "msgnamegettext"
 MsgNameGetCellText = "msgnamegetcelltext"
+MsgNameGetDynamicElement = "msgnamegetdynamicelement"
+MsgNameGetAttribute = "msgnamegetattribute"
 MsgNameDumpUI = "msgnamedumpui"
 MsgNameOpenBrowser = "msgnameopenbrowser"
 MsgNameCloseBrowser = "msgnameclosebrowser"
 MsgNameOpenWebURL = "msgnameopenweburl"
 MsgNameGetCurrentURL = "msgnamegetcurrenturl"
 MsgNameGetWebPage = "msgnamegetwebpage"
-MsgNameSendKeys = "msgnamesendkeys"
+MsgNameSendKeys = "msgnamesettext"
 MsgNameStartApp = "msgnamestartapp"
 MsgNameGetDesktop = "msgnamegetdesktop"
 MsgNameGetForm = "msgnamegetform"
+MsgNameSetText = "msgnamesettext"
+MsgNameExecuteScript = "msgnameexecutescript"
+MsgNameScrollTo = "msgnamescrollto"
 
 ################
 # AFW Keyboard #
